@@ -1,0 +1,403 @@
+/* Variables y base */
+* { 
+  box-sizing: border-box; 
+}
+
+html, body { 
+  overflow-x: hidden; 
+  scroll-behavior: smooth; 
+}
+
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background-color: #F7F4F0; /* Fondo arena */
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh; /* Permite que el contenido se estire */
+}
+
+/* Navbar */
+.top-nav {
+  background-color: #5C3A21; 
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 20px;
+  position: relative; 
+  z-index: 10;
+}
+
+.top-nav::after {
+  content: "";
+  position: absolute;
+  top: 100%; 
+  left: 0;
+  width: 100%;
+  height: 45px;
+  /* Vector de lodo irregular */
+  background-image: url('data:image/svg+xml;utf8,<svg viewBox="0 0 400 60" xmlns="http://www.w3.org/2000/svg"><path fill="%235C3A21" d="M0,0 L0,15 L5,15 C15,15 15,25 25,25 C35,25 35,15 45,15 C55,15 55,55 70,55 C85,55 85,15 95,15 C105,15 105,35 115,35 C125,35 125,15 135,15 L155,15 C162,15 165,50 172,50 C179,50 182,15 190,15 C200,15 200,20 210,20 C220,20 220,15 230,15 C240,15 240,45 255,45 C270,45 270,15 280,15 L300,15 C310,15 310,30 320,30 C330,30 330,15 340,15 C350,15 350,58 365,58 C380,58 385,15 395,15 L400,15 L400,0 Z"/></svg>');
+  background-repeat: repeat-x; 
+  background-size: 300px 45px;
+  background-position: top left;
+  z-index: 99;
+}
+
+.nav-logo {
+  color: white;
+  font-size: 24px;
+  font-weight: bold;
+  padding: 5px 0; 
+  display: flex;         
+  align-items: center;   
+  gap: 15px;             
+}
+
+.logo-img {
+  height: 70px; 
+  max-height: 70px; 
+  width: auto;
+  display: block;
+  object-fit: contain;
+}
+
+.nav-links { display: flex; }
+.nav-links a {
+  color: white;
+  text-align: center;
+  padding: 16px 20px;
+  text-decoration: none;
+  font-size: 18px;
+  font-weight: bold;
+  transition: background-color 0.3s;
+}
+
+.nav-links a:hover { background-color: #8C5A35; }
+
+/* Parallax(AHHHHHHHHHHHHHHHH) */
+.pro-parallax-window {
+  width: 100%;
+  height: 50svh; 
+  min-height: 350px;
+  position: relative;
+  overflow: hidden;
+}
+
+.pro-parallax-image {
+  width: 100%;
+  height: 100%; 
+  object-fit: cover;
+  object-position: 20% 80%; 
+  display: block;
+}
+
+@media (min-width: 768px) {
+  .pro-parallax-window {
+    -webkit-clip-path: inset(0 0 0 0);
+    clip-path: inset(0 0 0 0); 
+    overflow: visible; 
+  }
+  .pro-parallax-image {
+    position: fixed; 
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh; 
+    z-index: -1; 
+    transform: translateZ(0);
+  }
+}
+
+/* Estructura del contenido */
+/* Para index.html */
+.content-section {
+  padding: 80px 20px;
+  position: relative;
+  z-index: 2;
+}
+
+/* Para quienes-somos.html y sumate.html */
+.main-content {
+  padding: 80px 20px;
+  min-height: 90vh;
+  position: relative;
+  z-index: 2;
+}
+
+.main-content-centered {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center; 
+  align-items: center;
+  padding: 60px 20px;
+  text-align: center;
+  position: relative;
+  z-index: 2;
+}
+
+/* Fondos */
+.bg-mud { background-color: #5C3A21; color: white; }
+.bg-white { background-color: white; color: #333; }
+.bg-light { background-color: #F7F4F0; color: #333; }
+
+/* Textos Generales */
+.text-container {
+  max-width: 900px;
+  margin: 0 auto;
+  text-align: justify;
+  line-height: 1.8;
+  font-size: 17px;
+  color: #333;
+}
+.bg-mud .text-container { color: white; }
+
+.text-container h1 {
+  text-align: center;
+  font-size: 38px;
+  margin-bottom: 40px;
+  color: #5C3A21;
+}
+.bg-mud h1 { color: white; text-shadow: 1px 1px 4px rgba(0,0,0,0.4); }
+
+.text-container h2 {
+  text-align: center;
+  font-size: 32px;
+  color: #5C3A21;
+  margin-bottom: 30px;
+}
+.text-container p { margin-bottom: 24px; }
+
+.step-block {
+  border-left: 4px solid #8C5A35;
+  padding-left: 25px;
+  margin-bottom: 40px;
+}
+.step-block h3 {
+  color: #5C3A21;
+  font-size: 22px;
+  margin-top: 0;
+  margin-bottom: 10px;
+}
+
+/* Tarjetas */
+/* Tarjeta de Inspiración (Quiénes somos) */
+.inspiration-card {
+  display: flex;
+  align-items: center;
+  background-color: white;
+  border-radius: 12px;
+  box-shadow: 0 8px 20px rgba(92, 58, 33, 0.15);
+  padding: 35px;
+  margin-top: 50px;
+  gap: 40px;
+}
+.inspiration-text { flex: 1; text-align: left; }
+.inspiration-text h3 { color: #8C5A35; margin-top: 0; margin-bottom: 15px; font-size: 22px; }
+.inspiration-text p { margin-bottom: 0; font-size: 16px; }
+.inspiration-image { flex: 0 0 35%; max-width: 300px; }
+.inspiration-image img { width: 100%; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.15); display: block; }
+
+/* Tarjetas Grid (Súmate) */
+.layout-container { max-width: 1100px; margin: 0 auto; }
+.intro-block { max-width: 800px; margin: 0 auto 50px auto; text-align: center; line-height: 1.6; font-size: 18px; }
+.intro-block h1 { font-size: 36px; margin-bottom: 20px; }
+
+.cards-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 30px;
+  margin-top: 40px;
+}
+@media (min-width: 900px) { .cards-grid { grid-template-columns: 1fr 1fr 1fr; } }
+
+.card {
+  background-color: white;
+  color: #333;
+  border-radius: 12px;
+  padding: 30px;
+  box-shadow: 0 6px 15px rgba(0,0,0,0.3);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+.card h3 {
+  color: #5C3A21;
+  font-size: 22px;
+  margin-top: 0;
+  border-bottom: 2px solid #F7F4F0;
+  padding-bottom: 10px;
+}
+.card ul { padding-left: 20px; margin: 15px 0; }
+.card li { margin-bottom: 10px; line-height: 1.5; }
+.card p { line-height: 1.6; font-size: 15px; }
+
+.price-tier {
+  background-color: #F7F4F0;
+  padding: 12px;
+  border-left: 4px solid #8C5A35;
+  margin-bottom: 12px;
+  border-radius: 0 8px 8px 0;
+}
+.price-tier strong { color: #5C3A21; font-size: 16px; }
+
+/* Donaciones / Voluntariado / Adopción */
+.mensaje-donaciones {
+  color: #5C3A21;
+  font-size: 48px; 
+  font-weight: bold;
+  line-height: 1.3;
+  max-width: 900px;
+}
+.mensaje-donaciones span {
+  display: block; 
+  margin-top: 30px;
+  font-size: 56px; 
+  color: #8C5A35; 
+}
+
+/* Botones */
+.cta-container {
+  text-align: center;
+  margin-top: 50px;
+  padding-bottom: 30px;
+}
+.cta-button {
+  display: inline-block;
+  background-color: #8C5A35;
+  color: white;
+  padding: 18px 40px;
+  font-size: 20px;
+  font-weight: bold;
+  text-decoration: none;
+  border-radius: 50px;
+  box-shadow: 0 6px 15px rgba(0,0,0,0.15);
+  transition: all 0.3s;
+}
+.cta-button:hover { 
+  background-color: #5C3A21; /* Cambia a oscuro al pasar el mouse */
+  transform: scale(1.05); 
+}
+
+.card-btn {
+  display: block;
+  text-align: center;
+  background-color: #8C5A35;
+  color: white;
+  padding: 12px;
+  text-decoration: none;
+  border-radius: 6px;
+  font-weight: bold;
+  margin-top: 20px;
+  transition: background-color 0.2s;
+}
+.card-btn:hover { 
+  background-color: #5C3A21; /* Cambia a oscuro al pasar el mouse */
+}
+
+/* Adaptación celulares */
+@media (max-width: 768px) {
+  .top-nav { flex-direction: column; padding: 15px 0 0 0; }
+  .nav-links { width: 100%; justify-content: center; flex-wrap: wrap; margin-top: 10px;}
+  .nav-links a { padding: 12px 15px; font-size: 16px; }
+  .top-nav::after { background-size: 200px 30px; height: 30px; }
+
+  .content-section, .main-content, .main-content-centered { padding: 50px 20px; }
+  
+  .inspiration-card { flex-direction: column; padding: 25px; gap: 25px; }
+  .inspiration-image { flex: auto; max-width: 100%; }
+  
+  .mensaje-donaciones { font-size: 32px; }
+  .mensaje-donaciones span { font-size: 38px; margin-top: 20px; }
+}
+
+/* Linea de tiempo */
+
+.timeline-izquierda::before,
+.timeline-izquierda::after {
+  display: none !important; 
+}
+
+.timeline-izquierda {
+  max-width: 800px; 
+  margin: 40px auto;
+}
+
+.timeline-paso {
+  position: relative;
+  padding-bottom: 40px; 
+  margin-bottom: 0 !important;
+  padding-left: 55px; 
+}
+
+.timeline-nodo {
+  position: absolute;
+  left: 0;
+  top: 15px; 
+  width: 24px;
+  height: 24px; 
+  box-sizing: border-box !important;
+  border: 4px solid #8B4513;
+  border-radius: 50%;
+  z-index: 2;
+  background-color: #ffffff;
+  box-shadow: 0 0 0 4px rgba(139, 69, 19, 0.1);
+}
+
+.timeline-paso::before {
+  content: '';
+  position: absolute;
+  top: 39px; /* Empieza exactamente debajo del círculo (15 + 24) */
+  bottom: -15px; /* Baja exacto para tocar el techo del círculo siguiente */
+  left: 11px; /* Centrado */
+  width: 2px;
+  background-color: #8B4513;
+  z-index: 1;
+}
+
+.timeline-paso.final::before {
+  display: none !important; 
+}
+
+.timeline-paso:last-child {
+  padding-bottom: 0; 
+}
+
+/* Caja de contenido de texto */
+.timeline-contenido {
+  background-color: #ffffff;
+  padding: 20px 25px;
+  border-radius: 10px;
+  border: 1px solid #eaeaea;
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.04);
+}
+
+.timeline-contenido h3 {
+  margin-top: 0;
+  color: #333333;
+  font-size: 1.3rem;
+  margin-bottom: 12px;
+}
+
+.timeline-contenido p {
+  color: #555555;
+  line-height: 1.6;
+  margin-bottom: 0;
+}
+
+.timeline-paso.final .timeline-nodo {
+  background-color: #8B4513;
+}
+
+/* Ajustes para la tarjeta del profesor */
+.timeline-paso.final .inspiration-card {
+  margin: 0;
+  width: 100%;
+}
+
+/* Ajuste para celulares */
+@media screen and (max-width: 768px) {
+  .timeline-paso {
+    padding-left: 45px;
+  }
+}
