@@ -401,3 +401,43 @@ body {
     padding-left: 45px;
   }
 }
+
+/* Footer de Referencias */
+.footer-referencias {
+  background-color: #ffffff;
+  margin-top: 60px; /* Pushes the footer away from the main content */
+  padding: 40px 20px;
+  position: relative;
+  box-shadow: inset 0px 12px 15px -10px rgba(0, 0, 0, 0.15);
+  border-top: 1px solid #f0f0f0;
+}
+
+.footer-texto {
+  max-width: 800px;
+  margin: 0 auto;
+  text-align: center;
+  color: #888888;
+  font-size: 0.85rem;
+  line-height: 1.6;
+}
+
+.footer-texto p {
+  margin: 5px 0;
+}
+
+.footer-texto strong {
+  color: #666666;
+  font-size: 0.95rem;
+  display: block;
+  margin-bottom: 10px;
+}
+
+/* Estilo para los enlaces del footer */
+.footer-texto a {
+  color: #666666;
+  text-decoration: underline;
+}
+
+.footer-texto a:hover {
+  color: #5C3A21;
+}
