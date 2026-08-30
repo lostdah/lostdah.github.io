@@ -8,16 +8,18 @@
   </head>
   <body>
     <div class="top-nav">
-      <div class="nav-logo">
-        <img src="logo-perros.png" alt="Logo Huellas al Lodo" class="logo-img">
-        Huellas al Lodo
+      <div class="logo-area" style="display: flex; align-items: center; gap: 15px;">
+        <div class="nav-logo">
+          <img src="logo-perros.png" alt="Logo Huellas al Lodo" class="logo-img">
+          Huellas al Lodo
+        </div>
+        <a href="#" id="darkModeToggle" class="dark-toggle" title="Modo Oscuro">&#127769;</a>
       </div>
       <div class="nav-links">
         <a href="index.html">Inicio</a>
-        <a href="quienes-somos.html">Quienes somos</a>
+        <a href="quienes-somos.html">¿Quiénes somos</a>
         <a href="nuestro-camino.html">Nuestro camino</a>
         <a href="sumate.html">Súmate</a>
-        <a href="blog.html">Blog</a>
       </div>
     </div>
 
@@ -46,7 +48,7 @@
                 <li><strong>Mantención del refugio:</strong> Ayudarnos a mantener los espacios limpios, ordenados y seguros.</li>
               </ul>
             </div>
-            <a href="voluntariado.html" class="card-btn">Postular como Voluntario</a>
+            <a href="voluntariado.html" class="card-btn">Postular Como Voluntario</a>
           </div>
 
           <div class="card">
@@ -92,5 +94,30 @@
         <p>Las fotografías y recursos visuales se utilizan con fines estrictamente educativos, ilustrativos y de concientización.</p>
       </div>
     </footer>
+  <script>
+      const darkModeToggle = document.getElementById('darkModeToggle');
+      if (localStorage.getItem('dark-mode') === 'enabled') {
+        document.body.classList.add('dark-mode');
+        if(darkModeToggle) darkModeToggle.innerHTML = '&#9728;&#65039;';
+      }
+      if(darkModeToggle) {
+        darkModeToggle.addEventListener('click', (e) => {
+          e.preventDefault();
+          document.body.classList.toggle('dark-mode');
+          if (document.body.classList.contains('dark-mode')) {
+            localStorage.setItem('dark-mode', 'enabled');
+            darkModeToggle.innerHTML = '&#9728;&#65039;';
+          } else {
+            localStorage.setItem('dark-mode', 'disabled');
+            darkModeToggle.innerHTML = '&#127769;';
+          }
+        });
+      }
+    </script>
   </body>
 </html>
+
+
+
+
+

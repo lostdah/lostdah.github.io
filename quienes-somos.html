@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="es">
   <head>
     <meta charset="UTF-8">
@@ -8,23 +8,25 @@
   </head>
   <body>
     <div class="top-nav">
-      <div class="nav-logo">
-        <img src="logo-perros.png" alt="Logo Huellas al Lodo" class="logo-img">
-        Huellas al Lodo
+      <div class="logo-area" style="display: flex; align-items: center; gap: 15px;">
+        <div class="nav-logo">
+          <img src="logo-perros.png" alt="Logo Huellas al Lodo" class="logo-img">
+          Huellas al Lodo
+        </div>
+        <a href="#" id="darkModeToggle" class="dark-toggle" title="Modo Oscuro">&#127769;</a>
       </div>
       <div class="nav-links">
         <a href="index.html">Inicio</a>
         <a href="quienes-somos.html">Quiénes somos</a>
         <a href="nuestro-camino.html">Nuestro camino</a>
         <a href="sumate.html">Súmate</a>
-        <a href="blog.html">Blog</a>
       </div>
     </div>
 
     <div class="main-content">
       <div class="text-container">
         <h1>¿Quiénes Somos?</h1>
-        <p>Somos un grupo de estudiantes de la facultad de ciencias físicas y matemáticas de la universidad de Chile a los cuales les une la preocupación por el impacto ambiental y el bienestar animal, tomamos a los microbasurales como problemática principal ya que entendemos que degradan el ambiente en el que convivimos diariamente, convirtiéndolo en un espacio inseguro no solo para las familias, ya que gran parte de los afectados son los perros y gatos callejeros.</p>
+        <p>Somos un grupo de estudiantes de la facultad de ciencias físicas y matemáticas de la universidad de Chile a los cuales les une la preocupación por el impacto ambiental y el bienestar animal, tomamos a los microbasurales ¿Cómo problemática principal ya que entendemos que degradan el ambiente en el que convivimos diariamente, convirtiéndolo en un espacio inseguro no solo para las familias, ya que gran parte de los afectados son los perros y gatos callejeros.</p>
         
         <p>Teniendo esto en mente nos propusimos transformar los microbasurales en espacios agradables para la comunidad y los animales, esto por medio de la construcción y del acondicionamiento de estos espacios para que sean adecuados para albergar a perros y gatos callejeros transformándolos en espacios amigables para el medio ambiente y el bienestar animal.</p>
         
@@ -36,12 +38,15 @@
             <p>Nuestra inspiración y lema se reflejan perfectamente en la imagen que nos guía: <em>"How deep is the mud? Depends on who you ask. We all go through the same stuff differently."</em> Para nosotros, esta metáfora representa la realidad de los animales callejeros frente a la crisis de los microbasurales. Mientras que para una persona un cúmulo de basura puede ser solo una molestia visual o un problema pasajero, para un perro o un gato abandonado ese mismo entorno es un obstáculo crítico que pone en riesgo su supervivencia. Es por esto que los refugios y espacios acondicionados que planteamos en nuestro proyecto buscan transformarse en un hogar temporal que les devuelva la esperanza; un lugar seguro, digno y lleno de cuidado donde puedan sanar mientras trabajamos activamente en encontrarles un hogar definitivo.</p>
           </div>
           <div class="inspiration-image">
-            <img src="inspiracion.jpg" alt="Perro grande y perro pequeño en el lodo">
+            <img src="Inspiración.jpg" alt="Perro grande y perro pequeño en el lodo">
           </div>
         </div>
 
+        <p style="margin-top: 50px;">Si te interesa conocer de cerca cómo avanza nuestro proyecto, los desafíos que enfrentamos y los pequeños logros que vamos alcanzando, te invitamos a leer <a href="blog.html" style="color: #8C5A35; font-weight: bold;">nuestro blog</a>.</p>
+
       </div>
     </div>
+
     <footer class="footer-referencias">
       <div class="footer-texto">
         <p><strong>Referencias y Créditos:</strong></p>
@@ -52,5 +57,34 @@
         <p>Las fotografías y recursos visuales se utilizan con fines estrictamente educativos, ilustrativos y de concientización.</p>
       </div>
     </footer>
+    
+    <!-- secretito muajaja -->
+    <a href="honse.html" style="position: fixed; bottom: 0; left: 0; width: 15px; height: 15px; z-index: 9999; background-color: rgba(255, 0, 0, 0); cursor: pointer;"></a>
+    
+  <script>
+      const darkModeToggle = document.getElementById('darkModeToggle');
+      if (localStorage.getItem('dark-mode') === 'enabled') {
+        document.body.classList.add('dark-mode');
+        if(darkModeToggle) darkModeToggle.innerHTML = '&#9728;&#65039;';
+      }
+      if(darkModeToggle) {
+        darkModeToggle.addEventListener('click', (e) => {
+          e.preventDefault();
+          document.body.classList.toggle('dark-mode');
+          if (document.body.classList.contains('dark-mode')) {
+            localStorage.setItem('dark-mode', 'enabled');
+            darkModeToggle.innerHTML = '&#9728;&#65039;';
+          } else {
+            localStorage.setItem('dark-mode', 'disabled');
+            darkModeToggle.innerHTML = '&#127769;';
+          }
+        });
+      }
+    </script>
   </body>
 </html>
+
+
+
+
+

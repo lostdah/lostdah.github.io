@@ -1,23 +1,139 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="es">
   <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Blog - Huellas al Lodo</title>
     <link rel="stylesheet" href="style.css">
+    <style>
+
+      /* ── Calendario styles ── */
+      .calendar-wrapper {
+        max-width: 700px;
+        margin: 0 auto 50px auto;
+        background: white;
+        border-radius: 12px;
+        box-shadow: 0 8px 20px rgba(92, 58, 33, 0.12);
+        overflow: hidden;
+      }
+
+      .cal-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        background-color: #5C3A21;
+        padding: 16px 24px;
+        color: white;
+      }
+
+      .cal-header h2 {
+        margin: 0;
+        font-size: 20px;
+        font-weight: bold;
+        text-align: center;
+        color: white;
+        flex: 1;
+      }
+
+      .cal-nav-btn {
+        background: none;
+        border: 2px solid rgba(255,255,255,0.4);
+        color: white;
+        font-size: 22px;
+        width: 36px;
+        height: 36px;
+        border-radius: 6px;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: background 0.2s;
+        line-height: 1;
+      }
+      .cal-nav-btn:hover { background: rgba(255,255,255,0.15); }
+
+      .cal-body { padding: 16px; }
+
+      .cal-day-headers {
+        display: grid;
+        grid-template-columns: repeat(7, 1fr);
+        margin-bottom: 6px;
+      }
+      .cal-day-headers span {
+        text-align: center;
+        font-size: 13px;
+        font-weight: bold;
+        color: #8C5A35;
+        padding: 4px 0;
+      }
+
+      .cal-week {
+        display: grid;
+        grid-template-columns: repeat(7, 1fr);
+        border-radius: 8px;
+        cursor: default;
+        transition: background 0.15s;
+        margin-bottom: 3px;
+        position: relative;
+      }
+
+      .cal-week.has-entry {
+        cursor: pointer;
+        box-shadow: inset 4px 0 0 #8C5A35;
+      }
+
+      .cal-week.has-entry:hover {
+        background-color: #F7F4F0;
+      }
+
+      .cal-week.selected {
+        background-color: #8C5A35 !important;
+      }
+      .cal-week.selected .cal-day { color: white !important; }
+
+      .cal-day {
+        text-align: center;
+        padding: 10px 4px;
+        font-size: 15px;
+        color: #333;
+        border-radius: 4px;
+        user-select: none;
+      }
+
+      .cal-day.other-month { color: #ccc; }
+
+      /* highlight para cursor */
+      .timeline-contenido {
+        transition: box-shadow 0.3s;
+      }
+      .timeline-contenido.highlighted {
+        box-shadow: 0 0 0 3px #8C5A35;
+      }
+
+      /* ── Calendario styles (Mobile Responsive) ── */
+      @media (max-width: 600px) {
+        .cal-header { padding: 12px 16px; }
+        .cal-header h2 { font-size: 18px; }
+        .cal-day-headers span { font-size: 11px; }
+        .cal-day { font-size: 13px; padding: 8px 2px; }
+        .cal-nav-btn { width: 32px; height: 32px; font-size: 18px; }
+      }
+    </style>
   </head>
   <body>
     <div class="top-nav">
-      <div class="nav-logo">
-        <img src="logo-perros.png" alt="Logo Huellas al Lodo" class="logo-img">
-        Huellas al Lodo
+      <div class="logo-area" style="display: flex; align-items: center; gap: 15px;">
+        <div class="nav-logo">
+          <img src="logo-perros.png" alt="Logo Huellas al Lodo" class="logo-img">
+          Huellas al Lodo
+        </div>
+        <a href="#" id="darkModeToggle" class="dark-toggle" title="Modo Oscuro">&#127769;</a>
       </div>
       <div class="nav-links">
         <a href="index.html">Inicio</a>
         <a href="quienes-somos.html">Quiénes somos</a>
         <a href="nuestro-camino.html">Nuestro camino</a>
         <a href="sumate.html">Súmate</a>
-        <a href="blog.html">Blog</a>
       </div>
     </div>
 
@@ -25,31 +141,57 @@
       <div class="text-container">
         <h1 style="text-align: center;">Blog del Proyecto</h1>
         <p style="text-align: center; margin-bottom: 40px; color: #555;">Sigue nuestro progreso y organización semana a semana.</p>
-        
+
+        <!-- ── Calendario html ── -->
+        <div class="calendar-wrapper">
+          <div class="cal-header">
+            <button class="cal-nav-btn" id="cal-prev">&#8249;</button>
+            <h2 id="cal-title"></h2>
+            <button class="cal-nav-btn" id="cal-next">&#8250;</button>
+          </div>
+          <div class="cal-body">
+            <div class="cal-day-headers">
+              <span>L</span><span>M</span><span>X</span>
+              <span>J</span><span>V</span><span>S</span><span>D</span>
+            </div>
+            <div id="cal-weeks"></div>
+          </div>
+        </div>
+
         <div class="timeline-izquierda">
-          
+
           <!-- Semana 1 -->
-          <div class="timeline-paso">
+          <div class="timeline-paso" id="semana-1">
             <div class="timeline-nodo"></div>
             <div class="timeline-contenido">
               <h3>Semana 1: Formación y Contrato de Equipo</h3>
-              <p>Esta primera semana nos conocimos como grupo y decidimos mantener la problemática del semestre pasado, presentando a quienes se sumaron al grupo el proyecto realizado el semestre anterior y comentando el camino que tuvo este. Además, elaboramos nuestro contrato de equipo, definiendo los roles, valores, no negociables y tareas que realizaremos durante el semestre. Creemos que este contrato es fundamental para el buen funcionamiento del equipo. Por último, cerramos con la creación de un grupo de whatsapp para mantenernos comunicados constantemente.</p>
+              <p>Esta primera semana nos conocimos ¿Cómo grupo y decidimos mantener la problemática del semestre pasado, presentando a ¿Quiénes se sumaron al grupo el proyecto realizado el semestre anterior y comentando el camino que tuvo este. Además, elaboramos nuestro contrato de equipo, definiendo los roles, valores, no negociables y tareas que realizaremos durante el semestre. Creemos que este contrato es fundamental para el buen funcionamiento del equipo. Por último, cerramos con la creación de un grupo de whatsapp para mantenernos comúnicados constantemente.</p>
             </div>
           </div>
 
           <!-- Semana 2 -->
-          <div class="timeline-paso final">
+          <div class="timeline-paso" id="semana-2">
             <div class="timeline-nodo"></div>
             <div class="timeline-contenido">
               <h3>Semana 2: Planificación y Primeros Pasos</h3>
-              <p>Esta semana trabajamos en redactar y ordenar puntos de nuestro proyecto. En específico, en el laboratorio respondimos preguntas guía que nos ayudaron a tener un orden claro y así poder pensar como equipo qué puntos deberíamos trabajar en las próximas semanas. Estos se enfocan en crear una infraestructura básica y funcional en el sitio web, tarea que Cleo ya comenzó a concretar creando la sección de blogs, y también determinar la calle o sector específico de La Cisterna donde podamos conducir nuestro estudio, recopilar información sobre los animales callejeros mediante entrevistas, y reunir más información particular de la zona, como números poblacionales e índices relevantes.</p>
+              <p>Esta semana trabajamos en redactar y ordenar puntos de nuestro proyecto. En específico, en el laboratorio respondimos preguntas guía que nos ayudaron a tener un orden claro y así poder pensar ¿Cómo equipo qué puntos deberíamos trabajar en las próximas semanas. Estos se enfocan en crear una infraestructura básica y funcional en el sitio web, tarea que Cleo ya comenzó a concretar creando la sección de blogs, y también determinar la calle o sector específico de La Cisterna donde podamos conducir nuestro estudio, recopilar información sobre los animales callejeros mediante entrevistas, y reunir más información particular de la zona, ¿Cómo números poblacionales e índices relevantes.</p>
+            </div>
+          </div>
+
+          <!-- Semana 3 -->
+          <div class="timeline-paso final" id="semana-3">
+            <div class="timeline-nodo"></div>
+            <div class="timeline-contenido">
+              <h3>Semana 3: Objetivos SMART e Investigación de Referentes</h3>
+              <p>Esta semana nos dedicamos a construir los objetivos SMART de nuestro proyecto, definiendo qué debemos lograr en cada etapa del semestre para poder tomar buenas decisiones sobre nuestro proyecto. Cada integrante trabajó una etapa específica, redactó un objetivo y luego lo presentamos y debatimos ¿Cómo equipo, revisando que en conjunto representaran una ruta coherente para avanzar. Además, vinculamos cada objetivo con una actividad concreta y tangible, cumpliendo así con las características de los objetivos SMART.</p>
+              <p>Por otro lado, investigamos proyectos relacionados al nuestro para tener una referencia de iniciativas similares y nutrir nuestra propuesta. Durante esta búsqueda nos dimos cuenta de algo relevante: no encontramos ningún proyecto que combine el estudio de los microbasurales con la situación de los perros y gatos callejeros, lo que refuerza que nuestra iniciativa aborda una intersección poco explorada hasta ahora y nos da aún más motivación para seguir desarrollándola, cumpliendo con el objetivo de innovación que buscamos este semestre.</p>
             </div>
           </div>
 
         </div>
       </div>
     </div>
-    
+
     <footer class="footer-referencias">
       <div class="footer-texto">
         <p><strong>Referencias y Créditos:</strong></p>
@@ -60,5 +202,140 @@
         <p>Las fotografías y recursos visuales se utilizan con fines estrictamente educativos, ilustrativos y de concientización.</p>
       </div>
     </footer>
+
+    <script>
+      const MONTHS_ES = ['Enero','Febrero','Marzo','Abril','Mayo','Junio',
+                         'Julio','Agosto','Septiembre','Octubre','Noviembre','Diciembre'];
+
+      // parte siempre desde los lunes (importante para el indexing)
+      const PROJECT_WEEKS = {
+        '2026-08-10': 'semana-1',
+        '2026-08-17': 'semana-2',
+        '2026-08-24': 'semana-3',
+      };
+
+      let year = 2026, month = 7; // 0-indexado: 7 = Agosto
+      let selectedWeekEl = null;
+
+      function toISO(d) {
+        // Retorna YYYY-MM-DD en tiempo local
+        const y = d.getFullYear();
+        const m = String(d.getMonth() + 1).padStart(2, '0');
+        const day = String(d.getDate()).padStart(2, '0');
+        return `${y}-${m}-${day}`;
+      }
+
+      function getMondayOf(d) {
+        const copy = new Date(d);
+        const dow = copy.getDay();
+        const diff = dow === 0 ? -6 : 1 - dow;
+        copy.setDate(copy.getDate() + diff);
+        return copy;
+      }
+
+      function renderCalendar() {
+        document.getElementById('cal-title').textContent =
+          MONTHS_ES[month] + ' ' + year;
+
+        const container = document.getElementById('cal-weeks');
+        container.innerHTML = '';
+        selectedWeekEl = null;
+
+        const firstOfMonth = new Date(year, month, 1);
+        const lastOfMonth  = new Date(year, month + 1, 0);
+        let weekStart = getMondayOf(firstOfMonth);
+
+        while (weekStart <= lastOfMonth) {
+          const weekKey = toISO(weekStart);
+          const entryId = PROJECT_WEEKS[weekKey];
+
+          const weekDiv = document.createElement('div');
+          weekDiv.className = 'cal-week' + (entryId ? ' has-entry' : '');
+
+          for (let i = 0; i < 7; i++) {
+            const d = new Date(weekStart);
+            d.setDate(weekStart.getDate() + i);
+            const cell = document.createElement('div');
+            cell.className = 'cal-day' + (d.getMonth() !== month ? ' other-month' : '');
+            cell.textContent = d.getDate();
+            weekDiv.appendChild(cell);
+          }
+
+          if (entryId) {
+            weekDiv.addEventListener('click', function () {
+              
+              if (selectedWeekEl) selectedWeekEl.classList.remove('selected');
+              this.classList.add('selected');
+              selectedWeekEl = this;
+
+              // movimiento y highlight al blog semanal correspondiente
+              const entry = document.getElementById(entryId);
+              if (entry) {
+                entry.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                const box = entry.querySelector('.timeline-contenido');
+                box.classList.add('highlighted');
+                setTimeout(() => box.classList.remove('highlighted'), 1500);
+              }
+            });
+          }
+
+          container.appendChild(weekDiv);
+          weekStart.setDate(weekStart.getDate() + 7);
+        }
+      }
+
+      const MIN_YEAR = 2026, MIN_MONTH = 7; // Agosto 2026 (base)
+
+      function updatePrevBtn() {
+        const btn = document.getElementById('cal-prev');
+        const atMin = (year === MIN_YEAR && month === MIN_MONTH);
+        btn.disabled = atMin;
+        btn.style.opacity = atMin ? '0.3' : '1';
+        btn.style.cursor  = atMin ? 'not-allowed' : 'pointer';
+      }
+
+      document.getElementById('cal-prev').addEventListener('click', () => {
+        if (year === MIN_YEAR && month === MIN_MONTH) return;
+        month--;
+        if (month < 0) { month = 11; year--; }
+        renderCalendar();
+        updatePrevBtn();
+      });
+
+      document.getElementById('cal-next').addEventListener('click', () => {
+        month++;
+        if (month > 11) { month = 0; year++; }
+        renderCalendar();
+        updatePrevBtn();
+      });
+
+      renderCalendar();
+      updatePrevBtn();
+    </script>
+  <script>
+      const darkModeToggle = document.getElementById('darkModeToggle');
+      if (localStorage.getItem('dark-mode') === 'enabled') {
+        document.body.classList.add('dark-mode');
+        if(darkModeToggle) darkModeToggle.innerHTML = '&#9728;&#65039;';
+      }
+      if(darkModeToggle) {
+        darkModeToggle.addEventListener('click', (e) => {
+          e.preventDefault();
+          document.body.classList.toggle('dark-mode');
+          if (document.body.classList.contains('dark-mode')) {
+            localStorage.setItem('dark-mode', 'enabled');
+            darkModeToggle.innerHTML = '&#9728;&#65039;';
+          } else {
+            localStorage.setItem('dark-mode', 'disabled');
+            darkModeToggle.innerHTML = '&#127769;';
+          }
+        });
+      }
+    </script>
   </body>
 </html>
+
+
+
+
+

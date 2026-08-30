@@ -23,7 +23,7 @@ body {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 0 20px;
+  padding: 8px 20px; /* Agregado padding vertical para dar espacio a la animación de hover */
   position: relative; 
   z-index: 10;
 }
@@ -61,18 +61,48 @@ body {
   object-fit: contain;
 }
 
-.nav-links { display: flex; }
+.nav-links { display: flex; align-items: center; }
 .nav-links a {
+  display: inline-block;
+  position: relative;
+  z-index: 1;
   color: white;
   text-align: center;
-  padding: 16px 20px;
+  padding: 16px 20px; /* Aumentado el padding vertical para hacer el efecto más "grueso" o gordito */
+  margin: 0 2px;
   text-decoration: none;
   font-size: 18px;
   font-weight: bold;
-  transition: background-color 0.3s;
+  border-radius: 8px; 
+  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1.2); 
 }
 
-.nav-links a:hover { background-color: #8C5A35; }
+@keyframes splat1 {
+  0% { border-radius: 50% 50% 50% 50% / 50% 50% 50% 50%; transform: scale(1.08) rotate(-2deg); }
+  50% { border-radius: 60% 40% 60% 40% / 40% 60% 40% 60%; transform: scale(1.12) rotate(2deg); }
+  100% { border-radius: 50% 50% 50% 50% / 50% 50% 50% 50%; transform: scale(1.08) rotate(-2deg); }
+}
+@keyframes splat2 {
+  0% { border-radius: 40% 60% 40% 60% / 60% 40% 60% 40%; transform: scale(1.08) rotate(2deg); }
+  50% { border-radius: 50% 50% 50% 50% / 50% 50% 50% 50%; transform: scale(1.12) rotate(-1deg); }
+  100% { border-radius: 40% 60% 40% 60% / 60% 40% 60% 40%; transform: scale(1.08) rotate(2deg); }
+}
+@keyframes splat3 {
+  0% { border-radius: 55% 45% 55% 45% / 45% 55% 45% 55%; transform: scale(1.08) rotate(-1deg); }
+  50% { border-radius: 45% 55% 45% 55% / 55% 45% 55% 45%; transform: scale(1.13) rotate(3deg); }
+  100% { border-radius: 55% 45% 55% 45% / 45% 55% 45% 55%; transform: scale(1.08) rotate(-1deg); }
+}
+@keyframes splat4 {
+  0% { border-radius: 35% 65% 35% 65% / 65% 35% 65% 35%; transform: scale(1.08) rotate(1deg); }
+  50% { border-radius: 65% 35% 65% 35% / 35% 65% 35% 65%; transform: scale(1.12) rotate(-3deg); }
+  100% { border-radius: 35% 65% 35% 65% / 65% 35% 65% 35%; transform: scale(1.08) rotate(1deg); }
+}
+
+.nav-links a:hover { background-color: #2C190D; z-index: 10; }
+.nav-links a:nth-child(1):hover { animation: splat1 1.4s infinite ease-in-out; }
+.nav-links a:nth-child(2):hover { animation: splat2 1.6s infinite ease-in-out; }
+.nav-links a:nth-child(3):hover { animation: splat3 1.5s infinite ease-in-out; }
+.nav-links a:nth-child(4):hover { animation: splat4 1.3s infinite ease-in-out; }
 
 /* Parallax(AHHHHHHHHHHHHHHHH) */
 .pro-parallax-window {
@@ -292,7 +322,7 @@ body {
   transition: background-color 0.2s;
 }
 .card-btn:hover { 
-  background-color: #5C3A21; /* Cambia a oscuro al pasar el mouse */
+  background-color: #5C3A21;
 }
 
 /* Adaptación celulares */
@@ -347,9 +377,9 @@ body {
 .timeline-paso::before {
   content: '';
   position: absolute;
-  top: 39px; /* Empieza exactamente debajo del círculo (15 + 24) */
-  bottom: -15px; /* Baja exacto para tocar el techo del círculo siguiente */
-  left: 11px; /* Centrado */
+  top: 39px; 
+  bottom: -15px; 
+  left: 11px; 
   width: 2px;
   background-color: #8B4513;
   z-index: 1;
@@ -441,3 +471,233 @@ body {
 .footer-texto a:hover {
   color: #5C3A21;
 }
+/* DARK MODE STYLES */
+body.dark-mode { background-color: #1A1310; color: #E6DBCF; }
+body.dark-mode .bg-light { background-color: #1A1310; color: #E6DBCF; }
+body.dark-mode .bg-mud { background-color: #24160E; }
+body.dark-mode .top-nav { background-color: #1F120B; }
+body.dark-mode .top-nav::after {
+  background-image: url('data:image/svg+xml;utf8,<svg viewBox="0 0 400 60" xmlns="http://www.w3.org/2000/svg"><path fill="%231F120B" d="M0,0 L0,15 L5,15 C15,15 15,25 25,25 C35,25 35,15 45,15 C55,15 55,55 70,55 C85,55 85,15 95,15 C105,15 105,35 115,35 C125,35 125,15 135,15 L155,15 C162,15 165,50 172,50 C179,50 182,15 190,15 C200,15 200,20 210,20 C220,20 220,15 230,15 C240,15 240,45 255,45 C270,45 270,15 280,15 L300,15 C310,15 310,30 320,30 C330,30 330,15 340,15 C350,15 350,58 365,58 C380,58 385,15 395,15 L400,15 L400,0 Z"/></svg>');
+}
+body.dark-mode .dashboard-wrapper { background-color: #1F1713; }
+body.dark-mode .dash-card.card-light, body.dark-mode .card-chart { 
+  background-color: #2A1F18; 
+  color: #D5C7B8; 
+  border-color: #3D2D23; 
+}
+body.dark-mode .dash-card.card-light { border-top-color: #A36940; }
+body.dark-mode .dash-card.card-light h2, body.dark-mode .card-chart h2, body.dark-mode .card-dark h2 { color: #E5A87B; }
+body.dark-mode .text-container h1, body.dark-mode .text-container h2, body.dark-mode .step-block h3 { color: #E5A87B; }
+body.dark-mode .text-container { color: #D5C7B8; }
+body.dark-mode .footer-referencias { background-color: #130D09; }
+body.dark-mode .bar-value, body.dark-mode .region-label { color: #BBA999; }
+body.dark-mode .bar, body.dark-mode .hbar-fill.ht-rm { background-color: #8C5A35; }
+body.dark-mode .hbar-fill { background-color: #A36940; }
+
+body.dark-mode .stage-card { background-color: #2A1F18; border-left-color: #A36940; }
+body.dark-mode .stage-number { color: rgba(229, 168, 123, 0.15); }
+body.dark-mode .stage-header h2, body.dark-mode .meta-title { color: #E5A87B; }
+body.dark-mode .stage-desc p, body.dark-mode .meta-content { color: #D5C7B8; }
+body.dark-mode .timeline-izquierda::before, body.dark-mode .timeline-izquierda::after { background: #E5A87B; }
+
+
+.dark-toggle:hover { background-color: #2C190D; z-index: 10; animation: splat1 1.4s infinite ease-in-out; }
+
+
+.dark-toggle {
+  display: inline-block;
+  position: relative;
+  z-index: 1;
+  color: white;
+  text-align: center;
+  padding: 12px 14px;
+  margin-left: 10px;
+  text-decoration: none;
+  font-size: 20px;
+  background-color: transparent;
+}
+.dark-toggle::before, .dark-toggle::after {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  z-index: -1;
+  border-radius: 8px;
+}
+.dark-toggle::before {
+  background-color: #8C5A35;
+  animation: splat1 1.8s infinite ease-in-out;
+}
+.dark-toggle::after {
+  background-color: #2C190D;
+  opacity: 0;
+  transform: scale(0.8);
+  transition: all 0.3s ease;
+  animation: splat2 1.4s infinite ease-in-out;
+}
+.dark-toggle:hover::after {
+  opacity: 1;
+  transform: scale(1.1);
+}
+
+
+.dark-toggle:hover { background-color: transparent !important; }
+
+
+/* Modificadores del boton Dark Mode cuando esta ACTIVO el modo oscuro */
+body.dark-mode .dark-toggle::before {
+  background-color: #2C190D; /* Base es oscura */
+}
+body.dark-mode .dark-toggle::after {
+  background-color: #8C5A35; /* Hover es claro (para volver a light mode) */
+}
+
+
+/* CORRECCION INVERSION DE COLORES BOTON MODO OSCURO */
+/* Modo Claro: Base oscura, Hover claro */
+.dark-toggle::before { background-color: #2C190D !important; }
+.dark-toggle::after { background-color: #8C5A35 !important; }
+
+/* Modo Oscuro: Base clara, Hover oscuro */
+body.dark-mode .dark-toggle::before { background-color: #8C5A35 !important; }
+body.dark-mode .dark-toggle::after { background-color: #2C190D !important; }
+
+
+/* Reducir el tamano del efecto hover de la segunda capa */
+.dark-toggle:hover::after {
+  transform: scale(0.95) !important;
+}
+
+
+/* Eliminar el efecto de doble capa (after) */
+.dark-toggle::after { display: none !important; }
+
+/* Animacion de mayor escala para cuando se pasa el cursor */
+@keyframes splat-large {
+  0% { border-radius: 50% 50% 50% 50% / 50% 50% 50% 50%; transform: scale(1.18) rotate(-2deg); }
+  50% { border-radius: 60% 40% 60% 40% / 40% 60% 40% 60%; transform: scale(1.24) rotate(2deg); }
+  100% { border-radius: 50% 50% 50% 50% / 50% 50% 50% 50%; transform: scale(1.18) rotate(-2deg); }
+}
+
+/* Al hacer hover, la mancha original simplemente crece pero conserva su color */
+.dark-toggle:hover::before {
+  animation: splat-large 1.2s infinite ease-in-out !important;
+}
+
+
+/* Restaurar la animacion original para evitar el salto brusco */
+.dark-toggle:hover::before {
+  animation: splat1 1.8s infinite ease-in-out !important;
+}
+
+/* Aplicar una transicion suave al contenedor principal */
+.dark-toggle {
+  transition: transform 0.3s ease !important;
+}
+
+/* Agrandar el contenedor entero suavemente al hacer hover */
+.dark-toggle:hover {
+  transform: scale(1.15) !important;
+  background-color: transparent !important;
+}
+
+
+/* --- CORRECCIONES PARA EL MODO OSCURO (TARJETAS, GRAFICOS, NAVBAR) --- */
+
+/* 1. Colores distintos para los graficos de barras */
+body.dark-mode .bar.ba-norte { background-color: #E5A87B !important; }
+body.dark-mode .bar.ba-sur { background-color: #C07F56 !important; }
+body.dark-mode .bar.ba-rm { background-color: #8C5A35 !important; }
+
+body.dark-mode .hbar-fill.ht-coquimbo { background-color: #E5A87B !important; }
+body.dark-mode .hbar-fill.ht-valpo { background-color: #C07F56 !important; }
+body.dark-mode .hbar-fill.ht-rm { background-color: #8C5A35 !important; }
+
+/* 2. Tarjetas de Quienes Somos, Nuestro Camino y Sumate */
+body.dark-mode .inspiration-card,
+body.dark-mode .banner-card,
+body.dark-mode .card,
+body.dark-mode .step-block {
+  background-color: #2A1F18 !important;
+  border-color: #8C5A35 !important;
+  color: #D5C7B8 !important;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4) !important;
+}
+
+body.dark-mode .inspiration-card h3,
+body.dark-mode .banner-card h3,
+body.dark-mode .card h3 {
+  color: #E5A87B !important;
+}
+
+body.dark-mode .inspiration-card p,
+body.dark-mode .banner-card p,
+body.dark-mode .card p {
+  color: #D5C7B8 !important;
+}
+
+/* 3. Hacer el Navbar y su goteo mas claros para que no se camuflen con el fondo negro */
+body.dark-mode .top-nav { background-color: #382315 !important; }
+body.dark-mode .top-nav::after {
+  background-image: url('data:image/svg+xml;utf8,<svg viewBox="0 0 400 60" xmlns="http://www.w3.org/2000/svg"><path fill="%23382315" d="M0,0 L0,15 L5,15 C15,15 15,25 25,25 C35,25 35,15 45,15 C55,15 55,55 70,55 C85,55 85,15 95,15 C105,15 105,35 115,35 C125,35 125,15 135,15 L155,15 C162,15 165,50 172,50 C179,50 182,15 190,15 C200,15 200,20 210,20 C220,20 220,15 230,15 C240,15 240,45 255,45 C270,45 270,15 280,15 L300,15 C310,15 310,30 320,30 C330,30 330,15 340,15 C350,15 350,58 365,58 C380,58 385,15 395,15 L400,15 L400,0 Z"/></svg>') !important;
+}
+
+/* 4. Color de animacion de botones del navbar para que coincida con el boton dark toggle */
+body.dark-mode .nav-links a:hover {
+  background-color: #8C5A35 !important;
+}
+
+
+/* --- CALENDARIO BLOG MODO OSCURO --- */
+body.dark-mode .cal-container {
+  background-color: #2A1F18 !important;
+  box-shadow: 0 5px 20px rgba(0,0,0,0.5) !important;
+}
+body.dark-mode .cal-header {
+  background-color: #382315 !important;
+}
+body.dark-mode .cal-day-headers span {
+  color: #D6A885 !important;
+}
+body.dark-mode .cal-day {
+  color: #D5C7B8 !important;
+}
+body.dark-mode .cal-day.other-month {
+  color: #4A3A2F !important;
+}
+body.dark-mode .cal-week:hover,
+body.dark-mode .cal-week.has-entry:hover {
+  background-color: #3D2D23 !important;
+}
+body.dark-mode .cal-week.selected {
+  background-color: #8C5A35 !important;
+}
+body.dark-mode .cal-week.selected .cal-day {
+  color: white !important;
+}
+
+
+/* Reparacion Dark Mode para tarjetas de timeline en nuestro camino */
+body.dark-mode .timeline-contenido {
+  background-color: #2A1F18 !important;
+  box-shadow: 0 5px 20px rgba(0,0,0,0.5) !important;
+}
+body.dark-mode .timeline-contenido h3 {
+  color: #E5A87B !important;
+}
+body.dark-mode .timeline-contenido p {
+  color: #D5C7B8 !important;
+}
+
+/* Reparación Dark Mode para sub-tarjetas de donación */
+body.dark-mode .price-tier {
+  background-color: #382315 !important;
+  border-left: 4px solid #E5A87B !important;
+}
+body.dark-mode .price-tier strong {
+  color: #E5A87B !important;
+}
+body.dark-mode .card p[style*="color: #666"] {
+  color: #BBA999 !important;
+}
+
+

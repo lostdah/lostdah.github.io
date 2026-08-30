@@ -1,53 +1,314 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="es">
   <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Inicio - Huellas al Lodo</title>
     <link rel="stylesheet" href="style.css">
+    <style>
+      .hero-overlay {
+        position: absolute;
+        inset: 0;
+        background: rgba(30, 15, 5, 0.45); /* Oscurece la foto un poco para que el texto resalte */
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        padding: 20px;
+        z-index: 2;
+      }
+      .hero-title {
+        color: white;
+        font-size: clamp(40px, 8vw, 65px);
+        font-weight: 900;
+        margin-bottom: 15px;
+        text-shadow: 0 4px 15px rgba(0,0,0,0.5);
+        letter-spacing: 1px;
+      }
+      .hero-subtitle {
+        color: #F7F4F0;
+        font-size: clamp(16px, 4vw, 22px);
+        max-width: 650px;
+        text-shadow: 0 2px 10px rgba(0,0,0,0.5);
+        line-height: 1.4;
+      }
+      .dashboard-wrapper {
+        background-color: #E6DBCF; /* Fondo más oscuro para destacar las tarjetas */
+        padding: 60px 0 20px 0;
+      }
+      .dashboard-container {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 30px;
+        max-width: 1100px;
+        margin: 0 auto;
+        padding: 0 20px;
+      }
+      .dash-col {
+        display: flex;
+        flex-direction: column;
+        gap: 30px;
+      }
+      .dash-card {
+        padding: 35px;
+        border-radius: 16px;
+        box-shadow: 0 10px 30px rgba(92, 58, 33, 0.08);
+        display: flex;
+        flex-direction: column;
+        flex: 1; /* Esto asegura que las tarjetas dentro de la misma columna tengan la misma altura */
+        justify-content: center;
+      }
+      .dash-card h2 {
+        font-size: 24px;
+        margin-top: 0;
+        margin-bottom: 20px;
+      }
+      .dash-card p {
+        font-size: 15.5px;
+        line-height: 1.6;
+        margin-bottom: 15px;
+      }
+      .dash-card p:last-child { margin-bottom: 0; }
+      
+      .card-dark {
+        background-color: #3A2618;
+        color: #F7F4F0;
+      }
+      .card-dark h2 { color: #D6A885; }
+      
+      .card-light {
+        background-color: white;
+        color: #444;
+        border-top: 6px solid #8C5A35;
+      }
+      .card-light h2 { color: #5C3A21; }
+
+      .card-chart {
+        background-color: #F7F4F0;
+        color: #444;
+        height: 100%;
+        border: 1px solid rgba(140, 90, 53, 0.15);
+        display: flex;
+        flex-direction: column;
+      }
+      .card-chart h2 { color: #5C3A21; margin-bottom: 5px; }
+      
+      .chart-container-vertical {
+        display: flex;
+        align-items: flex-end;
+        justify-content: space-around;
+        height: 180px; /* Aumentado para llenar más espacio */
+        border-bottom: 2px solid #dcdcdc;
+        padding-bottom: 10px;
+        margin-top: 20px;
+      }
+      .bar-col {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: flex-end;
+        height: 100%;
+        width: 70px;
+      }
+      .bar-value {
+        font-weight: 700;
+        font-size: 12px;
+        color: #666;
+        margin-bottom: 8px;
+        opacity: 0;
+        animation: fadeIn 0.5s 1.2s forwards;
+      }
+      .bar {
+        width: 45px; /* Barras más anchas */
+        border-radius: 4px 4px 0 0;
+        background-color: #5C3A21;
+        transform-origin: bottom;
+        animation: growUp 1.2s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+      }
+      /* Proporciones matemáticas ajustadas sobre un máximo visual de 80% para dejar espacio al número superior */
+      .ba-norte { height: 30%; } /* 0.8M */
+      .ba-sur { height: 42%; }   /* 1.1M */
+      .ba-rm { height: 80%; }    /* 2.1M */
+
+      .region-label {
+        margin-top: 12px;
+        font-weight: 600;
+        font-size: 13px;
+        color: #444;
+        text-align: center;
+      }
+
+      /* Horizontal Bars */
+      .chart-container-horizontal {
+        display: flex;
+        flex-direction: column;
+        gap: 20px; /* Mayor separación */
+        margin-top: 25px;
+        margin-bottom: 20px;
+      }
+      .hbar-row {
+        display: flex;
+        align-items: center;
+        gap: 15px;
+      }
+      .hbar-label {
+        width: 55px;
+        font-size: 12px;
+        font-weight: bold;
+        color: #444;
+      }
+      .hbar-track {
+        flex-grow: 1;
+        height: 18px; /* Barras más gruesas */
+        background: #e0e0e0;
+        border-radius: 9px;
+        overflow: hidden;
+      }
+      .hbar-fill {
+        height: 100%;
+        background-color: #D6A885;
+        transform-origin: left;
+        animation: growRight 1.2s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+      }
+      .ht-coquimbo { width: 44%; animation-delay: 0.1s; }
+      .ht-valpo { width: 64%; animation-delay: 0.2s; }
+      .ht-rm { width: 100%; animation-delay: 0.3s; background-color: #8C5A35; }
+      
+      .hbar-value {
+        width: 65px;
+        font-size: 12px;
+        font-weight: bold;
+        color: #666;
+        text-align: right;
+      }
+
+      @keyframes growRight {
+        from { transform: scaleX(0); }
+        to { transform: scaleX(1); }
+      }
+
+      @keyframes growUp {
+        from { transform: scaleY(0); }
+        to { transform: scaleY(1); }
+      }
+      @keyframes fadeIn {
+        to { opacity: 1; }
+      }
+
+      @media (max-width: 850px) {
+        .dashboard-container { grid-template-columns: 1fr; }
+        .card-chart { min-height: 400px; }
+      }
+    </style>
   </head>
   <body>
     <div class="top-nav">
-      <div class="nav-logo">
-        <img src="logo-perros.png" alt="Logo Huellas al Lodo" class="logo-img">
-        Huellas al Lodo
+      <div class="logo-area" style="display: flex; align-items: center; gap: 15px;">
+        <div class="nav-logo">
+          <img src="logo-perros.png" alt="Logo Huellas al Lodo" class="logo-img">
+          Huellas al Lodo
+        </div>
+        <a href="#" id="darkModeToggle" class="dark-toggle" title="Modo Oscuro">&#127769;</a>
       </div>
       <div class="nav-links">
         <a href="index.html">Inicio</a>
         <a href="quienes-somos.html">Quiénes somos</a>
         <a href="nuestro-camino.html">Nuestro camino</a>
         <a href="sumate.html">Súmate</a>
-        <a href="blog.html">Blog</a>
       </div>
     </div>
 
     <div class="pro-parallax-window">
       <img src="IMG_7198.jpg" class="pro-parallax-image" alt="Perros descansando">
-    </div>
-
-    <div class="content-section bg-mud">
-      <div class="text-container">
-        <h1>Ciencia Ciudadana y Bienestar Animal</h1>
-        <p>En el primer estudio de población animal realizado por la Facultad de Medicina Veterinaria de la Universidad Católica de Chile se registraron más de 4 millones de perros y gatos callejeros, donde casi 3 millones y medio de estos son perros y el resto se trata de gatos. La mayor concentración de estos reside en la Región Metropolitana, la cual posee la mayor densidad de microbasurales en todo el país.</p>
-        <p>Esta realidad se encuentra principalmente en sectores como La Pintana, Renca y La Cisterna, donde los animales abandonados se ven obligados a subsistir en microbasurales. Estos afectan gravemente su salud: se convierten en su única fuente de alimento, lo que los expone a ingerir desechos tóxicos, plásticos y comida descompuesta, provocando severas infecciones gastrointestinales y envenenamientos. Además, la acumulación de escombros, vidrios y fierros oxidados les causa heridas y lesiones físicas expuestas que, al estar en contacto directo con la suciedad y vectores como ratas y pulgas, se transforman rápidamente en infecciones cutáneas y enfermedades parasitarias letales.</p>
+      <div class="hero-overlay">
+        <h1 class="hero-title">Huellas al Lodo</h1>
+        <p class="hero-subtitle">Un proyecto de ciencia ciudadana para visibilizar cómo los microbasurales afectan la vida de perros y gatos callejeros.</p>
       </div>
     </div>
 
-    <div class="content-section bg-white">
-      <div class="text-container">
-        <h2>Nuestra Respuesta</h2>
-        <p>Frente a este escenario, este proyecto de ciencia ciudadana surge como una respuesta urgente a la pregunta: ¿Cómo afectan los microbasurales a la salud de perros y gatos callejeros en la comuna de La Cisterna?</p>
-        <p>La iniciativa funciona como una solución a corto plazo frente a la problemática de los microbasurales y el bienestar animal, promoviendo la participación activa de los vecinos y voluntarios para transformar estos espacios insalubres e inseguros en entornos limpios y saludables.</p>
+  <div class="dashboard-wrapper">
+    <div class="dashboard-container">
+      
+      <!-- Columna Izquierda: Textos -->
+      <div class="dash-col">
+        <div class="dash-card card-dark">
+          <h2>El Desafío</h2>
+          <p>La relación entre la acumulación de basura y los animales en situación de calle es un problema complejo que requiere una mirada profunda. En Chile hay más de <strong>cuatro millones</strong> de perros y gatos sin hogar.</p>
+          <p>Los microbasurales son puntos de insalubridad extrema que los exponen a enfermedades, desnutrición y riesgos constantes, representando un grave problema de salud pública y bienestar animal.</p>
+        </div>
+
+        <div class="dash-card card-light">
+          <h2>Nuestra Respuesta</h2>
+          <p>Frente a esta realidad, nuestro proyecto busca empoderar a la comunidad mediante la <strong>ciencia ciudadana</strong>.</p>
+          <p>Con un enfoque inicial en La Cisterna, creamos herramientas accesibles para reportar, documentar y analizar el cruce entre los microbasurales y la presencia de animales, construyendo una base sólida para diseñar intervenciones efectivas.</p>
+        </div>
+      </div>
+
+      <!-- Columna Derecha: Gráfico Animado -->
+      <div class="dash-col">
+        <div class="dash-card card-chart">
+          <h2>Magnitud del Problema</h2>
+          <p style="color: #666; font-size: 14px; margin-bottom: 25px;">Comparativa estimada de animales en situación de calle (en millones) según la región.</p>
+
+          <!-- Chart 1: Animals -->
+          <div class="chart-container-vertical">
+            <div class="bar-col">
+              <span class="bar-value">0.8M</span>
+              <div class="bar ba-norte"></div>
+              <span class="region-label">Norte</span>
+            </div>
+            <div class="bar-col">
+              <span class="bar-value">1.1M</span>
+              <div class="bar ba-sur"></div>
+              <span class="region-label">Sur</span>
+            </div>
+            <div class="bar-col">
+              <span class="bar-value">2.1M</span>
+              <div class="bar ba-rm"></div>
+              <span class="region-label">RM</span>
+            </div>
+          </div>
+
+          <!-- Chart 2: Trash -->
+          <h3 style="font-size: 14px; color: #5C3A21; margin-top: 30px; margin-bottom: 5px;">Microbasurales (Sitios Ilegales)</h3>
+          <div class="chart-container-horizontal">
+            <div class="hbar-row">
+              <span class="hbar-label">Coquimbo</span>
+              <div class="hbar-track"><div class="hbar-fill ht-coquimbo"></div></div>
+              <span class="hbar-value">411 focos</span>
+            </div>
+            <div class="hbar-row">
+              <span class="hbar-label">Valparaíso</span>
+              <div class="hbar-track"><div class="hbar-fill ht-valpo"></div></div>
+              <span class="hbar-value">598 focos</span>
+            </div>
+            <div class="hbar-row">
+              <span class="hbar-label">Región Met.</span>
+              <div class="hbar-track"><div class="hbar-fill ht-rm"></div></div>
+              <span class="hbar-value">934 focos</span>
+            </div>
+          </div>
+
+          <!-- Links -->
+          <div style="margin-top: auto; padding-top: 25px; font-size: 11px; color: #777; line-height: 1.5;">
+            <span style="font-style: italic; margin-bottom: 8px; display: block; color: #999;">*Según el Diagnóstico Nacional de Sitios de Disposición Ilegal, de un total de 3.735 sitios detectados a nivel nacional.</span>
+            <strong>Fuentes oficiales:</strong><br>
+            <a href="https://www.uc.cl/noticias/veterinaria-uc-existen-12-millones-de-perros-y-gatos-con-duenos-en-chile-y-4-millones-sin-ellos/" target="_blank" style="color: #8C5A35; text-decoration: none;">[1] Primer Estudio de Población Animal (Noticias UC / Veterinaria PUC).</a><br>
+            <a href="https://catastronacionalrsd.subdere.gob.cl/" target="_blank" style="color: #8C5A35; text-decoration: none;">[2] Plataforma Catastro Nacional de Residuos (Subdere / MMA).</a>
+          </div>
+        </div>
       </div>
     </div>
+  </div>
 
-    <div class="content-section bg-light">
-      <div class="text-container">
-        <h2>El Ciclo de Recuperación</h2>
+  <div class="content-section bg-light" style="padding-top: 20px;">
+    <div class="text-container">
+      <h2>El Ciclo de Recuperación</h2>
         
         <div class="step-block">
           <h3>Plataforma y Reporte</h3>
-          <p>El proyecto se centra en una plataforma web interactiva que sirve como canal de ciencia ciudadana; a través de ella, la ciudadanía reporta y geolocaliza los microbasurales junto con imágenes de los perros y gatos vistos en el sector que se encuentren en peligro y en mal estado de salud. De esta manera se mantendrá un registro constante sobre las zonas donde se encuentran perros o gatos callejeros siendo directamente afectados por los microbasurales, y gracias a la participación directa de la comunidad se podrán detectar las soluciones más eficientes para ayudar a perros y gatos callejeros a un largo plazo, permitiendo a la comunidad estudiar un problema que los rodea constantemente.</p>
+          <p>El proyecto se centra en una plataforma web interactiva que sirve ¿Cómo canal de ciencia ciudadana; a través de ella, la ciudadanía reporta y geolocaliza los microbasurales junto con imágenes de los perros y gatos vistos en el sector que se encuentren en peligro y en mal estado de salud. De esta manera se mantendrá un registro constante sobre las zonas donde se encuentran perros o gatos callejeros siendo directamente afectados por los microbasurales, y gracias a la participación directa de la comunidad se podrán detectar las soluciónes más eficientes para ayudar a perros y gatos callejeros a un largo plazo, permitiendo a la comunidad estudiar un problema que los rodea constantemente.</p>
         </div>
 
         <div class="step-block">
@@ -75,5 +336,29 @@
         <p>Las fotografías y recursos visuales se utilizan con fines estrictamente educativos, ilustrativos y de concientización.</p>
       </div>
     </footer>
+    <script>
+      const darkModeToggle = document.getElementById('darkModeToggle');
+      if (localStorage.getItem('dark-mode') === 'enabled') {
+        document.body.classList.add('dark-mode');
+        if(darkModeToggle) darkModeToggle.innerHTML = '&#9728;&#65039;';
+      }
+      if(darkModeToggle) {
+        darkModeToggle.addEventListener('click', (e) => {
+          e.preventDefault();
+          document.body.classList.toggle('dark-mode');
+          if (document.body.classList.contains('dark-mode')) {
+            localStorage.setItem('dark-mode', 'enabled');
+            darkModeToggle.innerHTML = '&#9728;&#65039;';
+          } else {
+            localStorage.setItem('dark-mode', 'disabled');
+            darkModeToggle.innerHTML = '&#127769;';
+          }
+        });
+      }
+    </script>
   </body>
 </html>
+
+
+
+

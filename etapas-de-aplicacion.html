@@ -1,0 +1,313 @@
+﻿<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Etapas de Aplicación - Huellas al Lodo</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .stages-wrapper {
+            display: flex;
+            flex-direction: column;
+            gap: 40px;
+            margin-top: 30px;
+        }
+
+        .stage-card {
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0 10px 30px rgba(92, 58, 33, 0.08);
+            padding: 35px;
+            position: relative;
+            overflow: hidden;
+            border-left: 8px solid #8C5A35;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .stage-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(92, 58, 33, 0.12);
+        }
+
+        .stage-card.placeholder {
+            border-left: 8px solid #ccc;
+            background: #fafafa;
+        }
+        
+        .stage-card.placeholder .stage-number {
+            color: rgba(0, 0, 0, 0.03);
+        }
+
+        .stage-number {
+            position: absolute;
+            top: -20px;
+            right: 0px;
+            font-size: 180px;
+            font-weight: 900;
+            color: rgba(140, 90, 53, 0.04);
+            line-height: 1;
+            pointer-events: none;
+            z-index: 0;
+            user-select: none;
+        }
+
+        .stage-content {
+            position: relative;
+            z-index: 1;
+        }
+
+        .stage-header h2 {
+            color: #5C3A21;
+            font-size: 24px;
+            margin: 0 0 20px 0;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .stage-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+        }
+
+        .stage-desc p {
+            font-size: 15.5px;
+            line-height: 1.6;
+            color: #444;
+            margin-bottom: 15px;
+        }
+
+        .stage-meta {
+            background: #F7F4F0;
+            padding: 20px;
+            border-radius: 12px;
+            border: 1px solid rgba(140, 90, 53, 0.15);
+        }
+
+        .meta-block:not(:last-child) {
+            margin-bottom: 20px;
+        }
+
+        .meta-title {
+            display: inline-block;
+            color: #8C5A35;
+            font-weight: bold;
+            font-size: 14px;
+            margin-bottom: 8px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .meta-content {
+            font-size: 15px;
+            line-height: 1.5;
+            color: #333;
+            margin: 0;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .stage-grid {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+            .stage-card { padding: 25px; }
+            .stage-number { font-size: 120px; right: -10px; top: -10px; }
+        }
+    </style>
+</head>
+<body>
+    <div class="top-nav">
+      <div class="logo-area" style="display: flex; align-items: center; gap: 15px;">
+        <div class="nav-logo">
+          <img src="logo-perros.png" alt="Logo Huellas al Lodo" class="logo-img">
+          Huellas al Lodo
+        </div>
+        <a href="#" id="darkModeToggle" class="dark-toggle" title="Modo Oscuro">&#127769;</a>
+      </div>
+      <div class="nav-links">
+        <a href="index.html">Inicio</a>
+        <a href="quienes-somos.html">Quiénes somos</a>
+        <a href="nuestro-camino.html">Nuestro camino</a>
+        <a href="sumate.html">Súmate</a>
+      </div>
+    </div>
+
+    <div class="main-content">
+      <div class="text-container">
+        
+        <h1 style="text-align: center; margin-bottom: 10px;">Etapas de Aplicación</h1>
+        <p style="text-align: center; color: #666; margin-bottom: 50px; font-size: 17px;">El plan de acción estructurado para llevar nuestro proyecto a la realidad.</p>
+
+        <div class="stages-wrapper">
+
+            <!-- Etapa 1 -->
+            <div class="stage-card">
+                <div class="stage-number">01</div>
+                <div class="stage-content">
+                    <div class="stage-header">
+                        <h2>Etapa 1: Validar problema y requerimientos</h2>
+                    </div>
+                    <div class="stage-grid">
+                        <div class="stage-desc">
+                            <p>Visitar La Cisterna para fotografiar y geolocalizar al menos 3 microbasurales que tengan presencia de animales callejeros, y entrevistar a 10 vecinos de esos sectores antes de la semana 7.</p>
+                        </div>
+                        <div class="stage-meta">
+                            <div class="meta-block">
+                                <span class="meta-title">💡 ¿Qué decisión permite tomar?</span>
+                                <p class="meta-content">Definir exactamente en qué zonas o calles críticas de la comuna vamos a enfocar la solución de la página web, para asegurar que la implementaremos en el sector correcto.</p>
+                            </div>
+                            <div class="meta-block">
+                                <span class="meta-title">📋 Actividad asociada</span>
+                                <p class="meta-content">Salida a terreno rápida para registrar las coordenadas de los focos de basura, sacar fotografías de evidencia y aplicar una pequeña pauta de preguntas a la comunidad que convive ahí.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Etapa 2 -->
+            <div class="stage-card">
+                <div class="stage-number">02</div>
+                <div class="stage-content">
+                    <div class="stage-header">
+                        <h2>Etapa 2: Vincular requerimientos y atributos</h2>
+                    </div>
+                    <div class="stage-grid">
+                        <div class="stage-desc">
+                            <p>¿Cómo atributos para la solución tenemos la disponibilidad de una página web en donde se espera que se pueda geolocalizar los microbasurales con animales callejeros al rededor, para tener un registro y poder tener una solución a ello. Para lograr aquello, uno de los requerimientos es ir a terreno y conocer la zona en donde nos estamos enfocando, evidenciando con fotografías y entrevistas hacia los ciudadanos que conviven con la problemática asociada, se espera que las entrevistas se tengan lista antes de la semana 7, para así poner en práctica nuestros atributos a soluciónar.</p>
+                        </div>
+                        <div class="stage-meta">
+                            <div class="meta-block">
+                                <span class="meta-title">🎯 ¿Qué necesitamos lograr?</span>
+                                <p class="meta-content">¿Qué necesitamos lograr en esta etapa durante el semestre para tomar una buena decisión sobre nuestro proyecto?<br>Necesitamos tener claridad en dónde se ubican las principales zonas en donde se evidencia esta problemática, para poder tratar nuestra solución en el sector correcto, para ello debemos ir a terreno y entrevistar a la comunidad que convive ahí.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Etapa 3 -->
+            <div class="stage-card">
+                <div class="stage-number">03</div>
+                <div class="stage-content">
+                    <div class="stage-header">
+                        <h2>Etapa 3: Desarrollar y mejorar el prototipo</h2>
+                    </div>
+                    <div class="stage-grid">
+                        <div class="stage-desc">
+                            <p>Desarrollar, en un plazo de 3 a 4 semanas, un prototipo navegable de la página web que integre al menos tres funcionalidades clave: un mapa interactivo con los microbasurales reportados, un formulario para geolocalizar nuevos puntos con presencia de animales callejeros, y un listado consultable de los reportes ingresados. La meta es lograr al menos 2 ciclos de mejora interna del equipo antes de pasar a pruebas con usuarios reales.</p>
+                        </div>
+                        <div class="stage-meta">
+                            <div class="meta-block">
+                                <span class="meta-title">🤔 ¿Qué decisión permite tomar?</span>
+                                <p class="meta-content">Permite decidir qué funcionalidades y atributos del prototipo cumplen realmente los requerimientos definidos en la etapa 2, y cuáles hay que ajustar, simplificar o descartar. También permite definir la tecnología definitiva a usar (tipo de mapa/API, forma de almacenar los datos) antes de invertir tiempo en la validación con usuarios externos.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="stage-meta" style="margin-top: 25px;">
+                        <span class="meta-title">🛠️ Actividad asociada</span>
+                        <p class="meta-content">Construir un prototipo interactivo del sitio puede ser un mockup clickeable en Figma o una versión funcional simple con HTML/JS y la API de Google Maps— que incluya ¿Cómo mínimo:</p>
+                        <ul class="meta-content" style="margin-top: 5px; padding-left: 20px;">
+                            <li>Mapa con marcadores de microbasurales.</li>
+                            <li>Formulario de reporte con ubicación, foto y N° estimado de animales.</li>
+                            <li>Panel o listado de los reportes registrados.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Etapa 4 -->
+            <div class="stage-card">
+                <div class="stage-number">04</div>
+                <div class="stage-content">
+                    <div class="stage-header">
+                        <h2>Etapa 4: Probar y validar atributos de la solución</h2>
+                    </div>
+                    <div class="stage-grid">
+                        <div class="stage-desc">
+                            <p>Llevar el prototipo de la página web a la comunidad de La Cisterna para realizar pruebas de usabilidad con al menos 15 vecinos y actores locales (¿Cómo agrupaciones animalistas o juntas de vecinos). El objetivo es evaluar en terreno si el mapa interactivo y el formulario de reporte son herramientas intuitivas, accesibles y que realmente facilitan la visibilización de los microbasurales con animales callejeros.</p>
+                        </div>
+                        <div class="stage-meta">
+                            <div class="meta-block">
+                                <span class="meta-title">💡 ¿Qué decisión permite tomar?</span>
+                                <p class="meta-content">Determinar con evidencia empírica qué atributos y funcionalidades de la plataforma web se deben mantener, cuáles requieren modificaciones para mejorar la experiencia del usuario, y cuáles deben descartarse por completo antes de buscar apoyo institucional.</p>
+                            </div>
+                            <div class="meta-block">
+                                <span class="meta-title">📋 Actividad asociada</span>
+                                <p class="meta-content">Realizar sesiones de testeo guíadas donde los vecinos utilicen el prototipo en sus propios teléfonos celulares para crear un "reporte simulado", registrando sus dificultades y su retroalimentación directa mediante una breve encuesta.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Etapa 5 -->
+            <div class="stage-card">
+                <div class="stage-number">05</div>
+                <div class="stage-content">
+                    <div class="stage-header">
+                        <h2>Etapa 5: Evaluar viabilidad e implementación</h2>
+                    </div>
+                    <div class="stage-grid">
+                        <div class="stage-desc">
+                            <p>Durante las últimas 2 semanas del semestre, determinar la viabilidad técnica, social y de recursos del proyecto, identificando al menos un aliado institucional (municipalidad, fundación o junta de vecinos) dispuesto a apoyar una eventual implementación.</p>
+                        </div>
+                        <div class="stage-meta">
+                            <div class="meta-block">
+                                <span class="meta-title">🤔 ¿Qué decisión permite tomar?</span>
+                                <p class="meta-content">Decidir si el proyecto tiene condiciones para escalar más allá del curso y qué pasos seguir para su implementación real.</p>
+                            </div>
+                            <div class="meta-block">
+                                <span class="meta-title">🤝 Actividad asociada</span>
+                                <p class="meta-content">Reunión con posibles aliados (municipalidad / fundaciones) y presentación final del proyecto.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+      </div>
+    </div>
+
+    <footer class="footer-referencias">
+      <div class="footer-texto">
+        <p><strong>Referencias y Créditos:</strong></p>
+        <p>El logotipo de "Huellas al Lodo" fue generado utilizando inteligencia artificial (Gemini AI).</p>
+        <p>Proyecto académico - Facultad de Ciencias Físicas y Matemáticas, Universidad de Chile.</p>
+        <p>Fotografía de perros en situación de calle obtenida del reportaje de <a href="https://tiemporeal.periodismoudec.cl/2021/06/11/la-alarmante-situacion-de-las-plagas-de-perros-abandonados-en-las-calles-chilenas/" target="_blank" rel="noopener noreferrer">Tiempo Real (Periodismo UdeC)</a>.</p>
+        <p>Fotografía referencial de refugios plegables (Stand for Strays, Tailandia) obtenida de <a href="https://creapills.com/panneaux-affichage-abris-chiens-errants-thailande-20220415" target="_blank" rel="noopener noreferrer">Creapills</a>.</p>
+        <p>Las fotografías y recursos visuales se utilizan con fines estrictamente educativos, y de concientización.</p>
+      </div>
+    </footer>
+<script>
+      const darkModeToggle = document.getElementById('darkModeToggle');
+      if (localStorage.getItem('dark-mode') === 'enabled') {
+        document.body.classList.add('dark-mode');
+        if(darkModeToggle) darkModeToggle.innerHTML = '&#9728;&#65039;';
+      }
+      if(darkModeToggle) {
+        darkModeToggle.addEventListener('click', (e) => {
+          e.preventDefault();
+          document.body.classList.toggle('dark-mode');
+          if (document.body.classList.contains('dark-mode')) {
+            localStorage.setItem('dark-mode', 'enabled');
+            darkModeToggle.innerHTML = '&#9728;&#65039;';
+          } else {
+            localStorage.setItem('dark-mode', 'disabled');
+            darkModeToggle.innerHTML = '&#127769;';
+          }
+        });
+      }
+    </script>
+  </body>
+</html>
+
+
+
+
+
+

@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>??? - LosTDAH sitio web cool</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .shader-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 40px 0;
+        }
+        .shader-canvas {
+            width: 100%;
+            max-width: 500px;
+            aspect-ratio: 5 / 4;
+            border-radius: 12px;
+            box-shadow: 0 8px 20px rgba(92, 58, 33, 0.15);
+        }
+
+        #honse-overlay {
+            position: fixed;
+            inset: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            pointer-events: none;
+            z-index: 99999;
+            opacity: 0;
+            transition: opacity 0.15s ease-in;
+        }
+        #honse-overlay.show {
+            opacity: 1;
+        }
+        #honse-overlay.fade {
+            opacity: 0;
+            transition: opacity 0.8s ease-out;
+        }
+        #honse-text {
+            font-family: Arial, sans-serif;
+            font-size: min(25vw, 200px);
+            font-weight: bold;
+            color: #5C3A21;
+            user-select: none;
+            text-shadow: 0 4px 30px rgba(92, 58, 33, 0.3);
+        }
+    </style>
+</head>
+<body>
+    <div class="top-nav">
+      <div class="logo-area" style="display: flex; align-items: center; gap: 15px;">
+        <div class="nav-logo">
+          <img src="logo-perros.png" alt="Logo Huellas al Lodo" class="logo-img">
+          Huellas al Lodo
+        </div>
+        <a href="#" id="darkModeToggle" class="dark-toggle" title="Honse">&#127769;</a>
+      </div>
+      <div class="nav-links">
+        <a href="honse.html">Inicio</a>
+        <a href="honse.html">Quiénes somos</a>
+        <a href="honse.html">Nuestro camino</a>
+        <a href="honse.html">Súmate</a>
+      </div>
+    </div>
+
+    <div class="main-content">
+      <div class="text-container" style="text-align: center;">
+        <h1>???</h1>
+        <p>honse</p>
+
+        <div class="shader-container">
+            <canvas id="c" class="shader-canvas" width="500" height="400"></canvas>
+        </div>
+
+      </div>
+    </div>
+
+    <script>
+        const canvas = document.getElementById('c');
+        const gl = canvas.getContext('webgl');
+
+        // shader vert
+        const vertSrc = `
+            attribute vec3 a_position;
+            varying vec2 v_uv;
+            void main() {
+                gl_Position = vec4(a_position, 1.0);
+                v_uv = a_position.xy * 0.5 + 0.5;
+            }
+        `;
+
+        // shader frag
+        const fragSrc = `
+            precision mediump float;
+            uniform sampler2D u_image;
+            uniform float u_time;
+            varying vec2 v_uv;
+            void main() {
+                vec2 uv = v_uv;
+                uv.y = 1.0 - uv.y;
+                uv += sin(uv * 32.0 + u_time) / 32.0;
+                gl_FragColor = texture2D(u_image, uv);
+            }
+        `;
+
+        // compilador
+        function compile(type, src) {
+            const s = gl.createShader(type);
+            gl.shaderSource(s, src);
+            gl.compileShader(s);
+            return s;
+        }
+
+        // loh link
+        const prog = gl.createProgram();
+        gl.attachShader(prog, compile(gl.VERTEX_SHADER, vertSrc));
+        gl.attachShader(prog, compile(gl.FRAGMENT_SHADER, fragSrc));
+        gl.linkProgram(prog);
+        gl.useProgram(prog);
+
+        // quads my beloved
+        const buf = gl.createBuffer();
+        gl.bindBuffer(gl.ARRAY_BUFFER, buf);
+        gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([
+            -1, -1, 0,  1, -1, 0,  -1, 1, 0,  1, 1, 0
+        ]), gl.STATIC_DRAW);
+
+        const pos = gl.getAttribLocation(prog, 'a_position');
+        gl.enableVertexAttribArray(pos);
+        gl.vertexAttribPointer(pos, 3, gl.FLOAT, false, 0, 0);
+
+        const uTime = gl.getUniformLocation(prog, 'u_time');
+        const uImage = gl.getUniformLocation(prog, 'u_image');
+
+        // texturizador
+        const tex = gl.createTexture();
+        const img = new Image();
+        img.onload = function() {
+            gl.bindTexture(gl.TEXTURE_2D, tex);
+            gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, gl.RGBA, gl.UNSIGNED_BYTE, img);
+            gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.CLAMP_TO_EDGE);
+            gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.CLAMP_TO_EDGE);
+            gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.LINEAR);
+            gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.LINEAR);
+            loop();
+        };
+        img.src = 'honnse.jpg';
+
+        // renderizador (loop)
+        function loop() {
+            gl.clear(gl.COLOR_BUFFER_BIT);
+            gl.uniform1f(uTime, performance.now() / 1000.0);
+            gl.uniform1i(uImage, 0);
+            gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4);
+            requestAnimationFrame(loop);
+        }
+    </script>
+
+    <!-- Honse -->
+    <div id="honse-overlay">
+        <span id="honse-text">Honse</span>
+    </div>
+
+    <script>
+        const overlay = document.getElementById('honse-overlay');
+        let fadeTimer = null;
+
+        document.querySelectorAll('.nav-links a, #darkModeToggle').forEach(link => {
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+
+                // Reproducir el sonido de Honse
+                const honseSound = new Audio('horse-neighing-sound-effect.wav');
+                honseSound.play().catch(err => console.log('Esperando el archivo de audio...'));
+
+                clearTimeout(fadeTimer);
+                overlay.classList.remove('fade');
+                overlay.classList.add('show');
+
+                fadeTimer = setTimeout(() => {
+                    overlay.classList.remove('show');
+                    overlay.classList.add('fade');
+                }, 1600);
+            });
+        });
+    </script>
+
+    <script>
+        // ♫ its rainin honse, halleluya ♫
+        const SIZE   = 90;   // tamaño de honse en px
+        const GRAV   = 0.55; // gravedad (aceleración hacia abajo)
+        const BOUNCE = 0.62; // conservación de energía
+        const TRAIL_SPACING = 25; // espacio entre imagenes 
+
+        class Honse {
+            constructor() {
+                const side = Math.random() < 0.5 ? 'left' : 'right';
+                this.x = Math.random() * (window.innerWidth - SIZE);
+                this.y = -SIZE;
+                this.vx = (Math.random() - 0.5) * 16;
+                this.vy = Math.random() * 1.5 + 0.5;
+                this.rotation = 0;
+                this.spin = (Math.random() - 0.5) * 3;
+
+                this.lastTrailX = this.x;
+                this.lastTrailY = this.y;
+
+                this.el = this._makeImg(SIZE, 1, 10001);
+                document.body.appendChild(this.el);
+            }
+
+            _makeImg(size, opacity, z) {
+                const img = document.createElement('img');
+                img.src = 'honnse.jpg';
+                img.style.cssText = `
+                    position: fixed;
+                    width: ${size}px;
+                    height: ${size}px;
+                    object-fit: cover;
+                    border-radius: 8px;
+                    pointer-events: none;
+                    z-index: ${z};
+                    opacity: ${opacity};
+                `;
+                return img;
+            }
+
+            _stampTrail() {
+                const size = SIZE * 0.85;
+                const trail = this._makeImg(size, 0.8, 9999);
+                trail.style.left      = this.x + 'px';
+                trail.style.top       = this.y + 'px';
+                trail.style.transform = `rotate(${this.rotation}deg)`;
+                document.body.appendChild(trail);
+            }
+
+            update() {
+                this.vy += GRAV;
+                this.x  += this.vx;
+                this.y  += this.vy;
+                this.rotation += this.spin;
+
+                const floor = window.innerHeight - SIZE;
+
+                if (this.y >= floor) {
+                    this.y   = floor;
+                    // Solo reproducir si el rebote tiene fuerza (para no spamear cuando está rodando)
+                    if (Math.abs(this.vy) > 2) {
+                        const bounceSound = new Audio('thud.wav');
+                        bounceSound.volume = 0.7;
+                        bounceSound.play().catch(e => e);
+                    }
+                    this.vy  = -this.vy * BOUNCE;
+                    this.spin = (Math.random() - 0.5) * 4; // cambia la velocidad de giro con cada bote
+                    if (Math.abs(this.vy) < 0.8) { this.vy = 0; this.spin *= 0.1; }
+                }
+
+                // rebote con la pared
+                if (this.x <= 0) { 
+                    this.x = 0; 
+                    if (Math.abs(this.vx) > 1) { 
+                        const w1 = new Audio('thud.wav'); w1.volume = 0.7; w1.play().catch(e=>e); 
+                    }
+                    this.vx = Math.abs(this.vx); 
+                }
+                if (this.x >= window.innerWidth - SIZE) {
+                    this.x = window.innerWidth - SIZE;
+                    if (Math.abs(this.vx) > 1) { 
+                        const w2 = new Audio('thud.wav'); w2.volume = 0.7; w2.play().catch(e=>e); 
+                    }
+                    this.vx = -Math.abs(this.vx);
+                }
+
+                this.el.style.left      = this.x + 'px';
+                this.el.style.top       = this.y + 'px';
+                this.el.style.transform = `rotate(${this.rotation}deg)`;
+
+                // honse trail bb
+                const dx = this.x - this.lastTrailX;
+                const dy = this.y - this.lastTrailY;
+                if (dx*dx + dy*dy > TRAIL_SPACING * TRAIL_SPACING) {
+                    this._stampTrail();
+                    this.lastTrailX = this.x;
+                    this.lastTrailY = this.y;
+                }
+            }
+        }
+
+        const honses = [];
+        let spawnDelay = 2800; // ms entre spawning
+
+        function spawnHonse() {
+            honses.push(new Honse());
+            spawnDelay = Math.max(200, spawnDelay * 0.78); // exponential honse >:)
+            setTimeout(spawnHonse, spawnDelay);
+        }
+
+        // delay de spawn inicial
+        setTimeout(spawnHonse, 20000);
+
+        // loop de animación
+        (function loop() {
+            honses.forEach(h => h.update());
+            requestAnimationFrame(loop);
+        })();
+    </script>
+    <script>
+      const darkModeToggle = document.getElementById('darkModeToggle');
+      if (localStorage.getItem('dark-mode') === 'enabled') {
+        document.body.classList.add('dark-mode');
+        if(darkModeToggle) darkModeToggle.innerHTML = '&#9728;&#65039;';
+      }
+    </script>
+  </body>
+</html>
+
+
+
+
+
+
+
