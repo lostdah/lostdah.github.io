@@ -1,4 +1,4 @@
-/* Variables y base */
+/* Variables and shi */
 * { 
   box-sizing: border-box; 
 }
@@ -11,10 +11,10 @@ html, body {
 body {
   margin: 0;
   font-family: Arial, sans-serif;
-  background-color: #F7F4F0; /* Fondo arena */
+  background-color: #F7F4F0;
   display: flex;
   flex-direction: column;
-  min-height: 100vh; /* Permite que el contenido se estire */
+  min-height: 100vh; 
 }
 
 /* Navbar */
@@ -23,7 +23,7 @@ body {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 8px 20px; /* Agregado padding vertical para dar espacio a la animación de hover */
+  padding: 8px 20px;
   position: relative; 
   z-index: 10;
 }
@@ -35,7 +35,7 @@ body {
   left: 0;
   width: 100%;
   height: 45px;
-  /* Vector de lodo irregular */
+  /* vector para customizar la disposición del navbar */
   background-image: url('data:image/svg+xml;utf8,<svg viewBox="0 0 400 60" xmlns="http://www.w3.org/2000/svg"><path fill="%235C3A21" d="M0,0 L0,15 L5,15 C15,15 15,25 25,25 C35,25 35,15 45,15 C55,15 55,55 70,55 C85,55 85,15 95,15 C105,15 105,35 115,35 C125,35 125,15 135,15 L155,15 C162,15 165,50 172,50 C179,50 182,15 190,15 C200,15 200,20 210,20 C220,20 220,15 230,15 C240,15 240,45 255,45 C270,45 270,15 280,15 L300,15 C310,15 310,30 320,30 C330,30 330,15 340,15 C350,15 350,58 365,58 C380,58 385,15 395,15 L400,15 L400,0 Z"/></svg>');
   background-repeat: repeat-x; 
   background-size: 300px 45px;
@@ -68,7 +68,7 @@ body {
   z-index: 1;
   color: white;
   text-align: center;
-  padding: 16px 20px; /* Aumentado el padding vertical para hacer el efecto más "grueso" o gordito */
+  padding: 16px 20px; /* Aumentado el padding vertical para hacer el efecto más gordito */
   margin: 0 2px;
   text-decoration: none;
   font-size: 18px;
@@ -358,6 +358,7 @@ body {
   padding-bottom: 40px; 
   margin-bottom: 0 !important;
   padding-left: 55px; 
+  scroll-margin-top: 100px; /* para cambiar lo bajo que termina el scroll del calendario */
 }
 
 .timeline-nodo {
@@ -419,20 +420,20 @@ body {
   background-color: #8B4513;
 }
 
-/* Ajustes para la tarjeta del profesor */
+/* arreglos para la tarjeta del profesor */
 .timeline-paso.final .inspiration-card {
   margin: 0;
   width: 100%;
 }
 
-/* Ajuste para celulares */
+/* Ajuste para celulares #8569 */
 @media screen and (max-width: 768px) {
   .timeline-paso {
     padding-left: 45px;
   }
 }
 
-/* Footer de Referencias */
+/* footer con las referencias */
 .footer-referencias {
   background-color: #ffffff;
   margin-top: 60px; /* Pushes the footer away from the main content */
@@ -462,7 +463,7 @@ body {
   margin-bottom: 10px;
 }
 
-/* Estilo para los enlaces del footer */
+/* style para los links de las referencias */
 .footer-texto a {
   color: #666666;
   text-decoration: underline;
@@ -471,7 +472,7 @@ body {
 .footer-texto a:hover {
   color: #5C3A21;
 }
-/* DARK MODE STYLES */
+/* DARK MODE BABYYYY */
 body.dark-mode { background-color: #1A1310; color: #E6DBCF; }
 body.dark-mode .bg-light { background-color: #1A1310; color: #E6DBCF; }
 body.dark-mode .bg-mud { background-color: #24160E; }
@@ -539,80 +540,73 @@ body.dark-mode .timeline-izquierda::before, body.dark-mode .timeline-izquierda::
   transform: scale(1.1);
 }
 
-
 .dark-toggle:hover { background-color: transparent !important; }
 
-
-/* Modificadores del boton Dark Mode cuando esta ACTIVO el modo oscuro */
 body.dark-mode .dark-toggle::before {
-  background-color: #2C190D; /* Base es oscura */
+  background-color: #2C190D; /* en light mode es oscuro por default */
 }
 body.dark-mode .dark-toggle::after {
-  background-color: #8C5A35; /* Hover es claro (para volver a light mode) */
+  background-color: #8C5A35; /* en dark mode es claro por default */
 }
 
-
-/* CORRECCION INVERSION DE COLORES BOTON MODO OSCURO */
-/* Modo Claro: Base oscura, Hover claro */
+/* Modo Claro (base oscura -> hover claro) */
 .dark-toggle::before { background-color: #2C190D !important; }
 .dark-toggle::after { background-color: #8C5A35 !important; }
 
-/* Modo Oscuro: Base clara, Hover oscuro */
+/* Modo Oscuro: (base clara -> hover oscuro) */
 body.dark-mode .dark-toggle::before { background-color: #8C5A35 !important; }
 body.dark-mode .dark-toggle::after { background-color: #2C190D !important; }
 
 
-/* Reducir el tamano del efecto hover de la segunda capa */
+/* Reduce el tamano del efecto del hover de la segunda capa un pelin */
 .dark-toggle:hover::after {
   transform: scale(0.95) !important;
 }
 
 
-/* Eliminar el efecto de doble capa (after) */
+/* Elimina el efecto de doble capa */
 .dark-toggle::after { display: none !important; }
 
-/* Animacion de mayor escala para cuando se pasa el cursor */
+/* Animacion mas grannde cuando se pasa el cursor encima */
 @keyframes splat-large {
   0% { border-radius: 50% 50% 50% 50% / 50% 50% 50% 50%; transform: scale(1.18) rotate(-2deg); }
   50% { border-radius: 60% 40% 60% 40% / 40% 60% 40% 60%; transform: scale(1.24) rotate(2deg); }
   100% { border-radius: 50% 50% 50% 50% / 50% 50% 50% 50%; transform: scale(1.18) rotate(-2deg); }
 }
 
-/* Al hacer hover, la mancha original simplemente crece pero conserva su color */
+/* Al hacerle hover, el efectito original simplemente crece (mantiene su color) */
 .dark-toggle:hover::before {
   animation: splat-large 1.2s infinite ease-in-out !important;
 }
 
 
-/* Restaurar la animacion original para evitar el salto brusco */
+/* Restaura la animacion original para no hacer el salto raro en frames de animación */
 .dark-toggle:hover::before {
   animation: splat1 1.8s infinite ease-in-out !important;
 }
 
-/* Aplicar una transicion suave al contenedor principal */
+/* Aplica una transicion suave al contenedor principal (no se si esto terminó uncionando, quizá es demasiado sutil) */
 .dark-toggle {
   transition: transform 0.3s ease !important;
 }
 
-/* Agrandar el contenedor entero suavemente al hacer hover */
 .dark-toggle:hover {
   transform: scale(1.15) !important;
   background-color: transparent !important;
 }
 
 
-/* --- CORRECCIONES PARA EL MODO OSCURO (TARJETAS, GRAFICOS, NAVBAR) --- */
+/* Lista de fucking arreglos para el modo oscuro (aka no sabia en el lio que me estaba metiendo) */
 
-/* 1. Colores distintos para los graficos de barras */
+/* colores distintos para los graficos */
 body.dark-mode .bar.ba-norte { background-color: #E5A87B !important; }
 body.dark-mode .bar.ba-sur { background-color: #C07F56 !important; }
 body.dark-mode .bar.ba-rm { background-color: #8C5A35 !important; }
-
 body.dark-mode .hbar-fill.ht-coquimbo { background-color: #E5A87B !important; }
 body.dark-mode .hbar-fill.ht-valpo { background-color: #C07F56 !important; }
 body.dark-mode .hbar-fill.ht-rm { background-color: #8C5A35 !important; }
 
-/* 2. Tarjetas de Quienes Somos, Nuestro Camino y Sumate */
+/* tarjetas de quienes-somos/nuestro-camino/sumate */
 body.dark-mode .inspiration-card,
 body.dark-mode .banner-card,
 body.dark-mode .card,
@@ -635,20 +629,20 @@ body.dark-mode .card p {
   color: #D5C7B8 !important;
 }
 
-/* 3. Hacer el Navbar y su goteo mas claros para que no se camuflen con el fondo negro */
+/* Hace el navbar mas claro para que no se camufle con el fondo */
 body.dark-mode .top-nav { background-color: #382315 !important; }
 body.dark-mode .top-nav::after {
   background-image: url('data:image/svg+xml;utf8,<svg viewBox="0 0 400 60" xmlns="http://www.w3.org/2000/svg"><path fill="%23382315" d="M0,0 L0,15 L5,15 C15,15 15,25 25,25 C35,25 35,15 45,15 C55,15 55,55 70,55 C85,55 85,15 95,15 C105,15 105,35 115,35 C125,35 125,15 135,15 L155,15 C162,15 165,50 172,50 C179,50 182,15 190,15 C200,15 200,20 210,20 C220,20 220,15 230,15 C240,15 240,45 255,45 C270,45 270,15 280,15 L300,15 C310,15 310,30 320,30 C330,30 330,15 340,15 C350,15 350,58 365,58 C380,58 385,15 395,15 L400,15 L400,0 Z"/></svg>') !important;
 }
 
-/* 4. Color de animacion de botones del navbar para que coincida con el boton dark toggle */
+/* color de animacion de botones del navbar */
 body.dark-mode .nav-links a:hover {
   background-color: #8C5A35 !important;
 }
 
 
-/* --- CALENDARIO BLOG MODO OSCURO --- */
-body.dark-mode .cal-container {
+/* yo cuando tengo la maravillosa idea de hacer un calendario */
+body.dark-mode .calendar-wrapper {
   background-color: #2A1F18 !important;
   box-shadow: 0 5px 20px rgba(0,0,0,0.5) !important;
 }
@@ -664,7 +658,6 @@ body.dark-mode .cal-day {
 body.dark-mode .cal-day.other-month {
   color: #4A3A2F !important;
 }
-body.dark-mode .cal-week:hover,
 body.dark-mode .cal-week.has-entry:hover {
   background-color: #3D2D23 !important;
 }
@@ -676,10 +669,13 @@ body.dark-mode .cal-week.selected .cal-day {
 }
 
 
-/* Reparacion Dark Mode para tarjetas de timeline en nuestro camino */
+/* arreeglo para las tarjetas del timeline en nuestro-camino y blog */
 body.dark-mode .timeline-contenido {
   background-color: #2A1F18 !important;
   box-shadow: 0 5px 20px rgba(0,0,0,0.5) !important;
+}
+body.dark-mode .timeline-contenido.highlighted {
+  box-shadow: 0 0 0 3px #E5A87B, 0 5px 20px rgba(0,0,0,0.5) !important;
 }
 body.dark-mode .timeline-contenido h3 {
   color: #E5A87B !important;
@@ -688,7 +684,7 @@ body.dark-mode .timeline-contenido p {
   color: #D5C7B8 !important;
 }
 
-/* Reparación Dark Mode para sub-tarjetas de donación */
+/* arreglo para las sub-tarjetas de donación */
 body.dark-mode .price-tier {
   background-color: #382315 !important;
   border-left: 4px solid #E5A87B !important;
@@ -698,6 +694,12 @@ body.dark-mode .price-tier strong {
 }
 body.dark-mode .card p[style*="color: #666"] {
   color: #BBA999 !important;
+}
+
+/* arreglo para las sub-tarjetas de etapas-de-aplicacion.html */
+body.dark-mode .stage-meta {
+  background-color: #1F120B !important;
+  border-color: rgba(229, 168, 123, 0.15) !important;
 }
 
 

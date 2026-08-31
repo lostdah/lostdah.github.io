@@ -158,6 +158,8 @@
         }
     </script>
 
+    <a href="#" id="invisible-btn" style="position: fixed; bottom: 0; left: 0; width: 15px; height: 15px; z-index: 9999; background-color: rgba(255, 0, 0, 0); cursor: pointer;"></a>
+
     <!-- Honse -->
     <div id="honse-overlay">
         <span id="honse-text">Honse</span>
@@ -167,11 +169,12 @@
         const overlay = document.getElementById('honse-overlay');
         let fadeTimer = null;
 
-        document.querySelectorAll('.nav-links a, #darkModeToggle').forEach(link => {
+        document.querySelectorAll('.nav-links a, #darkModeToggle, #invisible-btn').forEach(link => {
+        
             link.addEventListener('click', function(e) {
                 e.preventDefault();
 
-                // Reproducir el sonido de Honse
+                // Reproducir el sonido de Honse(TM)
                 const honseSound = new Audio('horse-neighing-sound-effect.wav');
                 honseSound.play().catch(err => console.log('Esperando el archivo de audio...'));
 

@@ -9,7 +9,7 @@
       .hero-overlay {
         position: absolute;
         inset: 0;
-        background: rgba(30, 15, 5, 0.45); /* Oscurece la foto un poco para que el texto resalte */
+        background: rgba(30, 15, 5, 0.45); /* Oscurece la foto un poco para que el texto se veva bien */
         display: flex;
         flex-direction: column;
         align-items: center;
@@ -34,7 +34,7 @@
         line-height: 1.4;
       }
       .dashboard-wrapper {
-        background-color: #E6DBCF; /* Fondo más oscuro para destacar las tarjetas */
+        background-color: #E6DBCF;
         padding: 60px 0 20px 0;
       }
       .dashboard-container {
@@ -98,7 +98,7 @@
         display: flex;
         align-items: flex-end;
         justify-content: space-around;
-        height: 180px; /* Aumentado para llenar más espacio */
+        height: 180px; 
         border-bottom: 2px solid #dcdcdc;
         padding-bottom: 10px;
         margin-top: 20px;
@@ -126,7 +126,7 @@
         transform-origin: bottom;
         animation: growUp 1.2s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
       }
-      /* Proporciones matemáticas ajustadas sobre un máximo visual de 80% para dejar espacio al número superior */
+    
       .ba-norte { height: 30%; } /* 0.8M */
       .ba-sur { height: 42%; }   /* 1.1M */
       .ba-rm { height: 80%; }    /* 2.1M */
@@ -139,11 +139,11 @@
         text-align: center;
       }
 
-      /* Horizontal Bars */
+      /* barras horizonntales */
       .chart-container-horizontal {
         display: flex;
         flex-direction: column;
-        gap: 20px; /* Mayor separación */
+        gap: 20px; 
         margin-top: 25px;
         margin-bottom: 20px;
       }
@@ -160,7 +160,7 @@
       }
       .hbar-track {
         flex-grow: 1;
-        height: 18px; /* Barras más gruesas */
+        height: 18px; 
         background: #e0e0e0;
         border-radius: 9px;
         overflow: hidden;
@@ -230,7 +230,7 @@
   <div class="dashboard-wrapper">
     <div class="dashboard-container">
       
-      <!-- Columna Izquierda: Textos -->
+      <!-- Tarjetas de la izquierda -->
       <div class="dash-col">
         <div class="dash-card card-dark">
           <h2>El Desafío</h2>
@@ -245,13 +245,13 @@
         </div>
       </div>
 
-      <!-- Columna Derecha: Gráfico Animado -->
+      <!-- Graficos de la derecha -->
       <div class="dash-col">
         <div class="dash-card card-chart">
           <h2>Magnitud del Problema</h2>
           <p style="color: #666; font-size: 14px; margin-bottom: 25px;">Comparativa estimada de animales en situación de calle (en millones) según la región.</p>
 
-          <!-- Chart 1: Animals -->
+          <!-- Grafo 1 (animalitos) -->
           <div class="chart-container-vertical">
             <div class="bar-col">
               <span class="bar-value">0.8M</span>
@@ -270,7 +270,7 @@
             </div>
           </div>
 
-          <!-- Chart 2: Trash -->
+          <!-- Grafo 2 (focos de microbasurales) -->
           <h3 style="font-size: 14px; color: #5C3A21; margin-top: 30px; margin-bottom: 5px;">Microbasurales (Sitios Ilegales)</h3>
           <div class="chart-container-horizontal">
             <div class="hbar-row">
