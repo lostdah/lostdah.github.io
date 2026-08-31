@@ -580,12 +580,12 @@ body.dark-mode .dark-toggle::after { background-color: #2C190D !important; }
 }
 
 
-/* Restaura la animacion original para no hacer el salto raro en frames de animación */
+/* da la animacion original para no hacer el salto raro en frames de animación */
 .dark-toggle:hover::before {
   animation: splat1 1.8s infinite ease-in-out !important;
 }
 
-/* Aplica una transicion suave al contenedor principal (no se si esto terminó uncionando, quizá es demasiado sutil) */
+/* aplica una transicion suave al contenedor principal (no se si esto terminó funcionando, quizá es demasiado sutil) */
 .dark-toggle {
   transition: transform 0.3s ease !important;
 }
@@ -609,12 +609,26 @@ body.dark-mode .hbar-fill.ht-rm { background-color: #8C5A35 !important; }
 /* tarjetas de quienes-somos/nuestro-camino/sumate */
 body.dark-mode .inspiration-card,
 body.dark-mode .banner-card,
-body.dark-mode .card,
-body.dark-mode .step-block {
+body.dark-mode .card {
   background-color: #2A1F18 !important;
   border-color: #8C5A35 !important;
   color: #D5C7B8 !important;
   box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4) !important;
+}
+
+body.dark-mode .step-block {
+  background-color: transparent !important;
+  border-left-color: #8C5A35 !important;
+  box-shadow: none !important;
+  color: #D5C7B8 !important;
+}
+
+body.dark-mode .step-block h3 {
+  color: #E5A87B !important;
+}
+
+body.dark-mode .step-block p {
+  color: #D5C7B8 !important;
 }
 
 body.dark-mode .inspiration-card h3,
