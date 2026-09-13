@@ -63,6 +63,12 @@
     </div>
 
     <script>
+    // Preload assets para que carguen instantáneamente en GitHub Pages
+    const _preloadImg = new Image();
+    _preloadImg.src = 'honse_jumpscare.png';
+    const _preloadAudio = new Audio('horse-neighing-sound-effect.wav');
+    _preloadAudio.load();
+
     function triggerHonseAwakening() {
         const crashScreen = document.getElementById('fake-crash-screen');
         
@@ -88,12 +94,11 @@
         
         document.body.appendChild(jumpscare);
         
+        // Fuerza un reflow del DOM para que el navegador procese el scale(0.01) original antes de animar
+        void jumpscare.offsetWidth;
+        
         // jumpscare tactics
-        requestAnimationFrame(() => {
-            requestAnimationFrame(() => {
-                jumpscare.style.transform = 'translate(-50%, -50%) scale(1.2)';
-            });
-        });
+        jumpscare.style.transform = 'translate(-50%, -50%) scale(1.2)';
         
         // Redirect a Inicio (like nothing ever happened)
         setTimeout(() => {
