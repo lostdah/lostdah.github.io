@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Problema - Huellas al Lodo</title>
+    <link rel="stylesheet" href="style.css">
+    
+  </head>
+<body>
+    <!-- ===== Sidebar lateral colapsable ===== -->
+    <div class="sidebar-backdrop" id="sidebarBackdrop"></div>
+    <aside class="sidebar" id="sidebar" aria-label="Índice del sitio">
+      <div class="sidebar-header">
+        <div class="sb-brand">
+          <img src="logo-perros.png" alt="Logo">
+          Huellas al Lodo
+        </div>
+        <button class="sidebar-close" id="sidebarClose" title="Cerrar" aria-label="Cerrar menú">&times;</button>
+      </div>
+      <nav>
+        <a href="index.html" class="sb-link" data-page="inicio"><span class="sb-num">1</span>Inicio</a>
+
+        <div class="sb-group-label">Investigación</div>
+        <div class="sb-sub">
+          <a href="antecedentes.html" class="sb-link" data-page="antecedentes"><span class="sb-num">2</span>Antecedentes</a>
+          <a href="terreno.html" class="sb-link" data-page="terreno"><span class="sb-num">3</span>Terreno</a>
+          <a href="hallazgos.html" class="sb-link" data-page="hallazgos"><span class="sb-num">4</span>Hallazgos</a>
+          <a href="problema.html" class="sb-link" data-page="problema"><span class="sb-num">5</span>Problema</a>
+          <a href="requerimientos.html" class="sb-link" data-page="requerimientos"><span class="sb-num">6</span>Requerimientos</a>
+        </div>
+
+        <div class="sb-group-label">Solución</div>
+        <div class="sb-sub">
+          <a href="solucion.html" class="sb-link" data-page="solucion"><span class="sb-num">7</span>Visión general</a>
+          <a href="lluvia-de-ideas.html" class="sb-link" data-page="lluvia-de-ideas"><span class="sb-num">8</span>Lluvia de ideas</a>
+          <a href="propuesta-conceptual.html" class="sb-link" data-page="propuesta-conceptual"><span class="sb-num">9</span>Propuesta Conceptual</a>
+          <a href="prototipado.html" class="sb-link" data-page="prototipado"><span class="sb-num">10</span>Prototipado</a>
+          <a href="propuesta-final.html" class="sb-link" data-page="propuesta-final"><span class="sb-num">11</span>Propuesta Final</a>
+        </div>
+
+        <div class="sb-group-label">Más</div>
+        <div class="sb-sub">
+          <a href="blogs.html" class="sb-link" data-page="blogs"><span class="sb-num">12</span>Blogs</a>
+          <a href="bibliografia.html" class="sb-link" data-page="bibliografia"><span class="sb-num">13</span>Bibliografía</a>
+          <a href="quienes-somos.html" class="sb-link" data-page="quienes-somos"><span class="sb-num">14</span>Quiénes somos</a>
+        </div>
+      </nav>
+    </aside>
+
+    <!-- ===== Barra superior (5 pestañas principales) ===== -->
+    <div class="top-nav">
+      <div class="nav-left">
+        <button class="menu-toggle" id="menuToggle" title="Abrir menú" aria-label="Abrir menú">&#9776;</button>
+        <div class="nav-logo">
+          <img src="logo-perros.png" alt="Logo Huellas al Lodo" class="logo-img">
+          Huellas al Lodo
+        </div>
+        <a href="#" id="darkModeToggle" class="dark-toggle" title="Modo Oscuro">&#127769;</a>
+      </div>
+      <div class="nav-links">
+        <a href="index.html" data-group="inicio">Inicio</a>
+        <a href="solucion.html" data-group="solucion">Solución</a>
+        <a href="blogs.html" data-group="blogs">Blogs</a>
+        <a href="bibliografia.html" data-group="bibliografia">Bibliografía</a>
+        <a href="quienes-somos.html" data-group="quienes-somos">Quiénes somos</a>
+      </div>
+    </div>
+<nav class="breadcrumb"><a href="index.html">Inicio</a> &rsaquo; Investigacion &rsaquo; <b>Problema</b></nav>
+<div class="main-content"><div class="text-container">
+    <h1>5 · Problema</h1>
+    <p style="color:#555;">Definición y validación del problema a partir del trabajo en terreno y la conversación con expertos.</p>
+
+    <h2 style="color:#5C3A21;margin-top:30px;">Enunciado del problema</h2>
+    <p>La relación entre la acumulación de basura y los animales en situación de calle es un problema complejo que requiere una mirada profunda. En Chile hay más de <strong>cuatro millones</strong> de perros y gatos sin hogar, y los microbasurales son puntos de insalubridad extrema que los exponen a enfermedades, desnutrición y riesgos constantes, representando un grave problema de salud pública y bienestar animal.</p>
+
+    <h2 style="color:#5C3A21;margin-top:40px;">La validación profesional</h2>
+    <div class="inspiration-card">
+      <div class="inspiration-text">
+        <p>Buscamos una mirada experta que nos ayudara a ir más allá de lo evidente. Contactamos al <strong>profesor Felipe Díaz</strong>, del Departamento de Ingeniería Química y Biotecnología, experto en sustentabilidad, economía circular y metabolismo urbano.</p>
+        <p style="margin-top:10px;">En nuestra conversación con él, comprendimos que no basta con atacar el síntoma —los microbasurales— sino que hay que mirar el problema de forma más amplia, entendiendo sus causas y trabajando junto a la comunidad para lograr un cambio real y duradero.</p>
+      </div>
+      <div class="inspiration-image">
+        <img src="Felipe-Diaz.jpg" alt="Profesor Felipe Díaz">
+      </div>
+    </div>
+
+    <h2 style="color:#5C3A21;margin-top:40px;">Matriz aplicada del problema</h2>
+    <div style="background-color: #FDF9F1; border-radius: 8px; padding: 20px; margin-bottom: 30px; border: 1px solid #E2B897;">
+      <h3 style="color:#8C5A35; margin-top: 0;">¿QUÉ HICIMOS AQUÍ?</h3>
+      <p style="margin-bottom: 0;">Consolidamos los hallazgos de terreno y las entrevistas a expertos para formular una versión validada del problema, usando la Matriz Aplicada del Problema como herramienta de síntesis.</p>
+    </div>
+
+    <h3 style="color:#8C5A35;">MATRIZ APLICADA DEL PROBLEMA</h3>
+    <table style="width: 100%; border-collapse: collapse; margin-bottom: 30px; background-color: #FDF9F1; border-radius: 8px; overflow: hidden; border: 1px solid #E2B897;">
+      <thead>
+        <tr style="background-color: #E2B897; color: #5C3A21; text-align: left;">
+          <th style="padding: 12px 15px;">Dimensión</th>
+          <th style="padding: 12px 15px;">Descripción</th>
+          <th style="padding: 12px 15px;">Evidencia</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr style="border-bottom: 1px solid #E2B897;">
+          <td style="padding: 12px 15px; font-weight: bold; color: #5C3A21;">Actor afectado</td>
+          <td style="padding: 12px 15px;">Vecinos de zonas periurbanas / perros sin dueño</td>
+          <td style="padding: 12px 15px;">Terreno #1, #2</td>
+        </tr>
+        <tr style="border-bottom: 1px solid #E2B897;">
+          <td style="padding: 12px 15px; font-weight: bold; color: #5C3A21;">Contexto</td>
+          <td style="padding: 12px 15px;">Microbasurales próximos a viviendas y quebradas</td>
+          <td style="padding: 12px 15px;">Foto A - Foto B</td>
+        </tr>
+        <tr style="border-bottom: 1px solid #E2B897;">
+          <td style="padding: 12px 15px; font-weight: bold; color: #5C3A21;">Necesidad</td>
+          <td style="padding: 12px 15px;">Reducir foco de vectores + reubicar animales</td>
+          <td style="padding: 12px 15px;">Entrevista Dra. M.</td>
+        </tr>
+        <tr>
+          <td style="padding: 12px 15px; font-weight: bold; color: #5C3A21;">Restricciones</td>
+          <td style="padding: 12px 15px;">Presupuesto municipal, capacidad refugios</td>
+          <td style="padding: 12px 15px;">[3]</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div style="display: flex; gap: 20px; margin-bottom: 30px;">
+      <div style="flex: 1; background-color: #FDF9F1; border-radius: 8px; padding: 15px; border-left: 4px solid #8C5A35; border-top: 1px solid #E2B897; border-right: 1px solid #E2B897; border-bottom: 1px solid #E2B897;">
+        <h4 style="color:#5C3A21; margin-top: 0;">Entrevista - Dra. Muñoz (Veterinaria UC)</h4>
+        <p style="font-size: 0.9em; margin-bottom: 5px;">Resumen: "El problema no es solo sanitario, es de gobernanza local...".</p>
+        <a href="#" onclick="alert('La transcripción completa está siendo procesada y se subirá próximamente como anexo.'); return false;" style="color: #8C5A35; font-size: 0.9em; text-decoration: underline;">Ver transcripción</a>
+      </div>
+      <div style="flex: 1; background-color: #FDF9F1; border-radius: 8px; padding: 15px; border-left: 4px solid #8C5A35; border-top: 1px solid #E2B897; border-right: 1px solid #E2B897; border-bottom: 1px solid #E2B897;">
+        <h4 style="color:#5C3A21; margin-top: 0;">Entrevista - Coordinador refugio Peñalolén</h4>
+        <p style="font-size: 0.9em; margin-bottom: 5px;">Resumen: capacidad saturada, rotación lenta.</p>
+        <a href="#" onclick="alert('La transcripción completa está siendo procesada y se subirá próximamente como anexo.'); return false;" style="color: #8C5A35; font-size: 0.9em; text-decoration: underline;">Ver transcripción</a>
+      </div>
+    </div>
+
+    <div style="background-color: #FDF9F1; border-radius: 8px; padding: 20px; margin-bottom: 30px; border: 1px solid #E2B897;">
+      <h3 style="color:#8C5A35; margin-top: 0;">CONCLUSIONES CLAVE</h3>
+      <ul style="line-height: 1.6; color: #333; margin: 0; padding-left: 20px;">
+        <li>El problema se ancla en el <strong>ciclo microbasural ↔ población canina</strong>, no en cada eje por separado.</li>
+        <li>La intervención puntual no resuelve: se necesita un sistema con reporte, cuadrilla e integración con refugios.</li>
+        <li>Los municipios ya tienen catastro; el cuello de botella es la <strong>coordinación operativa</strong>.</li>
+      </ul>
+    </div>
+
+    <h2 style="color:#5C3A21;margin-top:40px;">Usuario y Cliente</h2>
+    <h3 style="color:#8C5A35;margin-top:20px;">Usuario (Vecinos de La Cisterna)</h3>
+    <p>Nuestro usuario principal son las personas que transitan a diario por sectores críticos de la comuna, como el eje de El Parrón, los paraderos y las cercanías de las ferias libres. Ellos conviven a diario con un entorno donde se acumula basura doméstica, restos comerciales y escombros, muchas veces en calles con poca iluminación. Lo que ellos necesitan es, simplemente, poder caminar y vivir en un barrio limpio, seguro y libre de riesgos sanitarios o malos olores.</p>
+    <p>El problema es que los microbasurales vuelven a aparecer constantemente. Los perros del sector (ya sean abandonados o sueltos por los mismos locatarios) rompen las bolsas buscando comida. En invierno la situación colapsa, ya que esta basura termina tapando los sumideros y provocando el rebalse de aguas servidas en las calles.</p>
+    <p>Al analizar esto en terreno, notamos que ocurre por dos motivos principales:</p>
+    <ul style="line-height: 1.6; color: #333; margin-bottom: 20px;">
+      <li><strong>Un tema cultural:</strong> Hay vecinos y locatarios que sacan la basura en horarios que no corresponden o barren los desechos directamente hacia las alcantarillas, asumiendo que el personal de aseo municipal tiene la obligación de limpiar todo.</li>
+      <li><strong>Falta de infraestructura:</strong> Al no existir contenedores públicos de gran tamaño y cerrados, las bolsas quedan simplemente tiradas en la vereda, totalmente expuestas a los animales.</li>
+    </ul>
+
+    <h3 style="color:#8C5A35;margin-top:20px;">Cliente (Municipalidad, colegios y posibles donantes)</h3>
+    <p>Por otro lado, nuestros clientes son las entidades con la capacidad de gestionar o financiar soluciones, pero que suelen lidiar con recursos limitados. En la comuna existen juntas de vecinos operativas, pero hoy en día concentran casi todos sus esfuerzos en temas de seguridad ciudadana, dejando el medio ambiente en un segundo plano. La necesidad de estos clientes es clara: lograr mantener la comuna limpia, optimizar los recorridos de aseo y evitar focos de infección.</p>
+    <p>Sin embargo, limpiar las avenidas principales no está siendo suficiente, y muchas veces la municipalidad ni siquiera se entera de los basurales que se forman al interior de los barrios hasta que la situación ya está fuera de control y los vecinos reclaman.</p>
+    <p>Esto se explica por dos grandes hallazgos:</p>
+    <ul style="line-height: 1.6; color: #333; margin-bottom: 20px;">
+      <li><strong>Falta de acción vecinal:</strong> Las juntas de vecinos no están organizadas para tratar el problema de los animales callejeros, y los residentes casi nunca reportan los basurales de manera formal a la municipalidad porque existe la creencia generalizada de que "nadie hará nada al respecto".</li>
+      <li><strong>Trabajos mal terminados:</strong> Nos dimos cuenta de que muchas obras en la vía pública (como pavimentación, arreglos o poda de árboles) no incluyen un buen procedimiento de limpieza al terminar. Dejan restos y escombros tirados, lo que casi siempre sirve como punto de inicio para que la gente empiece a armar un nuevo microbasural.</li>
+    </ul>
+
+<div class="next-step"><a href="hallazgos.html" class="prev-link">&larr; Hallazgos</a><a href="requerimientos.html" class="next-link">Requerimientos &rarr;</a></div>
+</div></div>
+    <footer class="footer-referencias">
+      <div class="footer-texto">
+        <p><strong>Referencias y Créditos:</strong></p>
+        <p>El logotipo de "Huellas al Lodo" fue generado utilizando inteligencia artificial (Gemini AI).</p>
+        <p>Proyecto académico — Facultad de Ciencias Físicas y Matemáticas, Universidad de Chile.</p>
+        <p>Créditos completos en la pestaña <a href="bibliografia.html" style="color:#8C5A35;font-weight:bold;">Bibliografía</a>.</p>
+      </div>
+    </footer>
+    <script>
+      // ----- Modo oscuro -----
+      const darkModeToggle = document.getElementById('darkModeToggle');
+      if (localStorage.getItem('dark-mode') === 'enabled') {
+        document.body.classList.add('dark-mode');
+        if(darkModeToggle) darkModeToggle.innerHTML = '&#9728;&#65039;';
+      }
+      if(darkModeToggle) {
+        darkModeToggle.addEventListener('click', (e) => {
+          e.preventDefault();
+          document.body.classList.toggle('dark-mode');
+          if (document.body.classList.contains('dark-mode')) {
+            localStorage.setItem('dark-mode', 'enabled');
+            darkModeToggle.innerHTML = '&#9728;&#65039;';
+          } else {
+            localStorage.setItem('dark-mode', 'disabled');
+            darkModeToggle.innerHTML = '&#127769;';
+          }
+        });
+      }
+
+      // ----- Sidebar colapsable -----
+      const sidebar = document.getElementById('sidebar');
+      const backdrop = document.getElementById('sidebarBackdrop');
+      const menuToggle = document.getElementById('menuToggle');
+      const sidebarClose = document.getElementById('sidebarClose');
+      function openSidebar(){ sidebar.classList.add('open'); backdrop.classList.add('show'); }
+      function closeSidebar(){ sidebar.classList.remove('open'); backdrop.classList.remove('show'); }
+      if (menuToggle) menuToggle.addEventListener('click', openSidebar);
+      if (sidebarClose) sidebarClose.addEventListener('click', closeSidebar);
+      if (backdrop) backdrop.addEventListener('click', closeSidebar);
+      document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeSidebar(); });
+
+      // ----- Marcar activo (barra superior por grupo, sidebar por página) -----
+      const CURRENT_PAGE = "problema";
+      const CURRENT_GROUP = "inicio";
+      document.querySelectorAll('.nav-links a[data-group]').forEach(a => {
+        if (a.dataset.group === CURRENT_GROUP) a.classList.add('active');
+      });
+      document.querySelectorAll('.sidebar .sb-link[data-page]').forEach(a => {
+        if (a.dataset.page === CURRENT_PAGE) a.classList.add('current');
+      });
+    </script>
+  </body>
+</html>

@@ -49,8 +49,102 @@
     </style>
 </head>
 <body>
+    <!-- Fake Error Screen Easter Egg -->
+    <div id="fake-crash-screen" style="display: none; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #202124; color: #e8eaed; height: 100vh; width: 100vw; flex-direction: column; padding: 8% 15%; box-sizing: border-box; overflow: hidden; position: fixed; inset: 0; z-index: 9999999; transition: transform 1.5s cubic-bezier(0.55, 0.085, 0.68, 0.53);">
+      <div style="font-size: 64px; color: #9aa0a6; margin-bottom: 30px;">
+        <img src="honnse.jpg" style="width: 72px; height: 72px; object-fit: cover; border-radius: 8px; filter: grayscale(100%) contrast(1.2);">
+      </div>
+      <h1 style="font-size: 28px; font-weight: 400; margin: 0 0 20px 0; letter-spacing: 0.5px;">¡Oh, no!</h1>
+      <p style="font-size: 15px; line-height: 1.6; margin: 0 0 35px 0; max-width: 600px;">Se ha producido un error al intentar mostrar esta página web.</p>
+      <p style="font-size: 13px; color: #9aa0a6; margin: 0 0 30px 0;">Código de error: <span style="font-family: monospace;">ERR_HONSE_ESCAPED</span></p>
+      <div>
+        <button onclick="triggerHonseAwakening()" style="background-color: #8ab4f8; color: #202124; border: none; padding: 10px 24px; border-radius: 4px; font-size: 14px; font-weight: 500; cursor: pointer; transition: filter 0.2s;" onmouseover="this.style.filter='brightness(1.1)'" onmouseout="this.style.filter='brightness(1)'">Cargar de nuevo</button>
+      </div>
+    </div>
+
+    <script>
+    function triggerHonseAwakening() {
+        const crashScreen = document.getElementById('fake-crash-screen');
+        
+        // sonidito de my honseito
+        const neigh = new Audio('horse-neighing-sound-effect.wav');
+        neigh.volume = 1.0;
+        neigh.play().catch(e => console.log(e));
+        
+        // crea la imagen
+        const jumpscare = document.createElement('img');
+        jumpscare.src = 'honse_jumpscare.png';
+        jumpscare.style.position = 'fixed';
+        jumpscare.style.top = '50%';
+        jumpscare.style.left = '50%';
+        jumpscare.style.width = '100vw';
+        jumpscare.style.height = '100vh';
+        jumpscare.style.objectFit = 'cover';
+        jumpscare.style.transform = 'translate(-50%, -50%) scale(0.01)';
+        jumpscare.style.zIndex = '999999999';
+        jumpscare.style.transition = 'transform 0.15s cubic-bezier(0.1, 0.9, 0.2, 1)';
+        jumpscare.style.pointerEvents = 'none';
+        jumpscare.style.boxShadow = '0 0 100px rgba(0,0,0,1)';
+        
+        document.body.appendChild(jumpscare);
+        
+        // jumpscare tactics
+        requestAnimationFrame(() => {
+            requestAnimationFrame(() => {
+                jumpscare.style.transform = 'translate(-50%, -50%) scale(1.2)';
+            });
+        });
+        
+        // Redirect a Inicio (like nothing ever happened)
+        setTimeout(() => {
+            window.location.href = 'index.html';
+        }, 1200);
+    }
+    </script>
+    <!-- ===== Sidebar lateral colapsable ===== -->
+    <div class="sidebar-backdrop" id="sidebarBackdrop"></div>
+    <aside class="sidebar" id="sidebar" aria-label="Índice del sitio">
+      <div class="sidebar-header">
+        <div class="sb-brand">
+          <img src="logo-perros.png" alt="Logo">
+          Huellas al Lodo
+        </div>
+        <button class="sidebar-close" id="sidebarClose" title="Cerrar" aria-label="Cerrar menú">&times;</button>
+      </div>
+      <nav>
+        <a href="index.html" class="sb-link" data-page="inicio"><span class="sb-num">1</span>Inicio</a>
+
+        <div class="sb-group-label">Investigación</div>
+        <div class="sb-sub">
+          <a href="antecedentes.html" class="sb-link" data-page="antecedentes"><span class="sb-num">2</span>Antecedentes</a>
+          <a href="terreno.html" class="sb-link" data-page="terreno"><span class="sb-num">3</span>Terreno</a>
+          <a href="hallazgos.html" class="sb-link" data-page="hallazgos"><span class="sb-num">4</span>Hallazgos</a>
+          <a href="problema.html" class="sb-link" data-page="problema"><span class="sb-num">5</span>Problema</a>
+          <a href="requerimientos.html" class="sb-link" data-page="requerimientos"><span class="sb-num">6</span>Requerimientos</a>
+        </div>
+
+        <div class="sb-group-label">Solución</div>
+        <div class="sb-sub">
+          <a href="solucion.html" class="sb-link" data-page="solucion"><span class="sb-num">7</span>Visión general</a>
+          <a href="lluvia-de-ideas.html" class="sb-link" data-page="lluvia-de-ideas"><span class="sb-num">8</span>Lluvia de ideas</a>
+          <a href="propuesta-conceptual.html" class="sb-link" data-page="propuesta-conceptual"><span class="sb-num">9</span>Propuesta Conceptual</a>
+          <a href="prototipado.html" class="sb-link" data-page="prototipado"><span class="sb-num">10</span>Prototipado</a>
+          <a href="propuesta-final.html" class="sb-link" data-page="propuesta-final"><span class="sb-num">11</span>Propuesta Final</a>
+        </div>
+
+        <div class="sb-group-label">Más</div>
+        <div class="sb-sub">
+          <a href="blogs.html" class="sb-link" data-page="blogs"><span class="sb-num">12</span>Blogs</a>
+          <a href="bibliografia.html" class="sb-link" data-page="bibliografia"><span class="sb-num">13</span>Bibliografía</a>
+          <a href="quienes-somos.html" class="sb-link" data-page="quienes-somos"><span class="sb-num">14</span>Quiénes somos</a>
+        </div>
+      </nav>
+    </aside>
+
+    <!-- ===== Barra superior (5 pestañas principales) ===== -->
     <div class="top-nav">
-      <div class="logo-area" style="display: flex; align-items: center; gap: 15px;">
+      <div class="nav-left">
+        <button class="menu-toggle" id="menuToggle" title="Abrir menú" aria-label="Abrir menú">&#9776;</button>
         <div class="nav-logo">
           <img src="logo-perros.png" alt="Logo Huellas al Lodo" class="logo-img">
           Huellas al Lodo
@@ -58,10 +152,11 @@
         <a href="#" id="darkModeToggle" class="dark-toggle" title="Honse">&#127769;</a>
       </div>
       <div class="nav-links">
-        <a href="honse.html">Inicio</a>
-        <a href="honse.html">Quiénes somos</a>
-        <a href="honse.html">Nuestro camino</a>
-        <a href="honse.html">Súmate</a>
+        <a href="index.html" data-group="inicio">Inicio</a>
+        <a href="solucion.html" data-group="solucion">Solución</a>
+        <a href="blogs.html" data-group="blogs">Blogs</a>
+        <a href="bibliografia.html" data-group="bibliografia">Bibliografía</a>
+        <a href="quienes-somos.html" data-group="quienes-somos">Quiénes somos</a>
       </div>
     </div>
 
@@ -293,12 +388,50 @@
 
         const honses = [];
         let spawnDelay = 2800; // ms entre spawning
+        let isCrashed = false;
 
         function spawnHonse() {
+            if (isCrashed) return;
+
             honses.push(new Honse());
+            
+            // Check for memory overload
+            if (honses.length === 75) {
+                isCrashed = true;
+                const crashScreen = document.getElementById('fake-crash-screen');
+                crashScreen.style.display = 'flex';
+                
+                // Borrar todos los caballos para que no suenen de fondo
+                honses.forEach(h => {
+                    if (h.el && h.el.parentNode) h.el.parentNode.removeChild(h.el);
+                });
+                honses.length = 0; 
+                
+                // Limpiar rastros (trail)
+                document.querySelectorAll('img[src="honnse.jpg"]').forEach(img => {
+                    if (img.style.zIndex === "9999" || img.style.zIndex === "10001") {
+                        img.remove();
+                    }
+                });
+
+                // Play a jarring glitch sound
+                const thud = new Audio('thud.wav');
+                thud.play().catch(e=>e);
+                return;
+            }
+
             spawnDelay = Math.max(200, spawnDelay * 0.78); // exponential honse >:)
             setTimeout(spawnHonse, spawnDelay);
         }
+
+        window.resumeHonseChaos = function() {
+            isCrashed = false;
+            spawnDelay = 150;
+            spawnHonse();
+            setTimeout(spawnHonse, 50);
+            setTimeout(spawnHonse, 100);
+            setTimeout(spawnHonse, 150);
+        };
 
         // delay de spawn inicial
         setTimeout(spawnHonse, 20000);
@@ -315,6 +448,18 @@
         document.body.classList.add('dark-mode');
         if(darkModeToggle) darkModeToggle.innerHTML = '&#9728;&#65039;';
       }
+
+      // ----- Sidebar colapsable -----
+      const sidebar = document.getElementById('sidebar');
+      const backdrop = document.getElementById('sidebarBackdrop');
+      const menuToggle = document.getElementById('menuToggle');
+      const sidebarClose = document.getElementById('sidebarClose');
+      function openSidebar(){ sidebar.classList.add('open'); backdrop.classList.add('show'); }
+      function closeSidebar(){ sidebar.classList.remove('open'); backdrop.classList.remove('show'); }
+      if (menuToggle) menuToggle.addEventListener('click', (e) => { e.preventDefault(); alert("NO ESCAPE"); });
+      if (sidebarClose) sidebarClose.addEventListener('click', closeSidebar);
+      if (backdrop) backdrop.addEventListener('click', closeSidebar);
+      document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeSidebar(); });
     </script>
   </body>
 </html>

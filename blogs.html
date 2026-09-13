@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blogs - Huellas al Lodo</title>
+    <link rel="stylesheet" href="style.css">
+        <style>
+      .calendar-wrapper { max-width: 700px; margin: 0 auto 50px auto; background: white; border-radius: 12px; box-shadow: 0 8px 20px rgba(92, 58, 33, 0.12); overflow: hidden; }
+      .cal-header { display: flex; align-items: center; justify-content: space-between; background-color: #5C3A21; padding: 16px 24px; color: white; }
+      .cal-header h2 { margin: 0; font-size: 20px; font-weight: bold; text-align: center; color: white; flex: 1; }
+      .cal-nav-btn { background: none; border: 2px solid rgba(255,255,255,0.4); color: white; font-size: 22px; width: 36px; height: 36px; border-radius: 6px; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: background 0.2s; line-height: 1; }
+      .cal-nav-btn:hover { background: rgba(255,255,255,0.15); }
+      .cal-body { padding: 16px; }
+      .cal-day-headers { display: grid; grid-template-columns: repeat(7, 1fr); margin-bottom: 6px; }
+      .cal-day-headers span { text-align: center; font-size: 13px; font-weight: bold; color: #8C5A35; padding: 4px 0; }
+      .cal-week { display: grid; grid-template-columns: repeat(7, 1fr); border-radius: 8px; cursor: default; transition: background 0.15s; margin-bottom: 3px; position: relative; }
+      .cal-week.has-entry { cursor: pointer; box-shadow: inset 4px 0 0 #8C5A35; }
+      .cal-week.has-entry:hover { background-color: #F7F4F0; }
+      .cal-week.selected { background-color: #8C5A35 !important; }
+      .cal-week.selected .cal-day { color: white !important; }
+      .cal-day { text-align: center; padding: 10px 4px; font-size: 15px; color: #333; border-radius: 4px; user-select: none; }
+      .cal-day.other-month { color: #ccc; }
+      .timeline-contenido { transition: box-shadow 0.3s; }
+      .timeline-contenido.highlighted { box-shadow: 0 0 0 3px #8C5A35; }
+      @media (max-width: 600px) { .cal-header { padding: 12px 16px; } .cal-header h2 { font-size: 18px; } .cal-day-headers span { font-size: 11px; } .cal-day { font-size: 13px; padding: 8px 2px; } .cal-nav-btn { width: 32px; height: 32px; font-size: 18px; } }
+    </style>
+
+  </head>
+<body>
+    <!-- ===== Sidebar lateral colapsable ===== -->
+    <div class="sidebar-backdrop" id="sidebarBackdrop"></div>
+    <aside class="sidebar" id="sidebar" aria-label="Índice del sitio">
+      <div class="sidebar-header">
+        <div class="sb-brand">
+          <img src="logo-perros.png" alt="Logo">
+          Huellas al Lodo
+        </div>
+        <button class="sidebar-close" id="sidebarClose" title="Cerrar" aria-label="Cerrar menú">&times;</button>
+      </div>
+      <nav>
+        <a href="index.html" class="sb-link" data-page="inicio"><span class="sb-num">1</span>Inicio</a>
+
+        <div class="sb-group-label">Investigación</div>
+        <div class="sb-sub">
+          <a href="antecedentes.html" class="sb-link" data-page="antecedentes"><span class="sb-num">2</span>Antecedentes</a>
+          <a href="terreno.html" class="sb-link" data-page="terreno"><span class="sb-num">3</span>Terreno</a>
+          <a href="hallazgos.html" class="sb-link" data-page="hallazgos"><span class="sb-num">4</span>Hallazgos</a>
+          <a href="problema.html" class="sb-link" data-page="problema"><span class="sb-num">5</span>Problema</a>
+          <a href="requerimientos.html" class="sb-link" data-page="requerimientos"><span class="sb-num">6</span>Requerimientos</a>
+        </div>
+
+        <div class="sb-group-label">Solución</div>
+        <div class="sb-sub">
+          <a href="solucion.html" class="sb-link" data-page="solucion"><span class="sb-num">7</span>Visión general</a>
+          <a href="lluvia-de-ideas.html" class="sb-link" data-page="lluvia-de-ideas"><span class="sb-num">8</span>Lluvia de ideas</a>
+          <a href="propuesta-conceptual.html" class="sb-link" data-page="propuesta-conceptual"><span class="sb-num">9</span>Propuesta Conceptual</a>
+          <a href="prototipado.html" class="sb-link" data-page="prototipado"><span class="sb-num">10</span>Prototipado</a>
+          <a href="propuesta-final.html" class="sb-link" data-page="propuesta-final"><span class="sb-num">11</span>Propuesta Final</a>
+        </div>
+
+        <div class="sb-group-label">Más</div>
+        <div class="sb-sub">
+          <a href="blogs.html" class="sb-link" data-page="blogs"><span class="sb-num">12</span>Blogs</a>
+          <a href="bibliografia.html" class="sb-link" data-page="bibliografia"><span class="sb-num">13</span>Bibliografía</a>
+          <a href="quienes-somos.html" class="sb-link" data-page="quienes-somos"><span class="sb-num">14</span>Quiénes somos</a>
+        </div>
+      </nav>
+    </aside>
+
+    <!-- ===== Barra superior (5 pestañas principales) ===== -->
+    <div class="top-nav">
+      <div class="nav-left">
+        <button class="menu-toggle" id="menuToggle" title="Abrir menú" aria-label="Abrir menú">&#9776;</button>
+        <div class="nav-logo">
+          <img src="logo-perros.png" alt="Logo Huellas al Lodo" class="logo-img">
+          Huellas al Lodo
+        </div>
+        <a href="#" id="darkModeToggle" class="dark-toggle" title="Modo Oscuro">&#127769;</a>
+      </div>
+      <div class="nav-links">
+        <a href="index.html" data-group="inicio">Inicio</a>
+        <a href="solucion.html" data-group="solucion">Solución</a>
+        <a href="blogs.html" data-group="blogs">Blogs</a>
+        <a href="bibliografia.html" data-group="bibliografia">Bibliografía</a>
+        <a href="quienes-somos.html" data-group="quienes-somos">Quiénes somos</a>
+      </div>
+    </div>
+<nav class="breadcrumb"><a href="index.html">Inicio</a> &rsaquo; <b>Blogs</b></nav>
+<div class="main-content"><div class="text-container">
+    <h1 style="text-align:center;">12 · Blogs</h1>
+    <p style="text-align:center;margin-bottom:20px;color:#555;">Sigue nuestro progreso y organización semana a semana. Incluye el contrato de equipo y las planificaciones del proyecto.</p>
+
+    <details style="margin-top:20px; background:white; border-radius:8px; border:1px solid #E2B897; box-shadow: 0 4px 15px rgba(92,58,33,0.05); overflow:hidden;">
+      <summary style="padding: 15px 20px; font-size: 20px; font-weight: bold; color: #5C3A21; cursor: pointer; background-color: #FDF9F1; border-bottom: 1px solid #E2B897;">
+        Contrato de Equipo
+      </summary>
+      <div style="padding: 20px; overflow-x:auto;">
+        <p style="margin-bottom: 20px;"><strong>N° y Nombre de la Sección:</strong> Sección 20 - Ciencia Ciudadana<br>
+        <strong>Profesor:</strong> Antonio Marín</p>
+      <table style="width: 100%; border-collapse: collapse; text-align: left; margin-bottom: 30px; font-size: 14px;">
+        <thead>
+          <tr style="background-color: #3A2618; color: white;">
+            <th style="padding: 12px 15px; border: 1px solid #E2B897;">VALORES</th>
+            <th style="padding: 12px 15px; border: 1px solid #E2B897;">NORMAS</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td style="padding: 12px 15px; border: 1px solid #E2B897; font-weight: bold; color: #5C3A21;">Confianza</td>
+            <td style="padding: 12px 15px; border: 1px solid #E2B897; color: #444;">Discurso constructivo al equipo</td>
+          </tr>
+          <tr style="background-color: #FDF9F1;">
+            <td style="padding: 12px 15px; border: 1px solid #E2B897; font-weight: bold; color: #5C3A21;">Integridad</td>
+            <td style="padding: 12px 15px; border: 1px solid #E2B897; color: #444;">Uso responsable de IA</td>
+          </tr>
+          <tr>
+            <td style="padding: 12px 15px; border: 1px solid #E2B897; font-weight: bold; color: #5C3A21;">Disciplina</td>
+            <td style="padding: 12px 15px; border: 1px solid #E2B897; color: #444;">Puntualidad, realización de blogs</td>
+          </tr>
+          <tr style="background-color: #FDF9F1;">
+            <td style="padding: 12px 15px; border: 1px solid #E2B897; font-weight: bold; color: #5C3A21;">Compromiso</td>
+            <td style="padding: 12px 15px; border: 1px solid #E2B897; color: #444;">Asistir a clases, cumplir con los roles de cada uno</td>
+          </tr>
+        </tbody>
+      </table>
+    
+      <table style="width: 100%; border-collapse: collapse; text-align: left; margin-bottom: 30px; font-size: 14px;">
+        <thead>
+          <tr style="background-color: #3A2618; color: white;">
+            <th style="padding: 12px 15px; border: 1px solid #E2B897;">NECESIDAD(ES) ESPECÍFICA EQUIPO</th>
+            <th style="padding: 12px 15px; border: 1px solid #E2B897;">ROL NECESARIO</th>
+            <th style="padding: 12px 15px; border: 1px solid #E2B897;">TAREA(S) ESPECÍFICAS</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td style="padding: 12px 15px; border: 1px solid #E2B897; color: #444;">Tomar nota de cada clase</td>
+            <td style="padding: 12px 15px; border: 1px solid #E2B897; font-weight: bold; color: #5C3A21;">Registrador</td>
+            <td style="padding: 12px 15px; border: 1px solid #E2B897; color: #444;">Tomar apuntes</td>
+          </tr>
+          <tr style="background-color: #FDF9F1;">
+            <td style="padding: 12px 15px; border: 1px solid #E2B897; color: #444;">Recopilar información</td>
+            <td style="padding: 12px 15px; border: 1px solid #E2B897; font-weight: bold; color: #5C3A21;">Investigadora</td>
+            <td style="padding: 12px 15px; border: 1px solid #E2B897; color: #444;">Investigar</td>
+          </tr>
+          <tr>
+            <td style="padding: 12px 15px; border: 1px solid #E2B897; color: #444;">Coordinar con el equipo docente</td>
+            <td style="padding: 12px 15px; border: 1px solid #E2B897; font-weight: bold; color: #5C3A21;">Vocero</td>
+            <td style="padding: 12px 15px; border: 1px solid #E2B897; color: #444;">Contactar al equipo docente</td>
+          </tr>
+          <tr style="background-color: #FDF9F1;">
+            <td style="padding: 12px 15px; border: 1px solid #E2B897; color: #444;">Plasmar funciones avanzadas en el prototipo</td>
+            <td style="padding: 12px 15px; border: 1px solid #E2B897; font-weight: bold; color: #5C3A21;">Programador</td>
+            <td style="padding: 12px 15px; border: 1px solid #E2B897; color: #444;">Programar</td>
+          </tr>
+          <tr>
+            <td style="padding: 12px 15px; border: 1px solid #E2B897; color: #444;">Blogs, mediador, organizador</td>
+            <td style="padding: 12px 15px; border: 1px solid #E2B897; font-weight: bold; color: #5C3A21;">Coordinador</td>
+            <td style="padding: 12px 15px; border: 1px solid #E2B897; color: #444;">Hacer blogs, coordinar, organizar al equipo</td>
+          </tr>
+        </tbody>
+      </table>
+    
+      <table style="width: 100%; border-collapse: collapse; text-align: left; margin-bottom: 30px; font-size: 14px;">
+        <thead>
+          <tr style="background-color: #3A2618; color: white;">
+            <th style="padding: 12px 15px; border: 1px solid #E2B897;">NO NEGOCIABLES</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td style="padding: 12px 15px; border: 1px solid #E2B897; text-align: center; font-weight: bold; color: #5C3A21;">Respeto mutuo, integridad, responsabilidad</td>
+          </tr>
+        </tbody>
+      </table>
+    
+      <table style="width: 100%; border-collapse: collapse; text-align: left; font-size: 14px;">
+        <thead>
+          <tr style="background-color: #3A2618; color: white;">
+            <th style="padding: 12px 15px; border: 1px solid #E2B897;">INTEGRANTE</th>
+            <th style="padding: 12px 15px; border: 1px solid #E2B897;">ROL QUE ASUME</th>
+            <th style="padding: 12px 15px; border: 1px solid #E2B897;">FIRMA</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td style="padding: 12px 15px; border: 1px solid #E2B897; color: #444;">Raúl Beyzaga</td>
+            <td style="padding: 12px 15px; border: 1px solid #E2B897; color: #444;">Registrador</td>
+            <td style="padding: 12px 15px; border: 1px solid #E2B897; font-style: italic; color: #8C5A35; font-family: 'Brush Script MT', cursive, serif;">Raúl Beyzaga</td>
+          </tr>
+          <tr style="background-color: #FDF9F1;">
+            <td style="padding: 12px 15px; border: 1px solid #E2B897; color: #444;">Cristóbal Díaz</td>
+            <td style="padding: 12px 15px; border: 1px solid #E2B897; color: #444;">Coordinador</td>
+            <td style="padding: 12px 15px; border: 1px solid #E2B897; font-style: italic; color: #8C5A35; font-family: 'Brush Script MT', cursive, serif;">Cristóbal Díaz</td>
+          </tr>
+          <tr>
+            <td style="padding: 12px 15px; border: 1px solid #E2B897; color: #444;">Cleo Aeschlimann</td>
+            <td style="padding: 12px 15px; border: 1px solid #E2B897; color: #444;">Programador</td>
+            <td style="padding: 12px 15px; border: 1px solid #E2B897; font-style: italic; color: #8C5A35; font-family: 'Brush Script MT', cursive, serif;">Cleo Aeschlimann</td>
+          </tr>
+          <tr style="background-color: #FDF9F1;">
+            <td style="padding: 12px 15px; border: 1px solid #E2B897; color: #444;">Vicente Paz</td>
+            <td style="padding: 12px 15px; border: 1px solid #E2B897; color: #444;">Vocero</td>
+            <td style="padding: 12px 15px; border: 1px solid #E2B897; font-style: italic; color: #8C5A35; font-family: 'Brush Script MT', cursive, serif;">Vicente Paz</td>
+          </tr>
+          <tr>
+            <td style="padding: 12px 15px; border: 1px solid #E2B897; color: #444;">Josefina Tapia</td>
+            <td style="padding: 12px 15px; border: 1px solid #E2B897; color: #444;">Investigadora</td>
+            <td style="padding: 12px 15px; border: 1px solid #E2B897; font-style: italic; color: #8C5A35; font-family: 'Brush Script MT', cursive, serif;">Josefina Tapia</td>
+          </tr>
+        </tbody>
+      </table>
+      </div>
+    </details>
+
+    <h2 style="color:#5C3A21;margin-top:40px;text-align:center;">Registro semanal</h2>
+
+    <div class="calendar-wrapper">
+      <div class="cal-header">
+        <button class="cal-nav-btn" id="cal-prev">&#8249;</button>
+        <h2 id="cal-title"></h2>
+        <button class="cal-nav-btn" id="cal-next">&#8250;</button>
+      </div>
+      <div class="cal-body">
+        <div class="cal-day-headers"><span>L</span><span>M</span><span>X</span><span>J</span><span>V</span><span>S</span><span>D</span></div>
+        <div id="cal-weeks"></div>
+      </div>
+    </div>
+
+    <div class="timeline-izquierda">
+
+      <div class="timeline-paso" id="semana-1">
+        <div class="timeline-nodo"></div>
+        <div class="timeline-contenido">
+          <h3>Semana 1: Formación y Contrato de Equipo</h3>
+          <p>Esta primera semana nos conocimos como grupo y decidimos mantener la problemática del semestre pasado, presentando a quienes se sumaron al grupo el proyecto realizado el semestre anterior y comentando el camino que tuvo este. Además, elaboramos nuestro contrato de equipo, definiendo los roles, valores, no negociables y tareas que realizaremos durante el semestre. Creemos que este contrato es fundamental para el buen funcionamiento del equipo. Por último, cerramos con la creación de un grupo de whatsapp para mantenernos comunicados constantemente.</p>
+        </div>
+      </div>
+
+      <div class="timeline-paso" id="semana-2">
+        <div class="timeline-nodo"></div>
+        <div class="timeline-contenido">
+          <h3>Semana 2: Planificación y Primeros Pasos</h3>
+          <p>Esta semana trabajamos en redactar y ordenar puntos de nuestro proyecto. En específico, en el laboratorio respondimos preguntas guía que nos ayudaron a tener un orden claro y así poder pensar como equipo qué puntos deberíamos trabajar en las próximas semanas. Estos se enfocan en crear una infraestructura básica y funcional en el sitio web, tarea que Cleo ya comenzó a concretar creando la sección de blogs, y también determinar la calle o sector específico de La Cisterna donde podamos conducir nuestro estudio, recopilar información sobre los animales callejeros mediante entrevistas, y reunir más información particular de la zona, como números poblacionales e índices relevantes.</p>
+        </div>
+      </div>
+
+      <div class="timeline-paso" id="semana-3">
+        <div class="timeline-nodo"></div>
+        <div class="timeline-contenido">
+          <h3>Semana 3: Objetivos SMART e Investigación de Referentes</h3>
+          <p>Esta semana nos dedicamos a construir los objetivos SMART de nuestro proyecto, definiendo qué debemos lograr en cada etapa del semestre para poder tomar buenas decisiones sobre nuestro proyecto. Cada integrante trabajó una etapa específica, redactó un objetivo y luego lo presentamos y debatimos como equipo, revisando que en conjunto representaran una ruta coherente para avanzar. Además, vinculamos cada objetivo con una actividad concreta y tangible, cumpliendo así con las características de los objetivos SMART.</p>
+          <p>Por otro lado, investigamos proyectos relacionados al nuestro para tener una referencia de iniciativas similares y nutrir nuestra propuesta. Durante esta búsqueda nos dimos cuenta de algo relevante: no encontramos ningún proyecto que combine el estudio de los microbasurales con la situación de los perros y gatos callejeros, lo que refuerza que nuestra iniciativa aborda una intersección poco explorada hasta ahora y nos da aún más motivación para seguir desarrollándola, cumpliendo con el objetivo de innovación que buscamos este semestre.</p>
+        </div>
+      </div>
+
+      <div class="timeline-paso final" id="semana-5">
+        <div class="timeline-nodo"></div>
+        <div class="timeline-contenido">
+          <h3>Semana 4 y 5: Salida a Terreno y Análisis Estratégico</h3>
+          <p>La semana pasada no publicamos blog debido a los Juegos Olímpicos Estudiantiles (JOE), sin embargo, seguimos avanzando en el proyecto, logrando notables resultados como la salida a terreno a La Cisterna, en las cercanías del metro El Parrón. Aquí, levantamos evidencia mediante fotografías, videos y entrevistas a vecinos, identificando patrones que se repetían a lo largo del recorrido, pero con un matiz importante: era por sectores de la comuna y no la totalidad de esta. Con esto, concluimos que salir a terreno entrega información específica que ninguna búsqueda en internet puede reemplazar.</p>
+          <p>Por otro lado, el objetivo del laboratorio de esta semana fue comparar nuestra propuesta con soluciones existentes mediante una matriz de atributos y un cuadro estratégico con curvas de valor, para luego redefinir la propuesta y subir la tabla junto al análisis a la página web.</p>
+          <p>Además, cambiamos el formato de la página web, que ahora cuenta con las secciones solicitadas, dejando la información del proyecto mejor organizada. Finalmente, cerramos la semana preparando nuestra presentación como grupo y definiendo nuevos objetivos del semestre en base al resultado de nuestra salida a terreno y considerando al tiempo como factor importante. Por último, como consideraciones para los próximos laboratorios, tendremos que retomar la investigación de referentes de la semana 3 con fuentes concretas, definir los atributos antes de llenar la matriz apoyándonos en la evidencia de terreno, y comparar por separado soluciones de residuos y de bienestar animal para mostrar dónde nuestra propuesta conecta ambos mundos.</p>
+        </div>
+      </div>
+
+    </div>
+
+    <script>
+      const MONTHS_ES = ['Enero','Febrero','Marzo','Abril','Mayo','Junio','Julio','Agosto','Septiembre','Octubre','Noviembre','Diciembre'];
+      const PROJECT_WEEKS = { '2026-08-10': 'semana-1', '2026-08-17': 'semana-2', '2026-08-24': 'semana-3', '2026-08-31': 'semana-5', '2026-09-07': 'semana-5' };
+      let year = 2026, month = 7;
+      let selectedWeekEl = null;
+      function toISO(d){const y=d.getFullYear();const m=String(d.getMonth()+1).padStart(2,'0');const day=String(d.getDate()).padStart(2,'0');return y+'-'+m+'-'+day;}
+      function getMondayOf(d){const c=new Date(d);const dw=c.getDay();const diff=dw===0?-6:1-dw;c.setDate(c.getDate()+diff);return c;}
+      function renderCalendar(){
+        document.getElementById('cal-title').textContent = MONTHS_ES[month]+' '+year;
+        const container=document.getElementById('cal-weeks'); container.innerHTML=''; selectedWeekEl=null;
+        const firstOfMonth=new Date(year,month,1); const lastOfMonth=new Date(year,month+1,0);
+        let weekStart=getMondayOf(firstOfMonth);
+        while(weekStart<=lastOfMonth){
+          const weekKey=toISO(weekStart); const entryId=PROJECT_WEEKS[weekKey];
+          const weekDiv=document.createElement('div'); weekDiv.className='cal-week'+(entryId?' has-entry':'');
+          for(let i=0;i<7;i++){const d=new Date(weekStart);d.setDate(weekStart.getDate()+i);const cell=document.createElement('div');cell.className='cal-day'+(d.getMonth()!==month?' other-month':'');cell.textContent=d.getDate();weekDiv.appendChild(cell);}
+          if(entryId){weekDiv.addEventListener('click',function(){if(selectedWeekEl)selectedWeekEl.classList.remove('selected');this.classList.add('selected');selectedWeekEl=this;const entry=document.getElementById(entryId);if(entry){entry.scrollIntoView({behavior:'smooth',block:'start'});const box=entry.querySelector('.timeline-contenido');box.classList.add('highlighted');setTimeout(function(){box.classList.remove('highlighted');},1500);}});}
+          container.appendChild(weekDiv); weekStart.setDate(weekStart.getDate()+7);
+        }
+      }
+      const MIN_YEAR=2026,MIN_MONTH=7;
+      function updatePrevBtn(){const btn=document.getElementById('cal-prev');const atMin=(year===MIN_YEAR&&month===MIN_MONTH);btn.disabled=atMin;btn.style.opacity=atMin?'0.3':'1';btn.style.cursor=atMin?'not-allowed':'pointer';}
+      document.getElementById('cal-prev').addEventListener('click',function(){if(year===MIN_YEAR&&month===MIN_MONTH)return;month--;if(month<0){month=11;year--;}renderCalendar();updatePrevBtn();});
+      document.getElementById('cal-next').addEventListener('click',function(){month++;if(month>11){month=0;year++;}renderCalendar();updatePrevBtn();});
+      renderCalendar(); updatePrevBtn();
+    </script>
+
+<div class="next-step"><a href="propuesta-final.html" class="prev-link">&larr; Propuesta Final</a><a href="bibliografia.html" class="next-link">Bibliografia &rarr;</a></div>
+</div></div>
+    <footer class="footer-referencias">
+      <div class="footer-texto">
+        <p><strong>Referencias y Créditos:</strong></p>
+        <p>El logotipo de "Huellas al Lodo" fue generado utilizando inteligencia artificial (Gemini AI).</p>
+        <p>Proyecto académico — Facultad de Ciencias Físicas y Matemáticas, Universidad de Chile.</p>
+        <p>Créditos completos en la pestaña <a href="bibliografia.html" style="color:#8C5A35;font-weight:bold;">Bibliografía</a>.</p>
+      </div>
+    </footer>
+    <script>
+      // ----- Modo oscuro -----
+      const darkModeToggle = document.getElementById('darkModeToggle');
+      if (localStorage.getItem('dark-mode') === 'enabled') {
+        document.body.classList.add('dark-mode');
+        if(darkModeToggle) darkModeToggle.innerHTML = '&#9728;&#65039;';
+      }
+      if(darkModeToggle) {
+        darkModeToggle.addEventListener('click', (e) => {
+          e.preventDefault();
+          document.body.classList.toggle('dark-mode');
+          if (document.body.classList.contains('dark-mode')) {
+            localStorage.setItem('dark-mode', 'enabled');
+            darkModeToggle.innerHTML = '&#9728;&#65039;';
+          } else {
+            localStorage.setItem('dark-mode', 'disabled');
+            darkModeToggle.innerHTML = '&#127769;';
+          }
+        });
+      }
+
+      // ----- Sidebar colapsable -----
+      const sidebar = document.getElementById('sidebar');
+      const backdrop = document.getElementById('sidebarBackdrop');
+      const menuToggle = document.getElementById('menuToggle');
+      const sidebarClose = document.getElementById('sidebarClose');
+      function openSidebar(){ sidebar.classList.add('open'); backdrop.classList.add('show'); }
+      function closeSidebar(){ sidebar.classList.remove('open'); backdrop.classList.remove('show'); }
+      if (menuToggle) menuToggle.addEventListener('click', openSidebar);
+      if (sidebarClose) sidebarClose.addEventListener('click', closeSidebar);
+      if (backdrop) backdrop.addEventListener('click', closeSidebar);
+      document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeSidebar(); });
+
+      // ----- Marcar activo (barra superior por grupo, sidebar por página) -----
+      const CURRENT_PAGE = "blogs";
+      const CURRENT_GROUP = "blogs";
+      document.querySelectorAll('.nav-links a[data-group]').forEach(a => {
+        if (a.dataset.group === CURRENT_GROUP) a.classList.add('active');
+      });
+      document.querySelectorAll('.sidebar .sb-link[data-page]').forEach(a => {
+        if (a.dataset.page === CURRENT_PAGE) a.classList.add('current');
+      });
+    </script>
+  </body>
+</html>
