@@ -21,6 +21,8 @@
       .cal-week.selected .cal-day { color: white !important; }
       .cal-day { text-align: center; padding: 10px 4px; font-size: 15px; color: #333; border-radius: 4px; user-select: none; }
       .cal-day.other-month { color: #ccc; }
+      .cal-week.olympic { background: repeating-linear-gradient(45deg, #f0f0f0, #f0f0f0 10px, #e4e4e4 10px, #e4e4e4 20px) !important; box-shadow: inset 4px 0 0 #aaa; cursor: pointer; }
+      .cal-week.olympic:hover { background: repeating-linear-gradient(45deg, #e8e8e8, #e8e8e8 10px, #dcdcdc 10px, #dcdcdc 20px) !important; }
       .timeline-contenido { transition: box-shadow 0.3s; }
       .timeline-contenido.highlighted { box-shadow: 0 0 0 3px #8C5A35; }
       @media (max-width: 600px) { .cal-header { padding: 12px 16px; } .cal-header h2 { font-size: 18px; } .cal-day-headers span { font-size: 11px; } .cal-day { font-size: 13px; padding: 8px 2px; } .cal-nav-btn { width: 32px; height: 32px; font-size: 18px; } }
@@ -255,7 +257,7 @@
         </div>
       </div>
 
-      <div class="timeline-paso final" id="semana-5">
+      <div class="timeline-paso" id="semana-5">
         <div class="timeline-nodo"></div>
         <div class="timeline-contenido">
           <h3>Semana 4 y 5: Salida a Terreno y Análisis Estratégico</h3>
@@ -265,12 +267,33 @@
         </div>
       </div>
 
+      <!-- Semana 6 -->
+      <div class="timeline-paso" id="semana-6">
+        <div class="timeline-nodo" style="background: repeating-linear-gradient(45deg, #ccc, #ccc 5px, #aaa 5px, #aaa 10px);"></div>
+        <div class="timeline-contenido" style="background-color: #fcfcfc;">
+          <h3>Semana 6: Pausa Olímpica</h3>
+          <p>Durante esta semana no realizamos ni registramos actividades del proyecto debido a la pausa correspondiente a la semana olímpica.</p>
+        </div>
+      </div>
+
+      <!-- Semana 7 -->
+      <div class="timeline-paso final" id="semana-7">
+        <div class="timeline-nodo"></div>
+        <div class="timeline-contenido">
+          <h3>Semana 7: Presentación Hito 1 y Reenfoque</h3>
+          <p>Durante esta semana realizamos nuestra presentación del Hito 1, en la que expusimos frente al curso los resultados obtenidos durante la primera etapa de validación del problema.</p>
+          <p>A lo largo de esta etapa desarrollamos una planificación basada en objetivos SMART, elaboramos nuestro contrato de equipo, investigamos iniciativas relacionadas con nuestra temática y recolectamos información relevante mediante la salida a terreno. Todo este trabajo nos permitió concluir que el problema que estamos estudiando efectivamente existe y tiene una presencia importante en la comuna de La Cisterna. Sin embargo, también observamos que no se presenta de manera uniforme en toda la comuna, sino que se concentra principalmente en sectores específicos, como El Comilón y la avenida José Miguel Carrera.</p>
+          <p>Durante la presentación recibimos feedback muy valioso por parte del equipo docente. Uno de los principales puntos señalados fue que nuestra investigación estaba enfocándose más en cómo la presencia de perros y gatos callejeros, junto con los microbasurales, afecta a la comunidad, en lugar de centrarse en nuestro problema original, que busca estudiar cómo los microbasurales afectan a los perros y gatos callejeros.</p>
+          <p>A partir de esta observación, conversamos como equipo y concluimos que queremos mantener el foco definido originalmente. Por esta razón, durante las próximas etapas deberemos profundizar la investigación desde la perspectiva de los animales callejeros y mejorar la forma en que comunicamos nuestro problema, de manera que exista una mayor coherencia entre la problemática planteada, la evidencia recopilada y el desarrollo futuro del proyecto.</p>
+        </div>
+      </div>
+
     </div>
 
     <script>
       const MONTHS_ES = ['Enero','Febrero','Marzo','Abril','Mayo','Junio','Julio','Agosto','Septiembre','Octubre','Noviembre','Diciembre'];
-      const PROJECT_WEEKS = { '2026-08-10': 'semana-1', '2026-08-17': 'semana-2', '2026-08-24': 'semana-3', '2026-08-31': 'semana-5', '2026-09-07': 'semana-5' };
-      let year = 2026, month = 7;
+      const PROJECT_WEEKS = { '2026-08-10': 'semana-1', '2026-08-17': 'semana-2', '2026-08-24': 'semana-3', '2026-08-31': 'semana-5', '2026-09-07': 'semana-5', '2026-09-14': 'semana-6', '2026-09-21': 'semana-7' };
+      let year = 2026, month = 8;
       let selectedWeekEl = null;
       function toISO(d){const y=d.getFullYear();const m=String(d.getMonth()+1).padStart(2,'0');const day=String(d.getDate()).padStart(2,'0');return y+'-'+m+'-'+day;}
       function getMondayOf(d){const c=new Date(d);const dw=c.getDay();const diff=dw===0?-6:1-dw;c.setDate(c.getDate()+diff);return c;}
@@ -282,6 +305,7 @@
         while(weekStart<=lastOfMonth){
           const weekKey=toISO(weekStart); const entryId=PROJECT_WEEKS[weekKey];
           const weekDiv=document.createElement('div'); weekDiv.className='cal-week'+(entryId?' has-entry':'');
+          if (entryId === 'semana-6') weekDiv.classList.add('olympic');
           for(let i=0;i<7;i++){const d=new Date(weekStart);d.setDate(weekStart.getDate()+i);const cell=document.createElement('div');cell.className='cal-day'+(d.getMonth()!==month?' other-month':'');cell.textContent=d.getDate();weekDiv.appendChild(cell);}
           if(entryId){weekDiv.addEventListener('click',function(){if(selectedWeekEl)selectedWeekEl.classList.remove('selected');this.classList.add('selected');selectedWeekEl=this;const entry=document.getElementById(entryId);if(entry){entry.scrollIntoView({behavior:'smooth',block:'start'});const box=entry.querySelector('.timeline-contenido');box.classList.add('highlighted');setTimeout(function(){box.classList.remove('highlighted');},1500);}});}
           container.appendChild(weekDiv); weekStart.setDate(weekStart.getDate()+7);
