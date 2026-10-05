@@ -277,7 +277,7 @@
       </div>
 
       <!-- Semana 7 -->
-      <div class="timeline-paso final" id="semana-7">
+      <div class="timeline-paso" id="semana-7">
         <div class="timeline-nodo"></div>
         <div class="timeline-contenido">
           <h3>Semana 7: Presentación Hito 1 y Reenfoque</h3>
@@ -288,11 +288,22 @@
         </div>
       </div>
 
+      <!-- Semana 8 -->
+      <div class="timeline-paso final" id="semana-8">
+        <div class="timeline-nodo"></div>
+        <div class="timeline-contenido">
+          <h3>Semana 8: Identificación de Requerimientos y Opciones de Solución</h3>
+          <p>Esta semana comenzamos a trabajar en una nueva etapa del proyecto, enfocándonos principalmente en identificar qué requerimientos debería considerar una futura solución. A partir de nuestra investigación y de la salida a terreno, determinamos que debemos mantener el foco en cómo los microbasurales afectan la salud y bienestar de perros y gatos callejeros, además de considerar que el problema se concentra en sectores específicos de La Cisterna. Por esto, identificamos como elementos importantes poder localizar y visibilizar estos puntos, recopilar información como ubicación, fotografías y antecedentes de los animales presentes, además de que una futura propuesta sea fácil de utilizar, accesible y permita organizar la información recolectada.</p>
+          <p>Por otro lado, durante esta etapa nos dimos cuenta de un error que estábamos cometiendo como grupo. Ya teníamos bastante presente una posible solución basada en una página web o aplicación, donde mediante códigos QR las personas pudieran realizar reportes para que estos llegaran a fundaciones, comunidades o la municipalidad. Sin embargo, el equipo docente nos señaló que nos estábamos adelantando a la etapa actual del proyecto y que cerrarnos desde ahora a esta idea podía provocar que tomáramos decisiones de manera sesgada, buscando que nuestra investigación justificara esa solución. A partir de esto, entendimos que por ahora no debemos enfocarnos en desarrollar una solución específica, sino en investigar distintas posibilidades y luego determinar cuál responde de mejor manera al problema que estamos estudiando.</p>
+          <p>Por esto, en los próximos laboratorios tendremos que seguir explorando distintas alternativas antes de decidir qué solución desarrollar. De esta forma, podremos evitar cerrarnos prematuramente a una sola idea y tomar una decisión más fundamentada a partir de lo que sigamos investigando.</p>
+        </div>
+      </div>
+
     </div>
 
     <script>
       const MONTHS_ES = ['Enero','Febrero','Marzo','Abril','Mayo','Junio','Julio','Agosto','Septiembre','Octubre','Noviembre','Diciembre'];
-      const PROJECT_WEEKS = { '2026-08-10': 'semana-1', '2026-08-17': 'semana-2', '2026-08-24': 'semana-3', '2026-08-31': 'semana-5', '2026-09-07': 'semana-5', '2026-09-14': 'semana-6', '2026-09-21': 'semana-7' };
+      const PROJECT_WEEKS = { '2026-08-10': 'semana-1', '2026-08-17': 'semana-2', '2026-08-24': 'semana-3', '2026-08-31': 'semana-5', '2026-09-07': 'semana-5', '2026-09-14': 'semana-6', '2026-09-21': 'semana-7', '2026-09-28': 'semana-8' };
       let year = 2026, month = 8;
       let selectedWeekEl = null;
       function toISO(d){const y=d.getFullYear();const m=String(d.getMonth()+1).padStart(2,'0');const day=String(d.getDate()).padStart(2,'0');return y+'-'+m+'-'+day;}
