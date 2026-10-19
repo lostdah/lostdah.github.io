@@ -289,7 +289,7 @@
       </div>
 
       <!-- Semana 8 -->
-      <div class="timeline-paso final" id="semana-8">
+      <div class="timeline-paso" id="semana-8">
         <div class="timeline-nodo"></div>
         <div class="timeline-contenido">
           <h3>Semana 8: Identificación de Requerimientos y Opciones de Solución</h3>
@@ -299,12 +299,32 @@
         </div>
       </div>
 
+      <!-- Semana 9 -->
+      <div class="timeline-paso" id="semana-9">
+        <div class="timeline-nodo"></div>
+        <div class="timeline-contenido">
+          <h3>Semana 9: StoryBoard y Propuesta de Valor</h3>
+          <p>Durante esta semana trabajamos principalmente en representar nuestro problema de una forma más visual y en ordenar mejor algunos elementos del proyecto. Primero realizamos un StoryBoard a mano, donde mostramos mediante una historia tipo cómic la representación de nuestro problema. Además, identificamos como principales beneficiarios a los animales callejeros y como posibles usuarios a vecinos de aproximadamente 30 a 60 años. Definimos el problema en torno a cómo los microbasurales afectan la salud de estos animales y planteamos como propuesta de valor poder ayudar a los animales callejeros y, al mismo tiempo, contribuir a reducir la presencia de microbasurales. Como una posible solución consideramos el reporte de estos puntos a las autoridades, utilizando canales como redes sociales, códigos QR, carteles y difusión mediante distintas instituciones. También pensamos que una forma inicial de medir el funcionamiento de esta propuesta podría ser mediante la cantidad de reportes realizados. Como ventaja, consideramos el conocimiento que hemos obtenido directamente en terreno y el hecho de estar trabajando sobre sectores específicos de La Cisterna donde ya observamos la problemática.</p>
+          <p>A partir de estas actividades seguimos conversando como grupo sobre cómo transformar todo lo que hemos investigado en una propuesta más concreta, pero tratando de no cometer nuevamente el error de cerrarnos inmediatamente a una sola solución. Nos dimos cuenta de que herramientas como el StoryBoard nos sirven para ordenar mejor nuestras ideas y detectar qué partes del proyecto todavía necesitan mayor desarrollo. Para las próximas clases tendremos que seguir explorando distintas alternativas y determinar cuáles responden de mejor manera al problema antes de decidir definitivamente qué solución desarrollar.</p>
+        </div>
+      </div>
+
+      <!-- Semana 10 -->
+      <div class="timeline-paso final" id="semana-10">
+        <div class="timeline-nodo"></div>
+        <div class="timeline-contenido">
+          <h3>Semana 10: Finalización del StoryBoard y Avances Autónomos</h3>
+          <p>Durante esta semana se canceló el laboratorio debido a las condiciones climáticas, sin embargo, como grupo seguimos trabajando en nuestro proyecto, enfocándonos principalmente en terminar las actividades pendientes y realizar las modificaciones pertinentes a partir del feedback que hemos recibido del equipo docente. Además, logramos terminar nuestro StoryBoard hecho a mano, donde representamos mediante una historia tipo cómic el problema que buscamos abordar, mostrando cómo los microbasurales afectan a los perros y gatos callejeros.</p>
+          <p>A partir de esto, nos dimos cuenta de que, a pesar de no haber tenido laboratorio, pudimos aprovechar la semana para revisar nuestros avances y mejorar la forma en que presentamos nuestro problema. Por otro lado, terminar el StoryBoard nos permitió ordenar mejor nuestras ideas y representar de una manera más clara la problemática que estamos investigando. Sin embargo, todavía debemos seguir mejorando la manera en que comunicamos nuestro problema, asegurándonos de mantener el foco en cómo los microbasurales afectan a los animales callejeros. Para las próximas clases tendremos que seguir considerando las observaciones del equipo docente y continuar explorando distintas alternativas de solución, evitando cerrarnos anticipadamente a una sola propuesta.</p>
+        </div>
+      </div>
+
     </div>
 
     <script>
       const MONTHS_ES = ['Enero','Febrero','Marzo','Abril','Mayo','Junio','Julio','Agosto','Septiembre','Octubre','Noviembre','Diciembre'];
-      const PROJECT_WEEKS = { '2026-08-10': 'semana-1', '2026-08-17': 'semana-2', '2026-08-24': 'semana-3', '2026-08-31': 'semana-5', '2026-09-07': 'semana-5', '2026-09-14': 'semana-6', '2026-09-21': 'semana-7', '2026-09-28': 'semana-8' };
-      let year = 2026, month = 8;
+      const PROJECT_WEEKS = { '2026-08-10': 'semana-1', '2026-08-17': 'semana-2', '2026-08-24': 'semana-3', '2026-08-31': 'semana-5', '2026-09-07': 'semana-5', '2026-09-14': 'semana-6', '2026-09-21': 'semana-7', '2026-09-28': 'semana-8', '2026-10-05': 'semana-9', '2026-10-12': 'semana-10' };
+      let year = 2026, month = 9;
       let selectedWeekEl = null;
       function toISO(d){const y=d.getFullYear();const m=String(d.getMonth()+1).padStart(2,'0');const day=String(d.getDate()).padStart(2,'0');return y+'-'+m+'-'+day;}
       function getMondayOf(d){const c=new Date(d);const dw=c.getDay();const diff=dw===0?-6:1-dw;c.setDate(c.getDate()+diff);return c;}
