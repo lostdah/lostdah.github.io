@@ -735,14 +735,10 @@
     <div class="proto-shell">
       <div class="proto-top-header">
         <div>
-          <h1>🐾 Reporte de Microbasurales y Animales</h1>
+          <h1>Reporte de Microbasurales y Animales</h1>
           <p>Marca la ubicación en el mapa de La Cisterna, adjunta una fotografía y registra los animales observados.</p>
         </div>
         <div class="header-actions">
-          <!-- [DEV ONLY] Botón para alternar Vista PC (C) <-> Celular (D). Se puede borrar antes de la entrega final. -->
-          <button type="button" class="dev-pill-btn" id="devToggleLayoutBtn" title="Solo para pruebas de desarrollo">
-            📱 Vista Celular (Dev)
-          </button>
           <a href="prototipado.html" class="map-btn" style="text-decoration:none;">&larr; Volver</a>
         </div>
       </div>
@@ -754,7 +750,7 @@
 
         <!-- 1. MAPA INTERACTIVO DE GOOGLE MAPS -->
         <section class="proto-card" id="mapPanelSection" aria-label="Mapa de ubicación">
-          <h2>📍 1. Selecciona el punto en el mapa</h2>
+          <h2>1. Selecciona el punto en el mapa</h2>
           <p class="card-sub">Haz clic sobre el lugar exacto o arrastra el marcador principal.</p>
 
           <div class="map-toolbar">
@@ -778,7 +774,7 @@
 
         <!-- 2. FORMULARIO ÁGIL DE REPORTE -->
         <section class="proto-card" id="formPanelSection" aria-label="Formulario de reporte">
-          <h2>📝 2. Completa el reporte</h2>
+          <h2>2. Completa el reporte</h2>
           <p class="card-sub">Información breve para orientar la limpieza y el cuidado de los animales del sector.</p>
 
           <form id="huellasReportForm">
@@ -891,7 +887,7 @@
             </div>
 
             <button type="submit" class="submit-btn">
-              📍 Publicar Reporte en el Mapa
+              Publicar Reporte en el Mapa
             </button>
             <div class="scope-clarity-note">
               ℹ️ Este registro informa focos de basura con presencia de animales para orientar operativos de limpieza y apoyo comunitario (no corresponde a un servicio de urgencia veterinaria).
@@ -945,7 +941,6 @@
       </div>
     </footer>
 
-    <script src="runtime-config.js"></script>
     <script>
       // =====================================================================
       // 1. MODO OSCURO Y SIDEBAR
@@ -1126,10 +1121,9 @@
       }
 
       // =====================================================================
-      // 3. [DEV ONLY] TOGGLE ENTRE COMPUTADOR (C) Y CELULAR (D)
+      // 3. DISPOSICIÓN AUTOMÁTICA SEGÚN PANTALLA (COMPUTADOR C / CELULAR D)
       // =====================================================================
       const protoWorkspace = document.getElementById('protoWorkspace');
-      const devToggleLayoutBtn = document.getElementById('devToggleLayoutBtn');
       let currentDisposition = window.innerWidth <= 768 ? 'mobile-qr' : 'map-first';
 
       function applyLayoutDisposition(disp) {
@@ -1139,10 +1133,7 @@
         if (commentEl) {
           commentEl.style.width = '';
         }
-        if (disp === 'mobile-qr') {
-          devToggleLayoutBtn.textContent = '💻 Vista Computador (Dev)';
-        } else {
-          devToggleLayoutBtn.textContent = '📱 Vista Celular (Dev)';
+        if (disp !== 'mobile-qr' && typeof stopActiveCameraStream === 'function') {
           stopActiveCameraStream();
         }
         if (gmpLoaded && gmpMap && gmpDraftMarker && gmpDraftMarker.position) {
@@ -1156,8 +1147,11 @@
         }
       }
 
-      devToggleLayoutBtn.addEventListener('click', () => {
-        applyLayoutDisposition(currentDisposition === 'map-first' ? 'mobile-qr' : 'map-first');
+      window.addEventListener('resize', () => {
+        const targetDisp = window.innerWidth <= 768 ? 'mobile-qr' : 'map-first';
+        if (targetDisp !== currentDisposition) {
+          applyLayoutDisposition(targetDisp);
+        }
       });
 
       // =====================================================================
@@ -1253,6 +1247,8 @@
 
       function initFallbackLeafletMap() {
         if (!window.L) return;
+        gmpLoaded = false;
+        gmpMap = null;
         const defaultCenter = { lat: -33.535, lng: -70.663 };
         const savedLat = parseFloat(document.getElementById('latInput').value);
         const savedLng = parseFloat(document.getElementById('lngInput').value);
@@ -1261,11 +1257,12 @@
           : defaultCenter;
 
         if (leafletMap) {
-          leafletMap.remove();
+          try { leafletMap.remove(); } catch (e) {}
           leafletMap = null;
         }
+        const wrapper = document.getElementById('mapContainerWrapper');
+        wrapper.innerHTML = '<div id="map" style="width:100%;height:100%;"></div>';
         const mapEl = document.getElementById('map');
-        mapEl.innerHTML = '';
 
         leafletMap = L.map(mapEl, {
           center: [startPos.lat, startPos.lng],
@@ -1296,6 +1293,10 @@
           const p = leafletDraftMarker.getLatLng();
           setDraftCoordinates(p.lat, p.lng);
         });
+
+        setTimeout(() => {
+          if (leafletMap) leafletMap.invalidateSize();
+        }, 100);
 
         renderReportMarkersOnGoogleMap();
       }
@@ -1380,8 +1381,21 @@
           currentDraftPos = { lat: savedLat, lng: savedLng };
         }
 
+        if (leafletMap) {
+          try { leafletMap.remove(); } catch (e) {}
+          leafletMap = null;
+        }
+        const wrapper = document.getElementById('mapContainerWrapper');
+        wrapper.innerHTML = '<div id="map" style="width:100%;height:100%;"></div>';
         const mapEl = document.getElementById('map');
-        mapEl.innerHTML = '';
+
+        const errObserver = new MutationObserver(() => {
+          if (mapEl.querySelector('.gm-err-container')) {
+            errObserver.disconnect();
+            initFallbackLeafletMap();
+          }
+        });
+        errObserver.observe(mapEl, { childList: true, subtree: true });
 
         gmpMap = new Map(mapEl, {
           center: currentCenter,
@@ -1849,50 +1863,52 @@
 
       async function syncFromBackend() {
         loadLocalStoreFallback();
+        initFallbackLeafletMap();
         renderReportsFeed();
-        let apiKey = (window.__HUELLAS_RUNTIME_CONFIG__ && window.__HUELLAS_RUNTIME_CONFIG__.googleMapsApiKey) || '';
-        firebaseDbUrl = ((window.__HUELLAS_RUNTIME_CONFIG__ && window.__HUELLAS_RUNTIME_CONFIG__.firebaseDbUrl) || '').replace(/\/+$/, '');
 
-        const candidates = ['', 'http://127.0.0.1:8000'];
-        for (const base of candidates) {
-          try {
-            const [cfgRes, repRes] = await Promise.all([
-              fetch(`${base}/api/config`),
-              fetch(`${base}/api/reports`)
-            ]);
-            if (repRes.ok) {
-              const data = await repRes.json();
-              if (data.images_dict) IMAGES_DB = data.images_dict;
-              if (data.reports_dict) REPORTS_DB = data.reports_dict;
-              backendOnline = true;
-              apiBaseUrl = base;
-            }
-            if (cfgRes.ok) {
-              const cfg = await cfgRes.json();
-              if (cfg.googleMapsApiKey) apiKey = cfg.googleMapsApiKey;
-              if (cfg.firebaseDbUrl) firebaseDbUrl = cfg.firebaseDbUrl.replace(/\/+$/, '');
-            }
-            if (backendOnline) break;
-          } catch (err) {}
+        let apiKey = '';
+        firebaseDbUrl = DEFAULT_FIREBASE_DB_URL;
+
+        const isLocalHost = (
+          window.location.hostname === 'localhost' ||
+          window.location.hostname === '127.0.0.1' ||
+          window.location.protocol === 'file:'
+        );
+
+        if (isLocalHost) {
+          const candidates = ['', 'http://127.0.0.1:8000'];
+          for (const base of candidates) {
+            try {
+              const [cfgRes, repRes] = await Promise.all([
+                fetch(`${base}/api/config`),
+                fetch(`${base}/api/reports`)
+              ]);
+              if (repRes.ok) {
+                const data = await repRes.json();
+                if (data.images_dict) IMAGES_DB = data.images_dict;
+                if (data.reports_dict) REPORTS_DB = data.reports_dict;
+                backendOnline = true;
+                apiBaseUrl = base;
+              }
+              if (cfgRes.ok) {
+                const cfg = await cfgRes.json();
+                if (cfg.googleMapsApiKey) apiKey = cfg.googleMapsApiKey;
+                if (cfg.firebaseDbUrl) firebaseDbUrl = cfg.firebaseDbUrl.replace(/\/+$/, '');
+              }
+              if (backendOnline) break;
+            } catch (err) {}
+          }
+          if (!apiKey) {
+            apiKey = await resolveApiKeyFromEnvFiles();
+          }
         }
 
-        if (!firebaseDbUrl) {
-          firebaseDbUrl = (await resolveFirebaseUrlFromEnvFiles()) || DEFAULT_FIREBASE_DB_URL;
-        }
         if (firebaseDbUrl) {
           await pullFromFirebaseDirect();
         }
 
-        if (!apiKey) {
-          apiKey = await resolveApiKeyFromEnvFiles();
-        }
-        if (!apiKey) {
-          apiKey = localStorage.getItem('HUELLAS_GMAPS_API_KEY') || '';
-        }
-        if (apiKey) {
+        if (apiKey && isLocalHost) {
           initLiveGoogleMap(apiKey);
-        } else {
-          initFallbackLeafletMap();
         }
         renderReportsFeed();
 
