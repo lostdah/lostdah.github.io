@@ -1,0 +1,75 @@
+{
+  "images": {
+    "IMG-001": {
+      "description": "Acumulación de bolsas y desechos en vereda con presencia de perros.",
+      "filename": "IMG_7198.jpg",
+      "image_id": "IMG-001",
+      "uploaded_at": "2026-10-14 11:20",
+      "url": "IMG_7198.jpg"
+    },
+    "IMG-002": {
+      "description": "Perros callejeros buscando alimento entre bolsas rotas.",
+      "filename": "peuros.jpg",
+      "image_id": "IMG-002",
+      "uploaded_at": "2026-10-15 16:45",
+      "url": "peuros.jpg"
+    },
+    "IMG-003": {
+      "description": "Foco persistente de residuos junto a animales sin supervisión.",
+      "filename": "Peurros2.png",
+      "image_id": "IMG-003",
+      "uploaded_at": "2026-10-17 09:30",
+      "url": "Peurros2.png"
+    }
+  },
+  "reports": {
+    "REP-001": {
+      "animal_count": 2,
+      "animal_type": "Perros",
+      "comment": "Dos perros abriendo bolsas acumuladas en la esquina.",
+      "coordinates": {
+        "lat": -33.5268,
+        "lng": -70.6614
+      },
+      "created_at": "2026-10-14 11:20",
+      "image_id": "IMG-001",
+      "reference": "Vereda norte cerca de paradero de locomoción colectiva",
+      "report_id": "REP-001",
+      "sector": "El Parrón",
+      "status": "Activo",
+      "waste_level": "Alto"
+    },
+    "REP-002": {
+      "animal_count": 4,
+      "animal_type": "Perros y gatos",
+      "comment": "El foco se repite después de cada jornada de feria y atrae animales del pasaje.",
+      "coordinates": {
+        "lat": -33.5342,
+        "lng": -70.6695
+      },
+      "created_at": "2026-10-15 16:45",
+      "image_id": "IMG-002",
+      "reference": "Esquina de feria libre junto a contenedor",
+      "report_id": "REP-002",
+      "sector": "Feria Libre / Interior Barrio",
+      "status": "Activo",
+      "waste_level": "Moderado"
+    },
+    "REP-003": {
+      "animal_count": 1,
+      "animal_type": "Perros",
+      "comment": "Bolsas dispersas junto al paradero con un perro merodeando.",
+      "coordinates": {
+        "lat": -33.5389,
+        "lng": -70.6632
+      },
+      "created_at": "2026-10-17 09:30",
+      "image_id": "IMG-003",
+      "reference": "Costado de refugio peatonal junto a rejilla de alcantarillado",
+      "report_id": "REP-003",
+      "sector": "Paradero / Eje Gran Avenida",
+      "status": "Activo",
+      "waste_level": "Bajo"
+    }
+  }
+}

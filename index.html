@@ -33,6 +33,45 @@
         text-shadow: 0 2px 10px rgba(0,0,0,0.5);
         line-height: 1.4;
       }
+      .hero-actions {
+        display: flex;
+        gap: 14px;
+        flex-wrap: wrap;
+        justify-content: center;
+        margin-top: 22px;
+      }
+      .hero-btn-primary {
+        background: #4E7A51;
+        color: #ffffff;
+        text-decoration: none;
+        padding: 13px 26px;
+        border-radius: 999px;
+        font-weight: 700;
+        font-size: 16px;
+        box-shadow: 0 6px 20px rgba(0, 0, 0, 0.35);
+        border: 2px solid rgba(255, 255, 255, 0.25);
+        transition: transform 0.2s ease, background 0.2s ease;
+      }
+      .hero-btn-primary:hover {
+        background: #3d6340;
+        transform: translateY(-2px);
+      }
+      .hero-btn-secondary {
+        background: rgba(58, 38, 24, 0.82);
+        color: #F7F4F0;
+        text-decoration: none;
+        padding: 13px 24px;
+        border-radius: 999px;
+        font-weight: 700;
+        font-size: 16px;
+        border: 2px solid rgba(226, 184, 151, 0.6);
+        backdrop-filter: blur(4px);
+        transition: transform 0.2s ease, background 0.2s ease;
+      }
+      .hero-btn-secondary:hover {
+        background: rgba(92, 58, 33, 0.95);
+        transform: translateY(-2px);
+      }
       .dashboard-wrapper { background-color: #E6DBCF; padding: 60px 0 20px 0; }
       .dashboard-container { display: grid; grid-template-columns: 1fr 1fr; gap: 30px; max-width: 1100px; margin: 0 auto; padding: 0 20px; }
       .dash-col { display: flex; flex-direction: column; gap: 30px; }
@@ -97,6 +136,7 @@
           <a href="lluvia-de-ideas.html" class="sb-link" data-page="lluvia-de-ideas"><span class="sb-num">8</span>Lluvia de ideas</a>
           <a href="propuesta-conceptual.html" class="sb-link" data-page="propuesta-conceptual"><span class="sb-num">9</span>Propuesta Conceptual</a>
           <a href="prototipado.html" class="sb-link" data-page="prototipado"><span class="sb-num">10</span>Prototipado</a>
+          <a href="reportar.html" class="sb-link" data-page="reportar"><span class="sb-num">10.1</span>Prototipo Interactivo</a>
           <a href="propuesta-final.html" class="sb-link" data-page="propuesta-final"><span class="sb-num">11</span>Propuesta Final</a>
         </div>
 
@@ -133,6 +173,10 @@
       <div class="hero-overlay">
         <h1 class="hero-title">Huellas al Lodo</h1>
         <p class="hero-subtitle">Un proyecto de ciencia ciudadana para visibilizar cómo los microbasurales afectan la vida de perros y gatos callejeros.</p>
+        <div class="hero-actions">
+          <a href="reportar.html" class="hero-btn-primary">📍 Ir al Prototipo de Reportes</a>
+          <a href="solucion.html" class="hero-btn-secondary">Conoce nuestra solución &rarr;</a>
+        </div>
       </div>
     </div>
 
@@ -196,11 +240,12 @@
         </div>
 
         <div class="step-block">
-          <h3>Rehabilitación y Adopción</h3>
-          <p>Finalmente, el proyecto cierra el ciclo de recuperación mediante la rehabilitación y la búsqueda de hogares definitivos. Los animales rescatados son trasladados a un espacio seguro donde se reduce al mínimo el riesgo de nuevas infecciones o lesiones, y sus perfiles son publicados en un apartado de adopción responsable dentro de la misma página web. De este modo, la iniciativa no solo recopila valiosos datos científicos sobre el impacto ambiental en la fauna, sino que también ofrece una solución real, visible, humana y comunitaria para la comuna.</p>
+          <h3>Derivación, Rehabilitación y Seguimiento</h3>
+          <p>Finalmente, la información sistematizada sirve como respaldo empírico para derivar antecedentes a fundaciones de protección animal, juntas de vecinos y equipos municipales, facilitando la atención, rehabilitación y cuidado de los animales afectados. De este modo, la iniciativa no solo recopila valiosos datos de ciencia ciudadana sobre el impacto ambiental de los microbasurales en la fauna urbana, sino que también articula una respuesta real, visible y comunitaria para la comuna.</p>
         </div>
 
-        <div class="cta-container">
+        <div class="cta-container" style="display:flex; gap:16px; justify-content:center; flex-wrap:wrap;">
+          <a href="reportar.html" class="cta-button" style="background-color:#4E7A51;">📍 Probar Prototipo de Reportes</a>
           <a href="solucion.html" class="cta-button">Conoce nuestra solución</a>
         </div>
       </div>

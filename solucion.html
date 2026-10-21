@@ -3,9 +3,8 @@
   <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Solucion - Huellas al Lodo</title>
+    <title>Solución - Huellas al Lodo</title>
     <link rel="stylesheet" href="style.css">
-    
   </head>
 <body>
     <!-- ===== Sidebar lateral colapsable ===== -->
@@ -36,6 +35,7 @@
           <a href="lluvia-de-ideas.html" class="sb-link" data-page="lluvia-de-ideas"><span class="sb-num">8</span>Lluvia de ideas</a>
           <a href="propuesta-conceptual.html" class="sb-link" data-page="propuesta-conceptual"><span class="sb-num">9</span>Propuesta Conceptual</a>
           <a href="prototipado.html" class="sb-link" data-page="prototipado"><span class="sb-num">10</span>Prototipado</a>
+          <a href="reportar.html" class="sb-link" data-page="reportar"><span class="sb-num">10.1</span>Prototipo Interactivo</a>
           <a href="propuesta-final.html" class="sb-link" data-page="propuesta-final"><span class="sb-num">11</span>Propuesta Final</a>
         </div>
 
@@ -66,33 +66,397 @@
         <a href="quienes-somos.html" data-group="quienes-somos">Quiénes somos</a>
       </div>
     </div>
-<nav class="breadcrumb"><a href="index.html">Inicio</a> &rsaquo; <b>Solucion</b></nav>
+<nav class="breadcrumb"><a href="index.html">Inicio</a> &rsaquo; <b>Solución</b></nav>
 <div class="main-content"><div class="text-container">
-    <h1>Solución</h1>
-    <p style="color:#555;">Cómo pasamos del problema validado a una propuesta concreta: nuestra plataforma de ciencia ciudadana y el camino de ideación, prototipado y validación.</p>
+    <h1>7 · Solución</h1>
+    <p style="color:#555; text-align:center;">Desde la validación del problema hacia la exploración de alternativas, definición de atributos, planificación de validaciones y procesamiento integrado.</p>
 
-    <h2 style="color:#5C3A21;margin-top:30px;">Nuestra respuesta</h2>
-    <p>Frente a la realidad de los microbasurales y los animales en situación de calle, nuestro proyecto busca empoderar a la comunidad mediante la <strong>ciencia ciudadana</strong>. Con un enfoque inicial en La Cisterna, creamos herramientas accesibles para reportar, documentar y analizar el cruce entre los microbasurales y la presencia de animales, construyendo una base sólida para diseñar intervenciones efectivas.</p>
+    <!-- =====================================================
+         1. INTRODUCCIÓN Y CONTEXTUALIZACIÓN
+         ===================================================== -->
+    <h2 style="color:#5C3A21;margin-top:40px;">1. Introducción y Contextualización</h2>
 
-    <h2 style="color:#5C3A21;margin-top:40px;">Recorre esta sección</h2>
-    <p style="color:#555;">Usa el menú lateral (botón ☰ arriba a la izquierda) o las tarjetas siguientes para navegar cada etapa:</p>
+    <div class="step-block">
+      <h3>Problema, animales afectados y territorio</h3>
+      <p>La comuna de La Cisterna enfrenta una problemática socioambiental persistente: la aparición constante de microbasurales en la vía pública, afectando especialmente a sectores críticos como El Parrón, paraderos y ferias libres. Esta acumulación de desechos domésticos y escombros no solo genera un riesgo sanitario grave para los vecinos (como el colapso y rebalse de alcantarillados durante el invierno), sino que impacta directamente a los perros callejeros y mascotas sueltas de la zona. En su búsqueda de alimento, estos animales rompen las bolsas y esparcen la basura, quedando expuestos a enfermedades, maltrato y generando un ciclo de contaminación continuo.</p>
+    </div>
+
+    <div class="step-block">
+      <h3>De validar el problema a explorar soluciones</h3>
+      <p>Durante nuestra salida a terreno, validamos que este problema se mantiene porque existe una desconexión total: los vecinos no denuncian porque asumen que las autoridades no harán nada, y la municipalidad no limpia a tiempo porque desconoce la ubicación de los focos internos en los barrios. Precisamente aquí entra el objetivo de esta etapa de nuestro proyecto, la cual marca la transición entre la simple observación y validación del problema, para entrar de lleno en la ideación de prototipos que nos permitan proponer soluciones reales, tecnológicas y tangibles.</p>
+    </div>
+
+    <div class="step-block">
+      <h3>Presentación de la aplicación de reportes y su propósito</h3>
+      <p>Como resultado de este proceso de ideación, nace "Huellas al lodo", nuestra plataforma web interactiva de reportes. El propósito central de esta aplicación es actuar como un puente de información en tiempo real. A través de ella, los vecinos pueden geolocalizar de forma exacta y subir fotografías tanto de los microbasurales como de los animales afectados en su cuadra. Con este mapa interactivo, buscamos entregarle una herramienta concreta a la municipalidad, juntas de vecinos, colegios y posibles donantes, permitiéndoles coordinar limpiezas, operativos y destinar sus recursos justo donde más se necesitan.</p>
+    </div>
+
+    <!-- =====================================================
+         TIMELINE DE AVANCE
+         ===================================================== -->
+    <h2 style="color:#5C3A21;margin-top:50px;">Línea de Tiempo de Avance</h2>
+    <p style="color:#555;">Secuencia del trabajo desarrollado por el equipo para pasar de la ideación al análisis de validaciones, con sus tablas de resultados y acceso directo a los documentos de respaldo:</p>
+
+    <div class="timeline-izquierda">
+
+      <!-- Paso 1 -->
+      <div class="timeline-paso" id="paso-1">
+        <div class="timeline-nodo"></div>
+        <div class="timeline-contenido">
+          <div style="display:flex; justify-content:space-between; align-items:flex-start; flex-wrap:wrap; gap:10px; margin-bottom:10px;">
+            <h3 style="margin:0; color:#5C3A21;">Paso 1 · Brainstorming Grupal</h3>
+            <a href="Actividad_5_1_Brainstorming.pdf" target="_blank" style="background:#8C5A35; color:white; text-decoration:none; padding:6px 14px; border-radius:6px; font-size:13px; font-weight:bold;">📄 Ver documento PDF</a>
+          </div>
+          <p style="margin-bottom:12px;">Generamos <strong>10 alternativas</strong> para abordar el problema (1. Aplicación web de reportes geolocalizados; 2. Afiches con código QR y formulario; 3. Canal comunitario de WhatsApp; 4. Mapa ciudadano de observaciones; 5. Red de monitores vecinales; 6. Fichas físicas de registro; 7. Campaña educativa territorial; 8. Jornadas coordinadas de limpieza; 9. Derivación de antecedentes a organizaciones de protección animal; 10. Visualización estadística de sectores con observaciones recurrentes) y comparamos las tres líneas principales:</p>
+          <div style="overflow-x:auto;">
+            <table style="width:100%; border-collapse:collapse; font-size:14px; background:#FDF9F1; border:1px solid #E2B897; border-radius:6px; overflow:hidden;">
+              <thead>
+                <tr style="background:#E2B897; color:#5C3A21; text-align:left;">
+                  <th style="padding:8px 10px;">Alternativa</th>
+                  <th style="padding:8px 10px;">Impacto potencial</th>
+                  <th style="padding:8px 10px;">Factibilidad</th>
+                  <th style="padding:8px 10px;">Motivación del equipo</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr style="border-bottom:1px solid #E2B897;">
+                  <td style="padding:8px 10px; font-weight:bold;">Aplicación + QR</td>
+                  <td style="padding:8px 10px;">Alto: permite registros uniformes y visualización en mapa</td>
+                  <td style="padding:8px 10px;">Media-alta para un prototipo local</td>
+                  <td style="padding:8px 10px;">Alta</td>
+                </tr>
+                <tr style="border-bottom:1px solid #E2B897;">
+                  <td style="padding:8px 10px; font-weight:bold;">Mensajes comunitarios</td>
+                  <td style="padding:8px 10px;">Medio: acceso simple, pero menor estructura</td>
+                  <td style="padding:8px 10px;">Alta</td>
+                  <td style="padding:8px 10px;">Media</td>
+                </tr>
+                <tr>
+                  <td style="padding:8px 10px; font-weight:bold;">Fichas y campañas</td>
+                  <td style="padding:8px 10px;">Medio: presencia territorial y registro manual</td>
+                  <td style="padding:8px 10px;">Media</td>
+                  <td style="padding:8px 10px;">Media</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <!-- Paso 2 -->
+      <div class="timeline-paso" id="paso-2">
+        <div class="timeline-nodo"></div>
+        <div class="timeline-contenido">
+          <div style="display:flex; justify-content:space-between; align-items:flex-start; flex-wrap:wrap; gap:10px; margin-bottom:10px;">
+            <h3 style="margin:0; color:#5C3A21;">Paso 2 · Torneo de Oportunidades y Comparación</h3>
+            <a href="Actividad_5_2_Torneo_y_Comparacion.pdf" target="_blank" style="background:#8C5A35; color:white; text-decoration:none; padding:6px 14px; border-radius:6px; font-size:13px; font-weight:bold;">📄 Ver documento PDF</a>
+          </div>
+          <p style="margin-bottom:10px;">Aplicamos tres filtros de selección (Requerimientos, Atributos y Viabilidad técnica) y analizamos el estado del arte frente a 5 referentes existentes (<strong>Quiltro Maps</strong>, <strong>Dogin</strong>, <strong>AppNimal</strong>, <strong>Litterati</strong> y <strong>FixMyStreet</strong>). Detectamos que las soluciones actuales abordan o bien el registro de animales (sin vincularlo a residuos) o bien el reporte de basura/problemas urbanos (sin foco en bienestar animal). Nuestra propuesta cubre precisamente esa brecha al integrar ambos ejes en un mismo registro.</p>
+        </div>
+      </div>
+
+      <!-- Paso 3 -->
+      <div class="timeline-paso" id="paso-3">
+        <div class="timeline-nodo"></div>
+        <div class="timeline-contenido">
+          <div style="display:flex; justify-content:space-between; align-items:flex-start; flex-wrap:wrap; gap:10px; margin-bottom:10px;">
+            <h3 style="margin:0; color:#5C3A21;">Paso 3 · Atributos, Conductas y Prototipos</h3>
+            <a href="Actividad_5_4_Atributos_y_Conductas.pdf" target="_blank" style="background:#8C5A35; color:white; text-decoration:none; padding:6px 14px; border-radius:6px; font-size:13px; font-weight:bold;">📄 Ver documento PDF</a>
+          </div>
+          <p style="margin-bottom:12px;">A partir del <em>Storyboard</em> (donde una persona observa un animal junto a un microbasural, escanea un afiche con código QR y registra ubicación, fotografía y estado aparente del animal), priorizamos <strong>3 atributos clave</strong> para evaluar el recorrido principal con vecinos adultos:</p>
+          <div style="overflow-x:auto;">
+            <table style="width:100%; border-collapse:collapse; font-size:14px; background:#FDF9F1; border:1px solid #E2B897; border-radius:6px; overflow:hidden;">
+              <thead>
+                <tr style="background:#E2B897; color:#5C3A21; text-align:left;">
+                  <th style="padding:8px 10px;">Atributo</th>
+                  <th style="padding:8px 10px;">Conducta observable</th>
+                  <th style="padding:8px 10px;">Usuarios</th>
+                  <th style="padding:8px 10px;">Prototipo asociado</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr style="border-bottom:1px solid #E2B897;">
+                  <td style="padding:8px 10px; font-weight:bold;">Facilidad de uso</td>
+                  <td style="padding:8px 10px;">Completa un reporte sin orientación adicional.</td>
+                  <td style="padding:8px 10px;">Vecinos adultos</td>
+                  <td style="padding:8px 10px;">Formulario navegable</td>
+                </tr>
+                <tr style="border-bottom:1px solid #E2B897;">
+                  <td style="padding:8px 10px; font-weight:bold;">Claridad</td>
+                  <td style="padding:8px 10px;">Explica la finalidad del reporte e identifica ubicación, fotografía y comentario.</td>
+                  <td style="padding:8px 10px;">Vecinos adultos</td>
+                  <td style="padding:8px 10px;">Storyboard y formulario</td>
+                </tr>
+                <tr>
+                  <td style="padding:8px 10px; font-weight:bold;">Localización útil</td>
+                  <td style="padding:8px 10px;">Introduce el sector y una referencia de ubicación correctos.</td>
+                  <td style="padding:8px 10px;">Vecinos adultos</td>
+                  <td style="padding:8px 10px;">Selector de lugar y mapa</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <!-- Paso 4 -->
+      <div class="timeline-paso" id="paso-4">
+        <div class="timeline-nodo"></div>
+        <div class="timeline-contenido">
+          <div style="display:flex; justify-content:space-between; align-items:flex-start; flex-wrap:wrap; gap:10px; margin-bottom:10px;">
+            <h3 style="margin:0; color:#5C3A21;">Paso 4 · Requerimientos e Indicadores</h3>
+            <a href="Actividad_6_1_Requerimientos_e_Indicadores.pdf" target="_blank" style="background:#8C5A35; color:white; text-decoration:none; padding:6px 14px; border-radius:6px; font-size:13px; font-weight:bold;">📄 Ver documento PDF</a>
+          </div>
+          <p style="margin-bottom:12px;">Vinculamos cada requerimiento funcional con su atributo, indicador cuantitativo y un umbral exploratorio de éxito del <strong>75 %</strong>:</p>
+          <div style="overflow-x:auto;">
+            <table style="width:100%; border-collapse:collapse; font-size:14px; background:#FDF9F1; border:1px solid #E2B897; border-radius:6px; overflow:hidden;">
+              <thead>
+                <tr style="background:#E2B897; color:#5C3A21; text-align:left;">
+                  <th style="padding:8px 10px;">Requerimiento</th>
+                  <th style="padding:8px 10px;">Atributo</th>
+                  <th style="padding:8px 10px;">Indicador</th>
+                  <th style="padding:8px 10px;">Criterio de éxito</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr style="border-bottom:1px solid #E2B897;">
+                  <td style="padding:8px 10px; font-weight:bold;">Registrar sin ayuda</td>
+                  <td style="padding:8px 10px;">Facilidad de uso</td>
+                  <td style="padding:8px 10px;">% que completa el reporte sin asistencia en 180 segundos o menos</td>
+                  <td style="padding:8px 10px; font-weight:bold;">75 %</td>
+                </tr>
+                <tr style="border-bottom:1px solid #E2B897;">
+                  <td style="padding:8px 10px; font-weight:bold;">Comprender el formulario</td>
+                  <td style="padding:8px 10px;">Claridad</td>
+                  <td style="padding:8px 10px;">% que reconoce el objetivo y los campos ubicación, fotografía y comentario</td>
+                  <td style="padding:8px 10px; font-weight:bold;">75 %</td>
+                </tr>
+                <tr>
+                  <td style="padding:8px 10px; font-weight:bold;">Describir el lugar</td>
+                  <td style="padding:8px 10px;">Localización útil</td>
+                  <td style="padding:8px 10px;">% que identifica correctamente sector y referencia</td>
+                  <td style="padding:8px 10px; font-weight:bold;">75 %</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <!-- Paso 5 -->
+      <div class="timeline-paso" id="paso-5">
+        <div class="timeline-nodo"></div>
+        <div class="timeline-contenido">
+          <div style="display:flex; justify-content:space-between; align-items:flex-start; flex-wrap:wrap; gap:10px; margin-bottom:10px;">
+            <h3 style="margin:0; color:#5C3A21;">Paso 5 · Fichas de Validación y Pruebas</h3>
+            <a href="Actividad_6_3_Fichas_de_Validacion.pdf" target="_blank" style="background:#8C5A35; color:white; text-decoration:none; padding:6px 14px; border-radius:6px; font-size:13px; font-weight:bold;">📄 Ver documento PDF</a>
+          </div>
+          <p style="margin-bottom:10px;">Diseñamos las fichas metodológicas (hipótesis, método de medición, dificultades observadas y mejoras) para evaluar los 3 atributos y procesamos un conjunto inicial de registros de muestra (3 participantes):</p>
+          <ul style="margin:0 0 10px 0; padding-left:20px; font-size:14.5px; color:#444; line-height:1.6;">
+            <li><strong>Persona 1:</strong> 145 s / sin ayuda · Claridad: Correcta · Ubicación: Correcta.</li>
+            <li><strong>Persona 2:</strong> 165 s / sin ayuda · Claridad: Correcta · Ubicación: Incorrecta.</li>
+            <li><strong>Persona 3:</strong> 220 s / con ayuda · Claridad: Incorrecta · Ubicación: Incorrecta.</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Paso 6 -->
+      <div class="timeline-paso final" id="paso-6">
+        <div class="timeline-nodo"></div>
+        <div class="timeline-contenido">
+          <div style="display:flex; justify-content:space-between; align-items:flex-start; flex-wrap:wrap; gap:10px; margin-bottom:10px;">
+            <h3 style="margin:0; color:#5C3A21;">Paso 6 · Reporte de Indicadores de Avance (RIA Integrado)</h3>
+            <a href="Actividad_6_1_RIA_Integrado.pdf" target="_blank" style="background:#8C5A35; color:white; text-decoration:none; padding:6px 14px; border-radius:6px; font-size:13px; font-weight:bold;">📄 Ver documento PDF</a>
+          </div>
+          <p style="margin-bottom:10px;">Integramos los resultados en la matriz RIA para contrastar cada indicador frente a la meta del 75 % y definir decisiones concretas de iteración sobre el diseño del formulario, el afiche QR y el selector de ubicación.</p>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- =====================================================
+         2. PROCESAMIENTO INTEGRADO
+         ===================================================== -->
+    <h2 style="color:#5C3A21;margin-top:55px;">2. Procesamiento Integrado</h2>
+
+    <h3 style="color:#8C5A35;margin-top:25px;">2.1. Relación entre requerimientos y la aplicación seleccionada</h3>
+    <p>En La Cisterna confirmamos que los basurales atraen a perros y gatos que rompen las bolsas buscando comida. Para solucionar esto, creamos una página web que se abre directo en el navegador, sin obligar a nadie a instalar una aplicación. La herramienta permite marcar en un mapa dónde está la basura, subir una foto y anotar cuántos animales hay en el lugar. Además, todo queda en una lista pública para que los vecinos, la municipalidad o las fundaciones puedan ver los casos y darles seguimiento.</p>
+
+    <h3 style="color:#8C5A35;margin-top:35px;">2.2. Comparación de alternativas y matriz de atributos</h3>
+    <p>Pensamos en tres opciones: hacer una aplicación de celular, usar los trámites presenciales en la municipalidad o crear una página web. La aplicación resultaba muy cara y requiere descargas que a la gente le da flojera hacer. Los reclamos en la municipalidad son lentos y no muestran la información en un mapa. Por eso elegimos la página web en GitHub Pages, porque es rápida de abrir, muestra la ubicación al instante y no cuesta dinero mantenerla.</p>
+    <p>Asimismo, contrastamos nuestra propuesta frente a las alternativas existentes en el estado del arte mediante la <strong>Matriz de atributos versus soluciones</strong> y la <strong>Curva de valor</strong>:</p>
+
+    <div style="overflow-x:auto; margin-bottom:25px;">
+      <table style="width:100%; border-collapse:collapse; font-size:14.5px; background:#FDF9F1; border:1px solid #E2B897; border-radius:8px; overflow:hidden;">
+        <thead>
+          <tr style="background:#E2B897; color:#5C3A21; text-align:left;">
+            <th style="padding:10px 12px;">Atributo / Funcionalidad</th>
+            <th style="padding:10px 12px;">Quiltro Maps</th>
+            <th style="padding:10px 12px;">Dogin</th>
+            <th style="padding:10px 12px;">AppNimal</th>
+            <th style="padding:10px 12px;">Litterati</th>
+            <th style="padding:10px 12px;">FixMyStreet</th>
+            <th style="padding:10px 12px; background:#5C3A21; color:white;">Huellas al Lodo (Propuesta)</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr style="border-bottom:1px solid #E2B897;">
+            <td style="padding:10px 12px; font-weight:bold; color:#5C3A21;">Fotografía</td>
+            <td style="padding:10px 12px;">Sí</td>
+            <td style="padding:10px 12px;">Sí</td>
+            <td style="padding:10px 12px;">Sí</td>
+            <td style="padding:10px 12px;">Sí</td>
+            <td style="padding:10px 12px;">Parcial</td>
+            <td style="padding:10px 12px; font-weight:bold; color:#5C3A21;">Sí</td>
+          </tr>
+          <tr style="border-bottom:1px solid #E2B897;">
+            <td style="padding:10px 12px; font-weight:bold; color:#5C3A21;">Ubicación</td>
+            <td style="padding:10px 12px;">Sí</td>
+            <td style="padding:10px 12px;">Sí</td>
+            <td style="padding:10px 12px;">Sí</td>
+            <td style="padding:10px 12px;">Sí</td>
+            <td style="padding:10px 12px;">Sí</td>
+            <td style="padding:10px 12px; font-weight:bold; color:#5C3A21;">Sí</td>
+          </tr>
+          <tr style="border-bottom:1px solid #E2B897;">
+            <td style="padding:10px 12px; font-weight:bold; color:#5C3A21;">Observación animal</td>
+            <td style="padding:10px 12px;">Sí</td>
+            <td style="padding:10px 12px;">Parcial</td>
+            <td style="padding:10px 12px;">Sí</td>
+            <td style="padding:10px 12px;">No verificado</td>
+            <td style="padding:10px 12px;">No verificado</td>
+            <td style="padding:10px 12px; font-weight:bold; color:#5C3A21;">Sí</td>
+          </tr>
+          <tr style="border-bottom:1px solid #E2B897;">
+            <td style="padding:10px 12px; font-weight:bold; color:#5C3A21;">Residuos cercanos</td>
+            <td style="padding:10px 12px;">No verificado</td>
+            <td style="padding:10px 12px;">No verificado</td>
+            <td style="padding:10px 12px;">No verificado</td>
+            <td style="padding:10px 12px;">Sí</td>
+            <td style="padding:10px 12px;">Sí</td>
+            <td style="padding:10px 12px; font-weight:bold; color:#5C3A21;">Sí</td>
+          </tr>
+          <tr style="border-bottom:1px solid #E2B897;">
+            <td style="padding:10px 12px; font-weight:bold; color:#5C3A21;">Vínculo Animal + Microbasural</td>
+            <td style="padding:10px 12px;">No verificado</td>
+            <td style="padding:10px 12px;">No verificado</td>
+            <td style="padding:10px 12px;">No verificado</td>
+            <td style="padding:10px 12px;">No verificado</td>
+            <td style="padding:10px 12px;">No verificado</td>
+            <td style="padding:10px 12px; font-weight:bold; color:#5C3A21;">Sí (Diferenciador clave)</td>
+          </tr>
+          <tr>
+            <td style="padding:10px 12px; font-weight:bold; color:#5C3A21;">Mapa</td>
+            <td style="padding:10px 12px;">Sí</td>
+            <td style="padding:10px 12px;">Sí</td>
+            <td style="padding:10px 12px;">Sí</td>
+            <td style="padding:10px 12px;">Sí</td>
+            <td style="padding:10px 12px;">Sí</td>
+            <td style="padding:10px 12px; font-weight:bold; color:#5C3A21;">Sí</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3 style="color:#8C5A35;margin-top:35px;">2.3. Análisis de validaciones</h3>
+    <p>Comprobamos que si le damos a la gente una forma simple de avisar, se motivan a mostrar los basurales que la municipalidad no ve. En las pruebas, el mapa, la opción de subir fotos con el número de animales y la lista de reportes funcionaron bien. Lo más difícil fue la desconfianza de algunos vecinos que sienten que avisar no sirve de nada, la falta de basureros en las calles y ajustar la página para que se vea cómoda desde el celular.</p>
+    <p>A continuación se detalla el registro sistematizado en el <strong>Reporte de Indicadores de Avance (RIA)</strong> y las <strong>Fichas de Validación</strong>:</p>
+
+    <div style="overflow-x:auto; margin-bottom:25px;">
+      <table style="width:100%; border-collapse:collapse; font-size:14.5px; background:#FDF9F1; border:1px solid #E2B897; border-radius:8px; overflow:hidden;">
+        <thead>
+          <tr style="background:#E2B897; color:#5C3A21; text-align:left;">
+            <th style="padding:10px 12px;">Requerimiento / Atributo</th>
+            <th style="padding:10px 12px;">Hipótesis e Indicador (Meta: 75 %)</th>
+            <th style="padding:10px 12px;">Resultado (Muestra)</th>
+            <th style="padding:10px 12px;">Dificultades detectadas e Interpretación</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr style="border-bottom:1px solid #E2B897;">
+            <td style="padding:10px 12px; font-weight:bold; color:#5C3A21;">Registrar sin ayuda / Facilidad de uso</td>
+            <td style="padding:10px 12px;">Completar un reporte sin asistencia en un máximo de 180 segundos.</td>
+            <td style="padding:10px 12px; font-weight:bold;">2 de 3 (66,7 %)</td>
+            <td style="padding:10px 12px;">No alcanza el umbral (75 % exige 3/3 en muestra de 3). La Persona 3 demoró 220 s y requirió ayuda específicamente al <strong>adjuntar una imagen</strong>.</td>
+          </tr>
+          <tr style="border-bottom:1px solid #E2B897;">
+            <td style="padding:10px 12px; font-weight:bold; color:#5C3A21;">Comprender / Claridad</td>
+            <td style="padding:10px 12px;">Comprender el propósito y reconocer ubicación, fotografía y comentario sin pistas.</td>
+            <td style="padding:10px 12px; font-weight:bold;">2 de 3 (66,7 %)</td>
+            <td style="padding:10px 12px;">No alcanza la meta: surgió <strong>confusión entre un reporte de observación territorial y una solicitud de rescate inmediato</strong>, además de dudas sobre el propósito del campo de comentario.</td>
+          </tr>
+          <tr>
+            <td style="padding:10px 12px; font-weight:bold; color:#5C3A21;">Ubicar / Localización útil</td>
+            <td style="padding:10px 12px;">Ingresar correctamente el sector y una referencia de ubicación válida.</td>
+            <td style="padding:10px 12px; font-weight:bold; color:#8C5A35;">1 de 3 (33,3 %)</td>
+            <td style="padding:10px 12px;"><strong>Concentra la mayor dificultad:</strong> dos de las tres personas ingresaron referencias incompletas o incorrectas al describir el lugar.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3 style="color:#8C5A35;margin-top:35px;">2.4. Decisiones sobre el prototipo</h3>
+    <p>Vamos a mantener el mapa, el formulario con fotos y cantidad de animales, y la lista de reportes. Modificaremos el diseño para que funcione mejor en pantallas de celular y acortaremos las preguntas del formulario para agilizar todo. Por último, dejamos fuera cualquier función complicada para que hacer un reporte sea un proceso rápido y sencillo.</p>
+
+    <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(260px, 1fr)); gap:18px; margin-top:15px; margin-bottom:30px;">
+      <div style="background:#FDF9F1; border-radius:10px; padding:20px; border-top:5px solid #4E7A51; border-left:1px solid #E2B897; border-right:1px solid #E2B897; border-bottom:1px solid #E2B897;">
+        <h4 style="margin-top:0; color:#4E7A51;">✅ Qué Mantendremos</h4>
+        <ul style="padding-left:18px; margin:0; font-size:14.5px; line-height:1.6;">
+          <li><strong>El mapa interactivo, el formulario con fotos y cantidad de animales, y la lista pública de reportes:</strong> permiten visibilizar los focos y darles seguimiento directo desde el navegador.</li>
+          <li><strong>Acceso vía código QR sin descargas:</strong> facilita abrir la página al instante en terreno.</li>
+        </ul>
+      </div>
+      <div style="background:#FDF9F1; border-radius:10px; padding:20px; border-top:5px solid #D9822B; border-left:1px solid #E2B897; border-right:1px solid #E2B897; border-bottom:1px solid #E2B897;">
+        <h4 style="margin-top:0; color:#B86514;">🔧 Qué Modificaremos</h4>
+        <ul style="padding-left:18px; margin:0; font-size:14.5px; line-height:1.6;">
+          <li><strong>Diseño adaptable a pantallas de celular y carga de fotos:</strong> ajustar la interfaz móvil y simplificar el control para adjuntar fotografías.</li>
+          <li><strong>Formulario más corto y guiado:</strong> acortar las preguntas, incorporar ejemplos claros de referencias en el mapa y aclarar explícitamente que el formulario registra observaciones territoriales y no despachos de rescate de emergencia.</li>
+        </ul>
+      </div>
+      <div style="background:#FDF9F1; border-radius:10px; padding:20px; border-top:5px solid #A94442; border-left:1px solid #E2B897; border-right:1px solid #E2B897; border-bottom:1px solid #E2B897;">
+        <h4 style="margin-top:0; color:#A94442;">❌ Qué Descartaremos</h4>
+        <ul style="padding-left:18px; margin:0; font-size:14.5px; line-height:1.6;">
+          <li><strong>Cualquier función complicada o registro obligatorio:</strong> dejamos fuera pasos complejos o descargas de aplicaciones para que hacer un reporte sea un proceso rápido y sencillo (&lt; 180 s).</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- =====================================================
+         3. CONCLUSIONES Y PRÓXIMOS PASOS
+         ===================================================== -->
+    <h2 style="color:#5C3A21;margin-top:55px;">3. Conclusiones y Próximos Pasos</h2>
+
+    <div class="step-block">
+      <h3>Síntesis de resultados, dificultades y próximos pasos</h3>
+      <p>Para concluir, se realizó una propuesta conceptual para tener bien definidos los atributos del problema y así seguir con lo que sería el prototipo de nuestra solución, actividades como la lluvia de ideas y el storyboard fueron las que nos ayudaron a llevar a cabo este trabajo, ya que, por un lado, nos ayudaron a ampliar posibilidades de solución y por otro, nos imaginamos una situación explícita en la cual nuestro prototipo puede ser de ayuda para esta problemática. Mayores dificultades en la búsqueda del prototipo no hubieron, pero sí se puede llegar a tener uno con respecto a cómo se utiliza la aplicación y quien la utiliza, por lo que, como próximos pasos se tiene pensado pulir la estructura que debe llevar la aplicación y qué cosas debe tener explícitamente, de manera que sea fácil y rápida de usar, para luego ver si esa solución sería efectiva en ámbitos reales, además de pensar en cómo la app se puede difundir, para que así se ayude a la mayor cantidad de animales callejeros que se encuentren en este tipo de problemas.</p>
+    </div>
+
+    <!-- =====================================================
+         NAVEGACIÓN POR SUB-SECCIONES
+         ===================================================== -->
+    <h2 style="color:#5C3A21;margin-top:50px;">Explora el detalle por pestaña</h2>
+    <p style="color:#555;">Además de esta síntesis integrada, puedes revisar cada pestaña específica del proceso:</p>
 
     <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:18px;margin-top:20px;">
       <a href="lluvia-de-ideas.html" class="banner-card" style="text-decoration:none;color:inherit;background:white;border-radius:12px;box-shadow:0 6px 20px rgba(92,58,33,0.1);padding:24px;border-left:6px solid #8C5A35;display:block;">
-        <h3 style="color:#5C3A21;margin:0 0 6px;">Lluvia de ideas</h3>
-        <p style="margin:0;color:#555;font-size:14px;">Exploración divergente de posibles caminos.</p>
+        <h3 style="color:#5C3A21;margin:0 0 6px;">8 · Lluvia de ideas y Torneo</h3>
+        <p style="margin:0;color:#555;font-size:14px;">Brainstorming de 10 ideas, estado del arte y matriz de atributos.</p>
       </a>
       <a href="propuesta-conceptual.html" class="banner-card" style="text-decoration:none;color:inherit;background:white;border-radius:12px;box-shadow:0 6px 20px rgba(92,58,33,0.1);padding:24px;border-left:6px solid #8C5A35;display:block;">
-        <h3 style="color:#5C3A21;margin:0 0 6px;">Propuesta Conceptual</h3>
-        <p style="margin:0;color:#555;font-size:14px;">El ciclo de recuperación en tres pasos.</p>
+        <h3 style="color:#5C3A21;margin:0 0 6px;">9 · Propuesta Conceptual</h3>
+        <p style="margin:0;color:#555;font-size:14px;">Storyboard, propuesta de valor, atributos priorizados y conductas observables.</p>
       </a>
       <a href="prototipado.html" class="banner-card" style="text-decoration:none;color:inherit;background:white;border-radius:12px;box-shadow:0 6px 20px rgba(92,58,33,0.1);padding:24px;border-left:6px solid #8C5A35;display:block;">
-        <h3 style="color:#5C3A21;margin:0 0 6px;">Prototipado</h3>
-        <p style="margin:0;color:#555;font-size:14px;">Desarrollo iterativo de la plataforma web.</p>
+        <h3 style="color:#5C3A21;margin:0 0 6px;">10 · Prototipado</h3>
+        <p style="margin:0;color:#555;font-size:14px;">Decisiones sobre el prototipo: qué mantener, modificar y descartar.</p>
+      </a>
+      <a href="reportar.html" class="banner-card" style="text-decoration:none;color:inherit;background:white;border-radius:12px;box-shadow:0 6px 20px rgba(92,58,33,0.1);padding:24px;border-left:6px solid #4E7A51;display:block;">
+        <h3 style="color:#4E7A51;margin:0 0 6px;">10.1 · Prototipo Interactivo (Mapa + Reporte)</h3>
+        <p style="margin:0;color:#555;font-size:14px;">Prueba el mapa interactivo de La Cisterna, adjunta fotografías y explora los focos registrados por la comunidad.</p>
       </a>
       <a href="propuesta-final.html" class="banner-card" style="text-decoration:none;color:inherit;background:white;border-radius:12px;box-shadow:0 6px 20px rgba(92,58,33,0.1);padding:24px;border-left:6px solid #8C5A35;display:block;">
-        <h3 style="color:#5C3A21;margin:0 0 6px;">Propuesta Final</h3>
-        <p style="margin:0;color:#555;font-size:14px;">Validación con usuarios e implementación.</p>
+        <h3 style="color:#5C3A21;margin:0 0 6px;">11 · Validación y Conclusiones</h3>
+        <p style="margin:0;color:#555;font-size:14px;">Fichas de validación, resultados RIA, conclusiones y siguientes pasos.</p>
       </a>
     </div>
 

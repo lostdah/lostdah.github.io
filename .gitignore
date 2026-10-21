@@ -1,0 +1,16 @@
+# Variables de entorno y claves locales (NUNCA subir a GitHub)
+.env
+runtime-config.js
+
+# Estado temporal y caché de Python
+__pycache__/
+*.py[cod]
+*$py.class
+reports_store.json
+uploads/
+
+# Archivos de sistema / editor
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
