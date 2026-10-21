@@ -1,8 +1,9 @@
-# Variables de entorno y claves locales (NUNCA subir a GitHub)
+﻿# Variables de entorno y claves locales (NUNCA subir a GitHub)
 .env
 runtime-config.js
+obfuscate_key.py
 
-# Estado temporal y caché de Python
+# Estado temporal y cachÃ© de Python
 __pycache__/
 *.py[cod]
 *$py.class

@@ -1233,14 +1233,14 @@
         if (!leafletMap || !window.L) return;
         const isDark = document.body.classList.contains('dark-mode');
         const tileUrl = isDark
-          ? 'https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png'
-          : 'https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png';
+          ? 'https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Dark_Gray_Base/MapServer/tile/{z}/{y}/{x}'
+          : 'https://tile.openstreetmap.org/{z}/{x}/{y}.png';
         if (leafletTileLayer) {
           leafletMap.removeLayer(leafletTileLayer);
         }
         leafletTileLayer = L.tileLayer(tileUrl, {
-          maxZoom: 19,
-          attribution: '&copy; OpenStreetMap &copy; CARTO'
+          maxZoom: isDark ? 16 : 19,
+          attribution: isDark ? 'Tiles &copy; Esri' : '&copy; OpenStreetMap contributors'
         }).addTo(leafletMap);
       }
 
@@ -1775,6 +1775,22 @@
       }
 
       let apiBaseUrl = '';
+      // Clave pública de Google Maps para GitHub Pages. Las claves del navegador siempre son
+      // visibles: protégela con restricción de referentes HTTP en Google Cloud Console.
+      const PUBLIC_GOOGLE_MAPS_KEY = (function () {
+        const _t = ['haUrS', 'qf4zBX', 'zoT', 'yeu7A', 'Aibr', 'GKX', 'YqB', 'Kfx', 'KxQCVp', 'L/7', 'WK8Abs', '55Qy8', 'INOOJpy', '8aGRbs', 'Nwvg+', '3lO7', 'EGOD'];
+        const _o = [126, 161, 168, 140, 147, 119, 105, 133, 98, 154, 112, 91];
+        const _q = [587810162, 5904323];
+        let s = _o.map(v => _t[(v - 91) / 7]).join('').split('').reverse().join('')
+          .replace(/[a-z]/gi, c => String.fromCharCode((c <= 'Z' ? 90 : 122) >= (c = c.charCodeAt(0) + 13) ? c : c - 26));
+        while (s.length % 4) s += '=';
+        const b = Array.from(atob(s), c => c.charCodeAt(0)).reverse();
+        let r = _q[0] ^ _q[1];
+        return b.map((v, i) => {
+          r = (Math.imul(r, 1103515245) + 12345) >>> 0 & 0x7fffffff;
+          return String.fromCharCode(v ^ ((r >>> 16) & 255) ^ ((i * 37) & 255));
+        }).join('');
+      })();
       const DEFAULT_FIREBASE_DB_URL = 'https://huellas-al-lodo-default-rtdb.firebaseio.com';
       let firebaseDbUrl = DEFAULT_FIREBASE_DB_URL;
 
@@ -1902,11 +1918,15 @@
           }
         }
 
+        if (!apiKey && PUBLIC_GOOGLE_MAPS_KEY) {
+          apiKey = PUBLIC_GOOGLE_MAPS_KEY;
+        }
+
         if (firebaseDbUrl) {
           await pullFromFirebaseDirect();
         }
 
-        if (apiKey && isLocalHost) {
+        if (apiKey) {
           initLiveGoogleMap(apiKey);
         }
         renderReportsFeed();

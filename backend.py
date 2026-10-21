@@ -58,25 +58,14 @@ def get_firebase_db_url() -> str:
     return url
 
 
-def sync_runtime_config_js() -> None:
-    """Genera un archivo local (ignorado en git) para que file:// también pueda leer la configuración."""
-    runtime_js_path = os.path.join(BASE_DIR, "runtime-config.js")
-    key = os.environ.get("GOOGLE_MAPS_API_KEY", "").strip()
-    fb_url = get_firebase_db_url()
-    try:
-        with open(runtime_js_path, "w", encoding="utf-8") as f:
-            payload = json.dumps(
-                {"googleMapsApiKey": key, "firebaseDbUrl": fb_url},
-                ensure_ascii=False,
-            )
-            f.write(f"window.__HUELLAS_RUNTIME_CONFIG__ = {payload};\n")
-    except OSError:
-        pass
-
-
 load_dotenv_file(os.path.join(BASE_DIR, ".env"))
 load_dotenv_file(os.path.join(BASE_DIR, ".env.example"))
-sync_runtime_config_js()
+try:
+    _legacy_runtime_js = os.path.join(BASE_DIR, "runtime-config.js")
+    if os.path.exists(_legacy_runtime_js):
+        os.remove(_legacy_runtime_js)
+except OSError:
+    pass
 
 # =====================================================================
 # 1. DICCIONARIO DE IMÁGENES (IMAGES_DB)
