@@ -1060,6 +1060,10 @@
       let gmpInfoWindow = null;
       let gmpReportMarkers = [];
       let gmpLoaded = false;
+      let leafletMap = null;
+      let leafletTileLayer = null;
+      let leafletDraftMarker = null;
+      let leafletReportMarkers = [];
 
       function compressImageDataUrl(dataUrl, maxWidth = 850, quality = 0.78) {
         return new Promise((resolve) => {
@@ -1219,11 +1223,6 @@
       // =====================================================================
       // 5. GOOGLE MAPS PLATFORM + RESPALDO INTERACTIVO AUTOMÁTICO (LEAFLET)
       // =====================================================================
-      let leafletMap = null;
-      let leafletTileLayer = null;
-      let leafletDraftMarker = null;
-      let leafletReportMarkers = [];
-
       window.gm_authFailure = function () {
         gmpLoaded = false;
         gmpMap = null;
