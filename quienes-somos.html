@@ -101,48 +101,7 @@
         <p>Créditos completos en la pestaña <a href="bibliografia.html" style="color:#8C5A35;font-weight:bold;">Bibliografía</a>.</p>
       </div>
     </footer>
-    <script>
-      // ----- Modo oscuro -----
-      const darkModeToggle = document.getElementById('darkModeToggle');
-      if (localStorage.getItem('dark-mode') === 'enabled') {
-        document.body.classList.add('dark-mode');
-        if(darkModeToggle) darkModeToggle.innerHTML = '&#9728;&#65039;';
-      }
-      if(darkModeToggle) {
-        darkModeToggle.addEventListener('click', (e) => {
-          e.preventDefault();
-          document.body.classList.toggle('dark-mode');
-          if (document.body.classList.contains('dark-mode')) {
-            localStorage.setItem('dark-mode', 'enabled');
-            darkModeToggle.innerHTML = '&#9728;&#65039;';
-          } else {
-            localStorage.setItem('dark-mode', 'disabled');
-            darkModeToggle.innerHTML = '&#127769;';
-          }
-        });
-      }
-
-      // ----- Sidebar colapsable -----
-      const sidebar = document.getElementById('sidebar');
-      const backdrop = document.getElementById('sidebarBackdrop');
-      const menuToggle = document.getElementById('menuToggle');
-      const sidebarClose = document.getElementById('sidebarClose');
-      function openSidebar(){ sidebar.classList.add('open'); backdrop.classList.add('show'); }
-      function closeSidebar(){ sidebar.classList.remove('open'); backdrop.classList.remove('show'); }
-      if (menuToggle) menuToggle.addEventListener('click', openSidebar);
-      if (sidebarClose) sidebarClose.addEventListener('click', closeSidebar);
-      if (backdrop) backdrop.addEventListener('click', closeSidebar);
-      document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeSidebar(); });
-
-      // ----- Marcar activo (barra superior por grupo, sidebar por página) -----
-      const CURRENT_PAGE = "quienes-somos";
-      const CURRENT_GROUP = "quienes-somos";
-      document.querySelectorAll('.nav-links a[data-group]').forEach(a => {
-        if (a.dataset.group === CURRENT_GROUP) a.classList.add('active');
-      });
-      document.querySelectorAll('.sidebar .sb-link[data-page]').forEach(a => {
-        if (a.dataset.page === CURRENT_PAGE) a.classList.add('current');
-      });
-    </script>
-  </body>
+    <script src="site.js"></script>
+    <script src="admin-dev.js"></script>
+</body>
 </html>

@@ -71,15 +71,15 @@
     <h1>10 · Planificación y Decisiones de Prototipado</h1>
     <p style="color:#555; text-align:center;">Relación entre requerimientos y la aplicación seleccionada, componentes de prototipado y decisiones de diseño.</p>
 
-    <div style="background:linear-gradient(135deg, #5C3A21 0%, #8C5A35 100%); color:#fff; border-radius:14px; padding:26px 28px; margin:25px 0 35px; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:18px; box-shadow:0 10px 26px rgba(92,58,33,0.22);">
-      <div style="flex:1; min-width:260px;">
+    <div class="proto-cta-banner">
+      <div style="flex:1; min-width:220px;">
         <div style="font-size:12.5px; text-transform:uppercase; letter-spacing:0.08em; color:#E2B897; font-weight:700; margin-bottom:4px;">Prototipo Funcional Disponible</div>
         <h3 style="margin:0 0 6px 0; font-size:22px; color:#fff;">📍 Plataforma de Reporte en Google Maps</h3>
         <p style="margin:0; font-size:14.5px; color:#F7F4F0; line-height:1.5;">
           Prueba la sección interactiva de reportes en La Cisterna: suelta el marcador en el mapa, adjunta una fotografía del lugar y revisa los focos registrados por la comunidad.
         </p>
       </div>
-      <a href="reportar.html" style="background:#FDF9F1; color:#5C3A21; text-decoration:none; padding:14px 24px; border-radius:999px; font-weight:700; font-size:15.5px; box-shadow:0 4px 14px rgba(0,0,0,0.2); white-space:nowrap;">
+      <a href="reportar.html" class="proto-cta-btn">
         🚀 Ir al Prototipo de Reportes &rarr;
       </a>
     </div>
@@ -108,7 +108,7 @@
     <h2 style="color:#5C3A21;margin-top:45px;">Decisiones sobre el prototipo</h2>
     <p>Vamos a mantener el mapa, el formulario con fotos y cantidad de animales, y la lista de reportes. Modificaremos el diseño para que funcione mejor en pantallas de celular y acortaremos las preguntas del formulario para agilizar todo. Por último, dejamos fuera cualquier función complicada para que hacer un reporte sea un proceso rápido y sencillo.</p>
 
-    <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(260px, 1fr)); gap:18px; margin-top:20px; margin-bottom:30px;">
+    <div class="decision-grid">
       <div style="background:#FDF9F1; border-radius:10px; padding:20px; border-top:5px solid #4E7A51; border-left:1px solid #E2B897; border-right:1px solid #E2B897; border-bottom:1px solid #E2B897;">
         <h4 style="margin-top:0; color:#4E7A51;">✅ Elementos que Mantendremos</h4>
         <ul style="padding-left:18px; margin:0; font-size:14.5px; line-height:1.6;">
@@ -141,48 +141,7 @@
         <p>Créditos completos en la pestaña <a href="bibliografia.html" style="color:#8C5A35;font-weight:bold;">Bibliografía</a>.</p>
       </div>
     </footer>
-    <script>
-      // ----- Modo oscuro -----
-      const darkModeToggle = document.getElementById('darkModeToggle');
-      if (localStorage.getItem('dark-mode') === 'enabled') {
-        document.body.classList.add('dark-mode');
-        if(darkModeToggle) darkModeToggle.innerHTML = '&#9728;&#65039;';
-      }
-      if(darkModeToggle) {
-        darkModeToggle.addEventListener('click', (e) => {
-          e.preventDefault();
-          document.body.classList.toggle('dark-mode');
-          if (document.body.classList.contains('dark-mode')) {
-            localStorage.setItem('dark-mode', 'enabled');
-            darkModeToggle.innerHTML = '&#9728;&#65039;';
-          } else {
-            localStorage.setItem('dark-mode', 'disabled');
-            darkModeToggle.innerHTML = '&#127769;';
-          }
-        });
-      }
-
-      // ----- Sidebar colapsable -----
-      const sidebar = document.getElementById('sidebar');
-      const backdrop = document.getElementById('sidebarBackdrop');
-      const menuToggle = document.getElementById('menuToggle');
-      const sidebarClose = document.getElementById('sidebarClose');
-      function openSidebar(){ sidebar.classList.add('open'); backdrop.classList.add('show'); }
-      function closeSidebar(){ sidebar.classList.remove('open'); backdrop.classList.remove('show'); }
-      if (menuToggle) menuToggle.addEventListener('click', openSidebar);
-      if (sidebarClose) sidebarClose.addEventListener('click', closeSidebar);
-      if (backdrop) backdrop.addEventListener('click', closeSidebar);
-      document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeSidebar(); });
-
-      // ----- Marcar activo (barra superior por grupo, sidebar por página) -----
-      const CURRENT_PAGE = "prototipado";
-      const CURRENT_GROUP = "solucion";
-      document.querySelectorAll('.nav-links a[data-group]').forEach(a => {
-        if (a.dataset.group === CURRENT_GROUP) a.classList.add('active');
-      });
-      document.querySelectorAll('.sidebar .sb-link[data-page]').forEach(a => {
-        if (a.dataset.page === CURRENT_PAGE) a.classList.add('current');
-      });
-    </script>
-  </body>
+    <script src="site.js"></script>
+    <script src="admin-dev.js"></script>
+</body>
 </html>

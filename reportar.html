@@ -78,29 +78,22 @@
         height: 520px;
       }
 
-      /* Versión D · Celular (Marco móvil compacto y contenido 100% encuadrado) */
+      /* Disposición Móvil Optimizada (Sin sub-marcos falsos, espacio 100% aprovechado) */
       .proto-workspace[data-disposition="mobile-qr"] {
         grid-template-columns: minmax(0, 1fr);
         width: 100%;
-        max-width: 410px;
-        margin: 0 auto;
-        border: 8px solid #382315;
-        border-radius: 32px;
-        padding: 16px 14px 18px;
-        background: #F7F4F0;
-        box-shadow: 0 16px 38px rgba(0, 0, 0, 0.2);
-        overflow: hidden;
-        gap: 14px;
+        max-width: 100%;
+        margin: 0;
+        border: none;
+        border-radius: 0;
+        padding: 0;
+        background: transparent;
+        box-shadow: none;
+        overflow: visible;
+        gap: 16px;
       }
       .proto-workspace[data-disposition="mobile-qr"]::before {
-        content: "";
-        display: block;
-        width: 90px;
-        height: 6px;
-        background: #382315;
-        border-radius: 999px;
-        margin: 0 auto 2px;
-        opacity: 0.75;
+        display: none !important;
       }
       .proto-workspace[data-disposition="mobile-qr"] .proto-card {
         padding: 15px;
@@ -143,6 +136,18 @@
       }
 
       @media (max-width: 820px) {
+        .proto-shell {
+          padding: 16px 12px 40px;
+        }
+        .proto-top-header {
+          margin-bottom: 16px;
+        }
+        .proto-top-header h1 {
+          font-size: 21px;
+        }
+        .proto-top-header p {
+          font-size: 13px;
+        }
         .proto-workspace[data-disposition="map-first"],
         .proto-workspace[data-disposition="mobile-qr"] {
           grid-template-columns: 1fr;
@@ -152,9 +157,23 @@
           padding: 0;
           box-shadow: none;
           background: transparent;
+          gap: 16px;
+        }
+        .proto-workspace::before {
+          display: none !important;
+        }
+        .proto-card {
+          padding: 16px 14px;
+          border-radius: 14px;
         }
         .proto-workspace #mapContainerWrapper {
-          height: 320px !important;
+          height: 280px !important;
+        }
+        .triple-field-grid {
+          grid-template-columns: minmax(0, 1.2fr) minmax(0, 0.8fr);
+        }
+        .triple-field-grid .field-block:last-child {
+          grid-column: 1 / -1;
         }
       }
 
@@ -489,6 +508,34 @@
         align-items: center;
         gap: 6px;
       }
+      .report-card-footer {
+        border-top: 1px solid #EFE6D5;
+        padding-top: 8px;
+        margin-top: 8px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 8px;
+      }
+      .report-card-coords {
+        font-size: 12px;
+        color: #777;
+        white-space: nowrap;
+      }
+      .report-card-actions {
+        display: flex;
+        align-items: center;
+        justify-content: flex-end;
+        gap: 8px;
+      }
+      .report-card-actions .map-btn {
+        font-size: 11.5px;
+        padding: 4px 10px;
+      }
+      .report-card-actions .delete-report-btn {
+        font-size: 11.5px;
+        padding: 4px 10px;
+      }
       .scope-clarity-note {
         margin-top: 10px;
         font-size: 12px;
@@ -592,12 +639,16 @@
         color: #EADBCB !important;
       }
       body.dark-mode .proto-workspace[data-disposition="mobile-qr"] {
-        background: #1F1713 !important;
-        border-color: #4A2E1B !important;
-        box-shadow: 0 20px 50px rgba(0, 0, 0, 0.65), 0 0 0 2px #8C5A35 !important;
+        background: transparent !important;
+        border: none !important;
+        border-radius: 0 !important;
+        box-shadow: none !important;
       }
       body.dark-mode .proto-workspace[data-disposition="mobile-qr"]::before {
-        background: #5C3A21 !important;
+        display: none !important;
+      }
+      #map, #map:focus, .leaflet-container, .leaflet-container:focus, #mapContainerWrapper:focus {
+        outline: none !important;
       }
       body.dark-mode .proto-card,
       body.dark-mode .report-card,
@@ -662,8 +713,49 @@
         background: #4A2511 !important;
         color: #F5B895 !important;
       }
-      body.dark-mode .report-card div[style*="border-top"] {
+      body.dark-mode .report-card div[style*="border-top"],
+      body.dark-mode .report-card-footer {
         border-top-color: #3D2D23 !important;
+      }
+      body.dark-mode .report-card-coords {
+        color: #B5A38A !important;
+      }
+
+            /* Moderación de reportes */
+      .delete-report-btn {
+        background: #FADBD8;
+        border: 1px solid #E74C3C;
+        color: #922B21;
+        border-radius: 6px;
+        padding: 4px 10px;
+        font-size: 11.5px;
+        font-weight: 700;
+        cursor: pointer;
+        transition: all 0.18s ease;
+        display: inline-flex;
+        align-items: center;
+        gap: 4px;
+      }
+      .delete-report-btn:hover {
+        background: #E74C3C;
+        color: #FFF;
+      }
+      body.dark-mode .delete-report-btn {
+        background: #4A1B1B;
+        border-color: #C0392B;
+        color: #F5B7B1;
+      }
+      body.dark-mode .delete-report-btn:hover {
+        background: #C0392B;
+        color: #FFF;
+      }
+      @keyframes adminFadeIn {
+        from { opacity: 0; transform: scale(0.96); }
+        to { opacity: 1; transform: scale(1); }
+      }
+      @keyframes adminPulse {
+        0%, 100% { opacity: 1; }
+        50% { opacity: 0.85; }
       }
     </style>
   </head>
@@ -718,6 +810,7 @@
           Huellas al Lodo
         </div>
         <a href="#" id="darkModeToggle" class="dark-toggle" title="Modo Oscuro">&#127769;</a>
+        
       </div>
       <div class="nav-links">
         <a href="index.html" data-group="inicio">Inicio</a>
@@ -943,44 +1036,14 @@
 
     <script>
       // =====================================================================
-      // 1. MODO OSCURO Y SIDEBAR
+      // 1. TEMA DEL MAPA (SINCRONIZADO CON SITE.JS)
       // =====================================================================
-      const darkModeToggle = document.getElementById('darkModeToggle');
-      if (localStorage.getItem('dark-mode') === 'enabled') {
-        document.body.classList.add('dark-mode');
-        if (darkModeToggle) darkModeToggle.innerHTML = '&#9728;&#65039;';
-      }
-      if (darkModeToggle) {
-        darkModeToggle.addEventListener('click', (e) => {
-          e.preventDefault();
-          document.body.classList.toggle('dark-mode');
-          if (document.body.classList.contains('dark-mode')) {
-            localStorage.setItem('dark-mode', 'enabled');
-            darkModeToggle.innerHTML = '&#9728;&#65039;';
-          } else {
-            localStorage.setItem('dark-mode', 'disabled');
-            darkModeToggle.innerHTML = '&#127769;';
-          }
-          if (gmpLoaded && typeof mountGoogleMapInstance === 'function') {
-            mountGoogleMapInstance();
-          } else if (typeof syncLeafletTheme === 'function') {
-            syncLeafletTheme();
-          }
-        });
-      }
-
-      const sidebar = document.getElementById('sidebar');
-      const backdrop = document.getElementById('sidebarBackdrop');
-      const menuToggle = document.getElementById('menuToggle');
-      const sidebarClose = document.getElementById('sidebarClose');
-      function openSidebar() { sidebar.classList.add('open'); backdrop.classList.add('show'); }
-      function closeSidebar() { sidebar.classList.remove('open'); backdrop.classList.remove('show'); }
-      if (menuToggle) menuToggle.addEventListener('click', openSidebar);
-      if (sidebarClose) sidebarClose.addEventListener('click', closeSidebar);
-      if (backdrop) backdrop.addEventListener('click', closeSidebar);
-      document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeSidebar(); });
-      document.querySelectorAll('.sidebar .sb-link[data-page]').forEach(a => {
-        if (a.dataset.page === 'reportar') a.classList.add('current');
+      window.addEventListener('huellas:theme-change', () => {
+        if (gmpLoaded && typeof mountGoogleMapInstance === 'function') {
+          mountGoogleMapInstance();
+        } else if (typeof syncLeafletTheme === 'function') {
+          syncLeafletTheme();
+        }
       });
 
       // =====================================================================
@@ -1065,7 +1128,19 @@
       let leafletDraftMarker = null;
       let leafletReportMarkers = [];
 
-      function compressImageDataUrl(dataUrl, maxWidth = 850, quality = 0.78) {
+      function sanitizeImageUrl(url) {
+        if (typeof url !== 'string') return 'IMG_7198.jpg';
+        const trimmed = url.trim();
+        if (/^data:image\/(jpeg|jpg|png|webp);base64,[A-Za-z0-9+/=]+$/i.test(trimmed)) {
+          return trimmed;
+        }
+        if (/^(uploads\/[A-Za-z0-9_.-]+\.(jpg|jpeg|png|webp)|IMG_7198\.jpg|peuros\.jpg|Peurros2\.png)$/i.test(trimmed)) {
+          return trimmed;
+        }
+        return 'IMG_7198.jpg';
+      }
+
+      function compressImageDataUrl(dataUrl, maxWidth = 720, quality = 0.72) {
         return new Promise((resolve) => {
           if (!dataUrl || !dataUrl.startsWith('data:image/')) {
             resolve(dataUrl);
@@ -1128,7 +1203,14 @@
       // 3. DISPOSICIÓN AUTOMÁTICA SEGÚN PANTALLA (COMPUTADOR C / CELULAR D)
       // =====================================================================
       const protoWorkspace = document.getElementById('protoWorkspace');
-      let currentDisposition = window.innerWidth <= 768 ? 'mobile-qr' : 'map-first';
+      function getEffectiveDisposition() {
+        return (window.isHuellasMobileViewport && window.isHuellasMobileViewport()) ||
+               document.body.classList.contains('dev-mobile-sim') ||
+               window.innerWidth <= 768
+          ? 'mobile-qr'
+          : 'map-first';
+      }
+      let currentDisposition = getEffectiveDisposition();
 
       function applyLayoutDisposition(disp) {
         currentDisposition = disp;
@@ -1152,7 +1234,13 @@
       }
 
       window.addEventListener('resize', () => {
-        const targetDisp = window.innerWidth <= 768 ? 'mobile-qr' : 'map-first';
+        const targetDisp = getEffectiveDisposition();
+        if (targetDisp !== currentDisposition) {
+          applyLayoutDisposition(targetDisp);
+        }
+      });
+      window.addEventListener('huellas:viewport-change', () => {
+        const targetDisp = getEffectiveDisposition();
         if (targetDisp !== currentDisposition) {
           applyLayoutDisposition(targetDisp);
         }
@@ -1218,6 +1306,7 @@
         reader.readAsDataURL(file);
       });
 
+      window.applyLayoutDisposition = applyLayoutDisposition;
       applyLayoutDisposition(currentDisposition);
 
       // =====================================================================
@@ -1475,13 +1564,35 @@
               iconSize: [0, 0]
             });
             const m = L.marker([Number(lat), Number(lng)], { icon: pinIcon, title: rep.sector }).addTo(leafletMap);
-            m.bindPopup(`
-              <div style="font-family:Arial,sans-serif;font-size:13px;color:#333;min-width:190px;">
-                <img src="${imgInfo.url}" alt="${rep.sector}" style="width:100%;height:100px;object-fit:cover;border-radius:6px;margin-bottom:6px;">
-                <strong style="color:#5C3A21;display:block;">${rep.sector}</strong>
-                <p style="margin:4px 0;">${rep.animal_count} ${rep.animal_type} · ${rep.reference}</p>
-              </div>
-            `);
+            const popupDiv = document.createElement('div');
+            popupDiv.style.fontFamily = 'Arial,sans-serif';
+            popupDiv.style.fontSize = '13px';
+            popupDiv.style.color = '#333';
+            popupDiv.style.minWidth = '190px';
+
+            const popupImg = document.createElement('img');
+            popupImg.src = sanitizeImageUrl(imgInfo.url);
+            popupImg.alt = rep.sector || 'Reporte';
+            popupImg.style.width = '100%';
+            popupImg.style.height = '100px';
+            popupImg.style.objectFit = 'cover';
+            popupImg.style.borderRadius = '6px';
+            popupImg.style.marginBottom = '6px';
+
+            const popupTitle = document.createElement('strong');
+            popupTitle.style.color = '#5C3A21';
+            popupTitle.style.display = 'block';
+            popupTitle.textContent = rep.sector || '';
+
+            const popupDesc = document.createElement('p');
+            popupDesc.style.margin = '4px 0';
+            popupDesc.textContent = `${rep.animal_count || 1} ${rep.animal_type || 'Animales'} · ${rep.reference || ''}`;
+
+            popupDiv.appendChild(popupImg);
+            popupDiv.appendChild(popupTitle);
+            popupDiv.appendChild(popupDesc);
+
+            m.bindPopup(popupDiv);
             leafletReportMarkers.push(m);
           });
           return;
@@ -1522,7 +1633,7 @@
             box.style.color = isDark ? '#EADBCB' : '#333';
 
             const img = document.createElement('img');
-            img.src = imgInfo.url;
+            img.src = sanitizeImageUrl(imgInfo.url);
             img.alt = rep.sector;
             img.style.width = '100%';
             img.style.height = '105px';
@@ -1648,7 +1759,7 @@
           card.className = 'report-card';
 
           const imgEl = document.createElement('img');
-          imgEl.src = imgObj.url;
+          imgEl.src = sanitizeImageUrl(imgObj.url);
           imgEl.alt = rep.sector;
 
           const body = document.createElement('div');
@@ -1698,23 +1809,18 @@
           }
 
           const bottomDiv = document.createElement('div');
-          bottomDiv.style.borderTop = '1px solid #EFE6D5';
-          bottomDiv.style.paddingTop = '8px';
-          bottomDiv.style.marginTop = '8px';
-          bottomDiv.style.display = 'flex';
-          bottomDiv.style.justifyContent = 'space-between';
-          bottomDiv.style.alignItems = 'center';
+          bottomDiv.className = 'report-card-footer';
 
           const coordSpan = document.createElement('span');
-          coordSpan.style.fontSize = '12px';
-          coordSpan.style.color = '#777';
+          coordSpan.className = 'report-card-coords';
           coordSpan.textContent = `📍 ${coordsText}`;
+
+          const actionsDiv = document.createElement('div');
+          actionsDiv.className = 'report-card-actions';
 
           const actionBtn = document.createElement('button');
           actionBtn.type = 'button';
           actionBtn.className = 'map-btn';
-          actionBtn.style.fontSize = '11.5px';
-          actionBtn.style.padding = '4px 10px';
           actionBtn.textContent = hasCoords ? '🎯 Ver en mapa' : '📌 Fijar con pin actual';
           actionBtn.addEventListener('click', () => {
             if (hasCoords && gmpLoaded && gmpMap) {
@@ -1732,8 +1838,25 @@
             }
           });
 
+          // 1. "Ver en el mapa" a la izquierda
+          actionsDiv.appendChild(actionBtn);
+
+          // 2. "Eliminar" a la derecha (solo en modo admin)
+          if (window.isHuellasAdmin && window.isHuellasAdmin()) {
+            const deleteBtn = document.createElement('button');
+            deleteBtn.type = 'button';
+            deleteBtn.className = 'delete-report-btn';
+            deleteBtn.title = 'Eliminar este reporte permanentemente';
+            deleteBtn.innerHTML = '🗑️ Eliminar';
+            deleteBtn.addEventListener('click', (e) => {
+              e.stopPropagation();
+              deleteReportPermanently(rep.report_id, rep.image_id, rep.sector);
+            });
+            actionsDiv.appendChild(deleteBtn);
+          }
+
           bottomDiv.appendChild(coordSpan);
-          bottomDiv.appendChild(actionBtn);
+          bottomDiv.appendChild(actionsDiv);
 
           body.appendChild(topDiv);
           body.appendChild(bottomDiv);
@@ -1756,20 +1879,6 @@
         const paramKey = (urlParams.get('key') || urlParams.get('apiKey') || '').trim();
         if (paramKey && paramKey !== 'TU_API_KEY_DE_GOOGLE_MAPS_AQUI') {
           return paramKey;
-        }
-        for (const path of ['.env', '.env.example']) {
-          try {
-            const res = await fetch(path);
-            if (!res.ok) continue;
-            const txt = await res.text();
-            const match = txt.match(/^\s*GOOGLE_MAPS_API_KEY\s*=\s*([^\r\n#]+)/m);
-            if (match && match[1].trim()) {
-              const candidate = match[1].trim().replace(/^['"]|['"]$/g, '');
-              if (candidate && candidate !== 'TU_API_KEY_DE_GOOGLE_MAPS_AQUI') {
-                return candidate;
-              }
-            }
-          } catch (e) {}
         }
         return '';
       }
@@ -1806,20 +1915,11 @@
       async function resolveFirebaseUrlFromEnvFiles() {
         const urlParams = new URLSearchParams(window.location.search);
         const paramFb = (urlParams.get('firebase') || '').trim().replace(/\/+$/, '');
-        if (paramFb) return paramFb;
-        for (const path of ['.env', '.env.example']) {
-          try {
-            const res = await fetch(path);
-            if (!res.ok) continue;
-            const txt = await res.text();
-            const match = txt.match(/^\s*FIREBASE_DB_URL\s*=\s*([^\r\n#]+)/m);
-            if (match && match[1].trim()) {
-              const candidate = match[1].trim().replace(/^['"]|['"]$/g, '').replace(/\/+$/, '');
-              if (candidate && candidate !== 'TU_FIREBASE_DB_URL_AQUI') {
-                return candidate;
-              }
-            }
-          } catch (e) {}
+        if (paramFb) {
+          if (/^https:\/\/[a-z0-9-]+\.firebaseio\.com$/i.test(paramFb)) {
+            return paramFb;
+          }
+          console.warn('[Seguridad] Parámetro de Firebase no autorizado descartado por política de seguridad:', paramFb);
         }
         return '';
       }
@@ -1831,8 +1931,14 @@
           if (!res.ok) return false;
           const data = await res.json();
           if (data && typeof data === 'object') {
-            if (data.images && typeof data.images === 'object') Object.assign(IMAGES_DB, data.images);
-            if (data.reports && typeof data.reports === 'object') Object.assign(REPORTS_DB, data.reports);
+            if ('images' in data && data.images && typeof data.images === 'object') {
+              IMAGES_DB = Object.assign({}, data.images);
+            }
+            if ('reports' in data && data.reports && typeof data.reports === 'object') {
+              REPORTS_DB = Object.assign({}, data.reports);
+            } else if ('reports' in data && !data.reports) {
+              REPORTS_DB = {};
+            }
             saveLocalStoreFallback();
             return true;
           } else if (data === null) {
@@ -1843,18 +1949,23 @@
         return false;
       }
 
-      async function pushToFirebaseDirect() {
+      async function patchToFirebaseDirect(subpath, payloadObj) {
         if (!firebaseDbUrl) return false;
+        const cleanSub = subpath ? `/${subpath.replace(/^\/+/, '')}` : '';
         try {
-          const res = await fetch(`${firebaseDbUrl}/huellas_state.json`, {
-            method: 'PUT',
+          const res = await fetch(`${firebaseDbUrl}/huellas_state${cleanSub}.json`, {
+            method: 'PATCH',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ images: IMAGES_DB, reports: REPORTS_DB })
+            body: JSON.stringify(payloadObj)
           });
           return res.ok;
         } catch (e) {
           return false;
         }
+      }
+
+      async function pushToFirebaseDirect() {
+        return patchToFirebaseDirect('', { images: IMAGES_DB, reports: REPORTS_DB });
       }
 
       function saveLocalStoreFallback() {
@@ -1863,7 +1974,21 @@
             images: IMAGES_DB,
             reports: REPORTS_DB
           }));
-        } catch (e) {}
+        } catch (e) {
+          try {
+            const lightImages = {};
+            Object.keys(IMAGES_DB).forEach(k => {
+              const item = IMAGES_DB[k];
+              if (item && typeof item.url === 'string' && !item.url.startsWith('data:image/')) {
+                lightImages[k] = item;
+              }
+            });
+            localStorage.setItem('HUELLAS_LOCAL_REPORTS', JSON.stringify({
+              images: lightImages,
+              reports: REPORTS_DB
+            }));
+          } catch (e2) {}
+        }
       }
 
       function loadLocalStoreFallback() {
@@ -1871,8 +1996,12 @@
           const raw = localStorage.getItem('HUELLAS_LOCAL_REPORTS');
           if (!raw) return;
           const parsed = JSON.parse(raw);
-          if (parsed && parsed.images) Object.assign(IMAGES_DB, parsed.images);
-          if (parsed && parsed.reports) Object.assign(REPORTS_DB, parsed.reports);
+          if (parsed && parsed.images && typeof parsed.images === 'object') {
+            IMAGES_DB = Object.assign({}, IMAGES_DB, parsed.images);
+          }
+          if (parsed && parsed.reports && typeof parsed.reports === 'object') {
+            REPORTS_DB = Object.assign({}, parsed.reports);
+          }
         } catch (e) {}
       }
 
@@ -1940,12 +2069,17 @@
       }
 
       async function updateReportCoords(reportId, lat, lng) {
+        const numLat = Number(lat);
+        const numLng = Number(lng);
+        if (!Number.isFinite(numLat) || !Number.isFinite(numLng) || numLat < -90 || numLat > 90 || numLng < -180 || numLng > 180) {
+          return;
+        }
         if (backendOnline) {
           try {
             const res = await fetch(`${apiBaseUrl}/api/reports/coordinates`, {
               method: 'POST',
               headers: { 'Content-Type': 'application/json' },
-              body: JSON.stringify({ report_id: reportId, lat, lng })
+              body: JSON.stringify({ report_id: reportId, lat: numLat, lng: numLng })
             });
             if (res.ok) {
               const out = await res.json();
@@ -1960,9 +2094,11 @@
           await pullFromFirebaseDirect();
         }
         if (REPORTS_DB[reportId]) {
-          REPORTS_DB[reportId].coordinates = { lat, lng };
+          REPORTS_DB[reportId].coordinates = { lat: numLat, lng: numLng };
           saveLocalStoreFallback();
-          await pushToFirebaseDirect();
+          await patchToFirebaseDirect(`reports/${encodeURIComponent(reportId)}`, {
+            coordinates: { lat: numLat, lng: numLng }
+          });
           renderReportsFeed();
         }
       }
@@ -1985,20 +2121,30 @@
 
         const latVal = document.getElementById('latInput').value;
         const lngVal = document.getElementById('lngInput').value;
+        const parsedLat = latVal !== '' ? parseFloat(latVal) : null;
+        const parsedLng = lngVal !== '' ? parseFloat(lngVal) : null;
+        const validCoords = (
+          parsedLat !== null && parsedLng !== null &&
+          Number.isFinite(parsedLat) && Number.isFinite(parsedLng) &&
+          parsedLat >= -90 && parsedLat <= 90 && parsedLng >= -180 && parsedLng <= 180
+        );
+
+        const rawCount = parseInt(document.getElementById('animalCountInput').value || '1', 10);
+        const safeCount = Number.isFinite(rawCount) ? Math.max(1, Math.min(99, rawCount)) : 1;
 
         const payload = {
           image_id: selectedImageId,
-          image_data_url: uploadedDataUrl,
+          image_data_url: uploadedDataUrl ? sanitizeImageUrl(uploadedDataUrl) : null,
           coordinates: {
-            lat: latVal !== '' ? parseFloat(latVal) : null,
-            lng: lngVal !== '' ? parseFloat(lngVal) : null
+            lat: validCoords ? parsedLat : null,
+            lng: validCoords ? parsedLng : null
           },
-          sector: document.getElementById('sectorSelect').value,
-          reference: document.getElementById('referenceInput').value,
-          animal_type: document.getElementById('animalTypeSelect').value,
-          animal_count: parseInt(document.getElementById('animalCountInput').value || '1', 10),
-          waste_level: document.getElementById('wasteLevelSelect').value,
-          comment: document.getElementById('commentInput').value
+          sector: (document.getElementById('sectorSelect').value || 'La Cisterna').trim().slice(0, 150),
+          reference: (document.getElementById('referenceInput').value || '').trim().slice(0, 250),
+          animal_type: (document.getElementById('animalTypeSelect').value || 'Perros').trim().slice(0, 100),
+          animal_count: safeCount,
+          waste_level: (document.getElementById('wasteLevelSelect').value || 'Moderado').trim().slice(0, 50),
+          comment: (document.getElementById('commentInput').value || '').trim().slice(0, 1000)
         };
 
         if (backendOnline) {
@@ -2027,18 +2173,20 @@
         }
 
         let finalImgId = payload.image_id;
+        let newImgRecord = null;
         if (!finalImgId) {
           finalImgId = nextSequentialId('IMG', IMAGES_DB);
-          IMAGES_DB[finalImgId] = {
+          newImgRecord = {
             image_id: finalImgId,
             filename: `${finalImgId.toLowerCase()}.jpg`,
-            url: payload.image_data_url,
+            url: payload.image_data_url || 'IMG_7198.jpg',
             uploaded_at: new Date().toISOString().slice(0, 16).replace('T', ' '),
             description: payload.reference || 'Fotografía ciudadana'
           };
+          IMAGES_DB[finalImgId] = newImgRecord;
         }
         const newRepId = nextSequentialId('REP', REPORTS_DB);
-        REPORTS_DB[newRepId] = {
+        const newRepRecord = {
           report_id: newRepId,
           image_id: finalImgId,
           coordinates: {
@@ -2054,8 +2202,12 @@
           status: 'Activo',
           created_at: new Date().toISOString().slice(0, 16).replace('T', ' ')
         };
+        REPORTS_DB[newRepId] = newRepRecord;
         saveLocalStoreFallback();
-        await pushToFirebaseDirect();
+        if (newImgRecord) {
+          await patchToFirebaseDirect('images', { [finalImgId]: newImgRecord });
+        }
+        await patchToFirebaseDirect('reports', { [newRepId]: newRepRecord });
         renderReportsFeed();
         document.getElementById('referenceInput').value = '';
         document.getElementById('commentInput').value = '';
@@ -2070,7 +2222,72 @@
         setTimeout(() => { toast.style.display = 'none'; }, 3500);
       }
 
+      
+      // =====================================================================
+      // 8. FUNCIONES DE MODERACIÓN DE REPORTES (VINCULADAS A ADMIN-DEV.JS)
+      // =====================================================================
+      async function deleteReportPermanently(reportId, imageId, sector) {
+        if (!window.isHuellasAdmin || !window.isHuellasAdmin()) {
+          alert('Se requiere sesión de administrador activa para eliminar reportes.');
+          return;
+        }
+        const confirmed = confirm(`¿Estás seguro de que deseas eliminar permanentemente el reporte "${sector}" (${reportId})?
+Esta acción no se puede deshacer.`);
+        if (!confirmed) return;
+
+        // 1. Borrar de los diccionarios locales
+        delete REPORTS_DB[reportId];
+        if (imageId && IMAGES_DB[imageId]) {
+          const stillUsed = Object.values(REPORTS_DB).some(r => r.image_id === imageId);
+          if (!stillUsed) {
+            delete IMAGES_DB[imageId];
+          }
+        }
+        saveLocalStoreFallback();
+
+        const adminToken = (window.getHuellasAdminToken && window.getHuellasAdminToken()) || '';
+
+        // 2. Si el servidor local Python está activo, enviar DELETE a backend.py
+        if (backendOnline) {
+          try {
+            await fetch(`${apiBaseUrl}/api/reports/${encodeURIComponent(reportId)}`, {
+              method: 'DELETE',
+              headers: {
+                'X-Huellas-Admin-Token': adminToken
+              }
+            });
+          } catch (err) {}
+        }
+
+        // 3. Sincronizar con Firebase Realtime Database (solo DELETE puntual)
+        if (firebaseDbUrl) {
+          try {
+            await fetch(`${firebaseDbUrl}/huellas_state/reports/${encodeURIComponent(reportId)}.json`, {
+              method: 'DELETE'
+            });
+            if (imageId) {
+              const stillUsed = Object.values(REPORTS_DB).some(r => r.image_id === imageId);
+              if (!stillUsed) {
+                await fetch(`${firebaseDbUrl}/huellas_state/images/${encodeURIComponent(imageId)}.json`, {
+                  method: 'DELETE'
+                });
+              }
+            }
+          } catch (err) {}
+        }
+
+        // 4. Actualizar interfaz y pines en el mapa
+        renderReportsFeed();
+        renderReportMarkersOnGoogleMap();
+      }
+      window.deleteReportPermanently = deleteReportPermanently;
+      window.renderReportsFeed = renderReportsFeed;
+
       syncFromBackend();
     </script>
-  </body>
+
+
+    <script src="site.js"></script>
+    <script src="admin-dev.js"></script>
+</body>
 </html>

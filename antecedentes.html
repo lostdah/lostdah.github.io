@@ -5,38 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Antecedentes - Huellas al Lodo</title>
     <link rel="stylesheet" href="style.css">
-        <style>
-      .dashboard-wrapper { background-color: #E6DBCF; padding: 40px 0 20px 0; border-radius: 14px; margin-top: 20px; }
-      .dashboard-container { display: grid; grid-template-columns: 1fr 1fr; gap: 30px; max-width: 1100px; margin: 0 auto; padding: 0 20px; }
-      .dash-col { display: flex; flex-direction: column; gap: 30px; }
-      .dash-card { padding: 30px; border-radius: 16px; box-shadow: 0 10px 30px rgba(92, 58, 33, 0.08); display: flex; flex-direction: column; flex: 1; justify-content: center; }
-      .dash-card h2 { font-size: 22px; margin-top: 0; margin-bottom: 15px; }
-      .dash-card p { font-size: 15px; line-height: 1.6; margin-bottom: 12px; }
-      .dash-card p:last-child { margin-bottom: 0; }
-      .card-chart { background-color: #F7F4F0; color: #444; border: 1px solid rgba(140, 90, 53, 0.15); }
-      .card-chart h2 { color: #5C3A21; margin-bottom: 5px; }
-      .chart-container-vertical { display: flex; align-items: flex-end; justify-content: space-around; height: 170px; border-bottom: 2px solid #dcdcdc; padding-bottom: 10px; margin-top: 20px; }
-      .bar-col { display: flex; flex-direction: column; align-items: center; justify-content: flex-end; height: 100%; width: 70px; }
-      .bar-value { font-weight: 700; font-size: 12px; color: #666; margin-bottom: 8px; opacity: 0; animation: fadeIn 0.5s 1.2s forwards; }
-      .bar { width: 45px; border-radius: 4px 4px 0 0; background-color: #5C3A21; transform-origin: bottom; animation: growUp 1.2s cubic-bezier(0.2, 0.8, 0.2, 1) forwards; }
-      .ba-norte { height: 30%; } .ba-sur { height: 42%; } .ba-rm { height: 80%; }
-      .region-label { margin-top: 12px; font-weight: 600; font-size: 13px; color: #444; text-align: center; }
-      .chart-container-horizontal { display: flex; flex-direction: column; gap: 18px; margin-top: 25px; margin-bottom: 20px; }
-      .hbar-row { display: flex; align-items: center; gap: 15px; }
-      .hbar-label { width: 78px; font-size: 12px; font-weight: bold; color: #444; }
-      .hbar-track { flex-grow: 1; height: 16px; background: #e0e0e0; border-radius: 9px; overflow: hidden; }
-      .hbar-fill { height: 100%; background-color: #D6A885; transform-origin: left; animation: growRight 1.2s cubic-bezier(0.2, 0.8, 0.2, 1) forwards; }
-      .ht-coquimbo { width: 44%; animation-delay: 0.1s; }
-      .ht-valpo { width: 64%; animation-delay: 0.2s; }
-      .ht-rm { width: 100%; animation-delay: 0.3s; background-color: #8C5A35; }
-      .hbar-value { width: 78px; font-size: 12px; font-weight: bold; color: #666; text-align: right; }
-      @keyframes growRight { from { transform: scaleX(0); } to { transform: scaleX(1); } }
-      @keyframes growUp { from { transform: scaleY(0); } to { transform: scaleY(1); } }
-      @keyframes fadeIn { to { opacity: 1; } }
-      @media (max-width: 850px) { .dashboard-container { grid-template-columns: 1fr; } }
-    </style>
-
-  </head>
+</head>
 <body>
     <!-- ===== Sidebar lateral colapsable ===== -->
     <div class="sidebar-backdrop" id="sidebarBackdrop"></div>
@@ -162,48 +131,7 @@
         <p>Créditos completos en la pestaña <a href="bibliografia.html" style="color:#8C5A35;font-weight:bold;">Bibliografía</a>.</p>
       </div>
     </footer>
-    <script>
-      // ----- Modo oscuro -----
-      const darkModeToggle = document.getElementById('darkModeToggle');
-      if (localStorage.getItem('dark-mode') === 'enabled') {
-        document.body.classList.add('dark-mode');
-        if(darkModeToggle) darkModeToggle.innerHTML = '&#9728;&#65039;';
-      }
-      if(darkModeToggle) {
-        darkModeToggle.addEventListener('click', (e) => {
-          e.preventDefault();
-          document.body.classList.toggle('dark-mode');
-          if (document.body.classList.contains('dark-mode')) {
-            localStorage.setItem('dark-mode', 'enabled');
-            darkModeToggle.innerHTML = '&#9728;&#65039;';
-          } else {
-            localStorage.setItem('dark-mode', 'disabled');
-            darkModeToggle.innerHTML = '&#127769;';
-          }
-        });
-      }
-
-      // ----- Sidebar colapsable -----
-      const sidebar = document.getElementById('sidebar');
-      const backdrop = document.getElementById('sidebarBackdrop');
-      const menuToggle = document.getElementById('menuToggle');
-      const sidebarClose = document.getElementById('sidebarClose');
-      function openSidebar(){ sidebar.classList.add('open'); backdrop.classList.add('show'); }
-      function closeSidebar(){ sidebar.classList.remove('open'); backdrop.classList.remove('show'); }
-      if (menuToggle) menuToggle.addEventListener('click', openSidebar);
-      if (sidebarClose) sidebarClose.addEventListener('click', closeSidebar);
-      if (backdrop) backdrop.addEventListener('click', closeSidebar);
-      document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeSidebar(); });
-
-      // ----- Marcar activo (barra superior por grupo, sidebar por página) -----
-      const CURRENT_PAGE = "antecedentes";
-      const CURRENT_GROUP = "inicio";
-      document.querySelectorAll('.nav-links a[data-group]').forEach(a => {
-        if (a.dataset.group === CURRENT_GROUP) a.classList.add('active');
-      });
-      document.querySelectorAll('.sidebar .sb-link[data-page]').forEach(a => {
-        if (a.dataset.page === CURRENT_PAGE) a.classList.add('current');
-      });
-    </script>
-  </body>
+    <script src="site.js"></script>
+    <script src="admin-dev.js"></script>
+</body>
 </html>

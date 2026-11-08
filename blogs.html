@@ -5,30 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Blogs - Huellas al Lodo</title>
     <link rel="stylesheet" href="style.css">
-        <style>
-      .calendar-wrapper { max-width: 700px; margin: 0 auto 50px auto; background: white; border-radius: 12px; box-shadow: 0 8px 20px rgba(92, 58, 33, 0.12); overflow: hidden; }
-      .cal-header { display: flex; align-items: center; justify-content: space-between; background-color: #5C3A21; padding: 16px 24px; color: white; }
-      .cal-header h2 { margin: 0; font-size: 20px; font-weight: bold; text-align: center; color: white; flex: 1; }
-      .cal-nav-btn { background: none; border: 2px solid rgba(255,255,255,0.4); color: white; font-size: 22px; width: 36px; height: 36px; border-radius: 6px; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: background 0.2s; line-height: 1; }
-      .cal-nav-btn:hover { background: rgba(255,255,255,0.15); }
-      .cal-body { padding: 16px; }
-      .cal-day-headers { display: grid; grid-template-columns: repeat(7, 1fr); margin-bottom: 6px; }
-      .cal-day-headers span { text-align: center; font-size: 13px; font-weight: bold; color: #8C5A35; padding: 4px 0; }
-      .cal-week { display: grid; grid-template-columns: repeat(7, 1fr); border-radius: 8px; cursor: default; transition: background 0.15s; margin-bottom: 3px; position: relative; }
-      .cal-week.has-entry { cursor: pointer; box-shadow: inset 4px 0 0 #8C5A35; }
-      .cal-week.has-entry:hover { background-color: #F7F4F0; }
-      .cal-week.selected { background-color: #8C5A35 !important; }
-      .cal-week.selected .cal-day { color: white !important; }
-      .cal-day { text-align: center; padding: 10px 4px; font-size: 15px; color: #333; border-radius: 4px; user-select: none; }
-      .cal-day.other-month { color: #ccc; }
-      .cal-week.olympic { background: repeating-linear-gradient(45deg, #f0f0f0, #f0f0f0 10px, #e4e4e4 10px, #e4e4e4 20px) !important; box-shadow: inset 4px 0 0 #aaa; cursor: pointer; }
-      .cal-week.olympic:hover { background: repeating-linear-gradient(45deg, #e8e8e8, #e8e8e8 10px, #dcdcdc 10px, #dcdcdc 20px) !important; }
-      .timeline-contenido { transition: box-shadow 0.3s; }
-      .timeline-contenido.highlighted { box-shadow: 0 0 0 3px #8C5A35; }
-      @media (max-width: 600px) { .cal-header { padding: 12px 16px; } .cal-header h2 { font-size: 18px; } .cal-day-headers span { font-size: 11px; } .cal-day { font-size: 13px; padding: 8px 2px; } .cal-nav-btn { width: 32px; height: 32px; font-size: 18px; } }
-    </style>
-
-  </head>
+</head>
 <body>
     <!-- ===== Sidebar lateral colapsable ===== -->
     <div class="sidebar-backdrop" id="sidebarBackdrop"></div>
@@ -101,116 +78,116 @@
       <div style="padding: 20px; overflow-x:auto;">
         <p style="margin-bottom: 20px;"><strong>N° y Nombre de la Sección:</strong> Sección 20 - Ciencia Ciudadana<br>
         <strong>Profesor:</strong> Antonio Marín</p>
-      <table style="width: 100%; border-collapse: collapse; text-align: left; margin-bottom: 30px; font-size: 14px;">
+      <table class="data-table" style="margin-bottom: 24px;">
         <thead>
           <tr style="background-color: #3A2618; color: white;">
-            <th style="padding: 12px 15px; border: 1px solid #E2B897;">VALORES</th>
-            <th style="padding: 12px 15px; border: 1px solid #E2B897;">NORMAS</th>
+            <th style="border: 1px solid #E2B897;">VALORES</th>
+            <th style="border: 1px solid #E2B897;">NORMAS</th>
           </tr>
         </thead>
         <tbody>
           <tr>
-            <td style="padding: 12px 15px; border: 1px solid #E2B897; font-weight: bold; color: #5C3A21;">Confianza</td>
-            <td style="padding: 12px 15px; border: 1px solid #E2B897; color: #444;">Discurso constructivo al equipo</td>
+            <td style="border: 1px solid #E2B897; font-weight: bold; color: #5C3A21;">Confianza</td>
+            <td style="border: 1px solid #E2B897; color: #444;">Discurso constructivo al equipo</td>
           </tr>
           <tr style="background-color: #FDF9F1;">
-            <td style="padding: 12px 15px; border: 1px solid #E2B897; font-weight: bold; color: #5C3A21;">Integridad</td>
-            <td style="padding: 12px 15px; border: 1px solid #E2B897; color: #444;">Uso responsable de IA</td>
+            <td style="border: 1px solid #E2B897; font-weight: bold; color: #5C3A21;">Integridad</td>
+            <td style="border: 1px solid #E2B897; color: #444;">Uso responsable de IA</td>
           </tr>
           <tr>
-            <td style="padding: 12px 15px; border: 1px solid #E2B897; font-weight: bold; color: #5C3A21;">Disciplina</td>
-            <td style="padding: 12px 15px; border: 1px solid #E2B897; color: #444;">Puntualidad, realización de blogs</td>
+            <td style="border: 1px solid #E2B897; font-weight: bold; color: #5C3A21;">Disciplina</td>
+            <td style="border: 1px solid #E2B897; color: #444;">Puntualidad, realización de blogs</td>
           </tr>
           <tr style="background-color: #FDF9F1;">
-            <td style="padding: 12px 15px; border: 1px solid #E2B897; font-weight: bold; color: #5C3A21;">Compromiso</td>
-            <td style="padding: 12px 15px; border: 1px solid #E2B897; color: #444;">Asistir a clases, cumplir con los roles de cada uno</td>
+            <td style="border: 1px solid #E2B897; font-weight: bold; color: #5C3A21;">Compromiso</td>
+            <td style="border: 1px solid #E2B897; color: #444;">Asistir a clases, cumplir con los roles de cada uno</td>
           </tr>
         </tbody>
       </table>
     
-      <table style="width: 100%; border-collapse: collapse; text-align: left; margin-bottom: 30px; font-size: 14px;">
+      <table class="data-table" style="margin-bottom: 24px;">
         <thead>
           <tr style="background-color: #3A2618; color: white;">
-            <th style="padding: 12px 15px; border: 1px solid #E2B897;">NECESIDAD(ES) ESPECÍFICA EQUIPO</th>
-            <th style="padding: 12px 15px; border: 1px solid #E2B897;">ROL NECESARIO</th>
-            <th style="padding: 12px 15px; border: 1px solid #E2B897;">TAREA(S) ESPECÍFICAS</th>
+            <th style="border: 1px solid #E2B897;">NECESIDAD(ES) ESPECÍFICA EQUIPO</th>
+            <th style="border: 1px solid #E2B897;">ROL NECESARIO</th>
+            <th style="border: 1px solid #E2B897;">TAREA(S) ESPECÍFICAS</th>
           </tr>
         </thead>
         <tbody>
           <tr>
-            <td style="padding: 12px 15px; border: 1px solid #E2B897; color: #444;">Tomar nota de cada clase</td>
-            <td style="padding: 12px 15px; border: 1px solid #E2B897; font-weight: bold; color: #5C3A21;">Registrador</td>
-            <td style="padding: 12px 15px; border: 1px solid #E2B897; color: #444;">Tomar apuntes</td>
+            <td style="border: 1px solid #E2B897; color: #444;">Tomar nota de cada clase</td>
+            <td style="border: 1px solid #E2B897; font-weight: bold; color: #5C3A21;">Registrador</td>
+            <td style="border: 1px solid #E2B897; color: #444;">Tomar apuntes</td>
           </tr>
           <tr style="background-color: #FDF9F1;">
-            <td style="padding: 12px 15px; border: 1px solid #E2B897; color: #444;">Recopilar información</td>
-            <td style="padding: 12px 15px; border: 1px solid #E2B897; font-weight: bold; color: #5C3A21;">Investigadora</td>
-            <td style="padding: 12px 15px; border: 1px solid #E2B897; color: #444;">Investigar</td>
+            <td style="border: 1px solid #E2B897; color: #444;">Recopilar información</td>
+            <td style="border: 1px solid #E2B897; font-weight: bold; color: #5C3A21;">Investigadora</td>
+            <td style="border: 1px solid #E2B897; color: #444;">Investigar</td>
           </tr>
           <tr>
-            <td style="padding: 12px 15px; border: 1px solid #E2B897; color: #444;">Coordinar con el equipo docente</td>
-            <td style="padding: 12px 15px; border: 1px solid #E2B897; font-weight: bold; color: #5C3A21;">Vocero</td>
-            <td style="padding: 12px 15px; border: 1px solid #E2B897; color: #444;">Contactar al equipo docente</td>
+            <td style="border: 1px solid #E2B897; color: #444;">Coordinar con el equipo docente</td>
+            <td style="border: 1px solid #E2B897; font-weight: bold; color: #5C3A21;">Vocero</td>
+            <td style="border: 1px solid #E2B897; color: #444;">Contactar al equipo docente</td>
           </tr>
           <tr style="background-color: #FDF9F1;">
-            <td style="padding: 12px 15px; border: 1px solid #E2B897; color: #444;">Plasmar funciones avanzadas en el prototipo</td>
-            <td style="padding: 12px 15px; border: 1px solid #E2B897; font-weight: bold; color: #5C3A21;">Programador</td>
-            <td style="padding: 12px 15px; border: 1px solid #E2B897; color: #444;">Programar</td>
+            <td style="border: 1px solid #E2B897; color: #444;">Plasmar funciones avanzadas en el prototipo</td>
+            <td style="border: 1px solid #E2B897; font-weight: bold; color: #5C3A21;">Programador</td>
+            <td style="border: 1px solid #E2B897; color: #444;">Programar</td>
           </tr>
           <tr>
-            <td style="padding: 12px 15px; border: 1px solid #E2B897; color: #444;">Blogs, mediador, organizador</td>
-            <td style="padding: 12px 15px; border: 1px solid #E2B897; font-weight: bold; color: #5C3A21;">Coordinador</td>
-            <td style="padding: 12px 15px; border: 1px solid #E2B897; color: #444;">Hacer blogs, coordinar, organizar al equipo</td>
+            <td style="border: 1px solid #E2B897; color: #444;">Blogs, mediador, organizador</td>
+            <td style="border: 1px solid #E2B897; font-weight: bold; color: #5C3A21;">Coordinador</td>
+            <td style="border: 1px solid #E2B897; color: #444;">Hacer blogs, coordinar, organizar al equipo</td>
           </tr>
         </tbody>
       </table>
     
-      <table style="width: 100%; border-collapse: collapse; text-align: left; margin-bottom: 30px; font-size: 14px;">
+      <table class="data-table" style="margin-bottom: 24px;">
         <thead>
           <tr style="background-color: #3A2618; color: white;">
-            <th style="padding: 12px 15px; border: 1px solid #E2B897;">NO NEGOCIABLES</th>
+            <th style="border: 1px solid #E2B897;">NO NEGOCIABLES</th>
           </tr>
         </thead>
         <tbody>
           <tr>
-            <td style="padding: 12px 15px; border: 1px solid #E2B897; text-align: center; font-weight: bold; color: #5C3A21;">Respeto mutuo, integridad, responsabilidad</td>
+            <td style="border: 1px solid #E2B897; text-align: center; font-weight: bold; color: #5C3A21;">Respeto mutuo, integridad, responsabilidad</td>
           </tr>
         </tbody>
       </table>
     
-      <table style="width: 100%; border-collapse: collapse; text-align: left; font-size: 14px;">
+      <table class="data-table">
         <thead>
           <tr style="background-color: #3A2618; color: white;">
-            <th style="padding: 12px 15px; border: 1px solid #E2B897;">INTEGRANTE</th>
-            <th style="padding: 12px 15px; border: 1px solid #E2B897;">ROL QUE ASUME</th>
-            <th style="padding: 12px 15px; border: 1px solid #E2B897;">FIRMA</th>
+            <th style="border: 1px solid #E2B897;">INTEGRANTE</th>
+            <th style="border: 1px solid #E2B897;">ROL QUE ASUME</th>
+            <th style="border: 1px solid #E2B897;">FIRMA</th>
           </tr>
         </thead>
         <tbody>
           <tr>
-            <td style="padding: 12px 15px; border: 1px solid #E2B897; color: #444;">Raúl Beyzaga</td>
-            <td style="padding: 12px 15px; border: 1px solid #E2B897; color: #444;">Registrador</td>
-            <td style="padding: 12px 15px; border: 1px solid #E2B897; font-style: italic; color: #8C5A35; font-family: 'Brush Script MT', cursive, serif;">Raúl Beyzaga</td>
+            <td style="border: 1px solid #E2B897; color: #444;">Raúl Beyzaga</td>
+            <td style="border: 1px solid #E2B897; color: #444;">Registrador</td>
+            <td style="border: 1px solid #E2B897; font-style: italic; color: #8C5A35; font-family: 'Brush Script MT', cursive, serif;">Raúl Beyzaga</td>
           </tr>
           <tr style="background-color: #FDF9F1;">
-            <td style="padding: 12px 15px; border: 1px solid #E2B897; color: #444;">Cristóbal Díaz</td>
-            <td style="padding: 12px 15px; border: 1px solid #E2B897; color: #444;">Coordinador</td>
-            <td style="padding: 12px 15px; border: 1px solid #E2B897; font-style: italic; color: #8C5A35; font-family: 'Brush Script MT', cursive, serif;">Cristóbal Díaz</td>
+            <td style="border: 1px solid #E2B897; color: #444;">Cristóbal Díaz</td>
+            <td style="border: 1px solid #E2B897; color: #444;">Coordinador</td>
+            <td style="border: 1px solid #E2B897; font-style: italic; color: #8C5A35; font-family: 'Brush Script MT', cursive, serif;">Cristóbal Díaz</td>
           </tr>
           <tr>
-            <td style="padding: 12px 15px; border: 1px solid #E2B897; color: #444;">Cleo Aeschlimann</td>
-            <td style="padding: 12px 15px; border: 1px solid #E2B897; color: #444;">Programador</td>
-            <td style="padding: 12px 15px; border: 1px solid #E2B897; font-style: italic; color: #8C5A35; font-family: 'Brush Script MT', cursive, serif;">Cleo Aeschlimann</td>
+            <td style="border: 1px solid #E2B897; color: #444;">Cleo Aeschlimann</td>
+            <td style="border: 1px solid #E2B897; color: #444;">Programador</td>
+            <td style="border: 1px solid #E2B897; font-style: italic; color: #8C5A35; font-family: 'Brush Script MT', cursive, serif;">Cleo Aeschlimann</td>
           </tr>
           <tr style="background-color: #FDF9F1;">
-            <td style="padding: 12px 15px; border: 1px solid #E2B897; color: #444;">Vicente Paz</td>
-            <td style="padding: 12px 15px; border: 1px solid #E2B897; color: #444;">Vocero</td>
-            <td style="padding: 12px 15px; border: 1px solid #E2B897; font-style: italic; color: #8C5A35; font-family: 'Brush Script MT', cursive, serif;">Vicente Paz</td>
+            <td style="border: 1px solid #E2B897; color: #444;">Vicente Paz</td>
+            <td style="border: 1px solid #E2B897; color: #444;">Vocero</td>
+            <td style="border: 1px solid #E2B897; font-style: italic; color: #8C5A35; font-family: 'Brush Script MT', cursive, serif;">Vicente Paz</td>
           </tr>
           <tr>
-            <td style="padding: 12px 15px; border: 1px solid #E2B897; color: #444;">Josefina Tapia</td>
-            <td style="padding: 12px 15px; border: 1px solid #E2B897; color: #444;">Investigadora</td>
-            <td style="padding: 12px 15px; border: 1px solid #E2B897; font-style: italic; color: #8C5A35; font-family: 'Brush Script MT', cursive, serif;">Josefina Tapia</td>
+            <td style="border: 1px solid #E2B897; color: #444;">Josefina Tapia</td>
+            <td style="border: 1px solid #E2B897; color: #444;">Investigadora</td>
+            <td style="border: 1px solid #E2B897; font-style: italic; color: #8C5A35; font-family: 'Brush Script MT', cursive, serif;">Josefina Tapia</td>
           </tr>
         </tbody>
       </table>
@@ -311,7 +288,7 @@
       </div>
 
       <!-- Semana 10 -->
-      <div class="timeline-paso final" id="semana-10">
+      <div class="timeline-paso" id="semana-10">
         <div class="timeline-nodo"></div>
         <div class="timeline-contenido">
           <h3>Semana 10: Finalización del StoryBoard y Avances Autónomos</h3>
@@ -320,12 +297,55 @@
         </div>
       </div>
 
+      <!-- Semana 11 -->
+      <div class="timeline-paso" id="semana-11">
+        <div class="timeline-nodo"></div>
+        <div class="timeline-contenido">
+          <h3>Semana 11: Preparación y Presentación del Hito 2</h3>
+          <p>Durante esta semana estuvimos enfocados principalmente en preparar nuestra presentación del Hito 2. En el laboratorio aprovechamos de afinar los últimos detalles de nuestro proyecto, revisar los avances que habíamos realizado durante las semanas anteriores y resolver algunas dudas con el equipo docente, de forma que pudiéramos llegar lo mejor preparados posible a la presentación del miércoles. Finalmente, el miércoles realizamos nuestra presentación del Hito 2, donde expusimos el trabajo que hemos desarrollado durante esta segunda unidad, desde la exploración de distintas alternativas de solución hasta la propuesta que decidimos desarrollar. A partir de esto, pudimos mostrar nuestros avances y explicar cómo nuestra propuesta busca responder al problema que hemos estado investigando. Por otro lado, esta instancia nos permitió cerrar una nueva etapa del proyecto y darnos cuenta de la importancia de mantener una buena organización como grupo, especialmente durante los días previos a una presentación. Para los próximos laboratorios tendremos que considerar las observaciones que recibamos del equipo docente y seguir mejorando nuestra propuesta a partir de lo trabajado hasta ahora.</p>
+        </div>
+      </div>
+
+      <!-- Semana 12 -->
+      <div class="timeline-paso" id="semana-12">
+        <div class="timeline-nodo" style="background: repeating-linear-gradient(45deg, #ccc, #ccc 5px, #aaa 5px, #aaa 10px);"></div>
+        <div class="timeline-contenido" style="background-color: #fcfcfc;">
+          <h3>Semana 12: Semana de Receso por Festividades</h3>
+          <p>Durante esta semana no realizamos ni registramos actividades del proyecto debido al receso académico correspondiente a las festividades.</p>
+        </div>
+      </div>
+
+      <!-- Semana 13 -->
+      <div class="timeline-paso final" id="semana-13">
+        <div class="timeline-nodo"></div>
+        <div class="timeline-contenido">
+          <h3>Semana 13: Viabilidad Económica, Lean Canvas y Proyección Hito 3</h3>
+          <p>Durante esta semana comenzamos a trabajar en una nueva unidad del proyecto, enfocándonos principalmente en evaluar la viabilidad de nuestra propuesta. En la cátedra aprendimos sobre los distintos costos e ingresos que puede tener un proyecto, además de conceptos como la inversión inicial, el punto de equilibrio y el flujo de caja. Por otro lado, durante el laboratorio retomamos nuestro Lean Canvas, revisando los distintos elementos que componen nuestra propuesta y comenzando a trabajar en un cálculo de servilleta, con el objetivo de estimar los posibles costos e ingresos que tendría nuestra solución.</p>
+          <p>A partir de estas actividades nos dimos cuenta de que no basta solamente con desarrollar una solución que responda a nuestro problema, sino que también debemos considerar qué tan viable sería implementarla y mantenerla en el tiempo. Además, como grupo comenzamos a analizar los recursos que necesitaríamos para llevar a cabo nuestra propuesta, considerando que todavía debemos definir con mayor precisión algunos costos y la manera en que podría financiarse. Esto nos permitió identificar nuevos aspectos que tendremos que mejorar, especialmente en relación con la sostenibilidad económica del proyecto.</p>
+          <p>Finalmente, comenzamos a conocer las exigencias del Hito 3, donde tendremos que presentar nuestra solución final en la Feria de Ideas, mediante una infografía y una presentación oral. Para las próximas clases tendremos que seguir trabajando en la evaluación económica de nuestra propuesta, mejorar los aspectos que todavía tenemos pendientes y preparar los elementos necesarios para presentar de manera clara tanto nuestro problema como la solución que hemos desarrollado.</p>
+        </div>
+      </div>
+
     </div>
 
     <script>
       const MONTHS_ES = ['Enero','Febrero','Marzo','Abril','Mayo','Junio','Julio','Agosto','Septiembre','Octubre','Noviembre','Diciembre'];
-      const PROJECT_WEEKS = { '2026-08-10': 'semana-1', '2026-08-17': 'semana-2', '2026-08-24': 'semana-3', '2026-08-31': 'semana-5', '2026-09-07': 'semana-5', '2026-09-14': 'semana-6', '2026-09-21': 'semana-7', '2026-09-28': 'semana-8', '2026-10-05': 'semana-9', '2026-10-12': 'semana-10' };
-      let year = 2026, month = 9;
+      const PROJECT_WEEKS = {
+        '2026-08-10': 'semana-1',
+        '2026-08-17': 'semana-2',
+        '2026-08-24': 'semana-3',
+        '2026-08-31': 'semana-5',
+        '2026-09-07': 'semana-5',
+        '2026-09-14': 'semana-6',
+        '2026-09-21': 'semana-7',
+        '2026-09-28': 'semana-8',
+        '2026-10-05': 'semana-9',
+        '2026-10-12': 'semana-10',
+        '2026-10-19': 'semana-11',
+        '2026-10-26': 'semana-12',
+        '2026-11-02': 'semana-13'
+      };
+      let year = 2026, month = 10;
       let selectedWeekEl = null;
       function toISO(d){const y=d.getFullYear();const m=String(d.getMonth()+1).padStart(2,'0');const day=String(d.getDate()).padStart(2,'0');return y+'-'+m+'-'+day;}
       function getMondayOf(d){const c=new Date(d);const dw=c.getDay();const diff=dw===0?-6:1-dw;c.setDate(c.getDate()+diff);return c;}
@@ -337,7 +357,7 @@
         while(weekStart<=lastOfMonth){
           const weekKey=toISO(weekStart); const entryId=PROJECT_WEEKS[weekKey];
           const weekDiv=document.createElement('div'); weekDiv.className='cal-week'+(entryId?' has-entry':'');
-          if (entryId === 'semana-6') weekDiv.classList.add('olympic');
+          if (entryId === 'semana-6' || entryId === 'semana-12') weekDiv.classList.add('olympic');
           for(let i=0;i<7;i++){const d=new Date(weekStart);d.setDate(weekStart.getDate()+i);const cell=document.createElement('div');cell.className='cal-day'+(d.getMonth()!==month?' other-month':'');cell.textContent=d.getDate();weekDiv.appendChild(cell);}
           if(entryId){weekDiv.addEventListener('click',function(){if(selectedWeekEl)selectedWeekEl.classList.remove('selected');this.classList.add('selected');selectedWeekEl=this;const entry=document.getElementById(entryId);if(entry){entry.scrollIntoView({behavior:'smooth',block:'start'});const box=entry.querySelector('.timeline-contenido');box.classList.add('highlighted');setTimeout(function(){box.classList.remove('highlighted');},1500);}});}
           container.appendChild(weekDiv); weekStart.setDate(weekStart.getDate()+7);
@@ -348,6 +368,7 @@
       document.getElementById('cal-prev').addEventListener('click',function(){if(year===MIN_YEAR&&month===MIN_MONTH)return;month--;if(month<0){month=11;year--;}renderCalendar();updatePrevBtn();});
       document.getElementById('cal-next').addEventListener('click',function(){month++;if(month>11){month=0;year++;}renderCalendar();updatePrevBtn();});
       renderCalendar(); updatePrevBtn();
+
     </script>
 
 <div class="next-step"><a href="propuesta-final.html" class="prev-link">&larr; Propuesta Final</a><a href="bibliografia.html" class="next-link">Bibliografía &rarr;</a></div>
@@ -360,48 +381,8 @@
         <p>Créditos completos en la pestaña <a href="bibliografia.html" style="color:#8C5A35;font-weight:bold;">Bibliografía</a>.</p>
       </div>
     </footer>
-    <script>
-      // ----- Modo oscuro -----
-      const darkModeToggle = document.getElementById('darkModeToggle');
-      if (localStorage.getItem('dark-mode') === 'enabled') {
-        document.body.classList.add('dark-mode');
-        if(darkModeToggle) darkModeToggle.innerHTML = '&#9728;&#65039;';
-      }
-      if(darkModeToggle) {
-        darkModeToggle.addEventListener('click', (e) => {
-          e.preventDefault();
-          document.body.classList.toggle('dark-mode');
-          if (document.body.classList.contains('dark-mode')) {
-            localStorage.setItem('dark-mode', 'enabled');
-            darkModeToggle.innerHTML = '&#9728;&#65039;';
-          } else {
-            localStorage.setItem('dark-mode', 'disabled');
-            darkModeToggle.innerHTML = '&#127769;';
-          }
-        });
-      }
-
-      // ----- Sidebar colapsable -----
-      const sidebar = document.getElementById('sidebar');
-      const backdrop = document.getElementById('sidebarBackdrop');
-      const menuToggle = document.getElementById('menuToggle');
-      const sidebarClose = document.getElementById('sidebarClose');
-      function openSidebar(){ sidebar.classList.add('open'); backdrop.classList.add('show'); }
-      function closeSidebar(){ sidebar.classList.remove('open'); backdrop.classList.remove('show'); }
-      if (menuToggle) menuToggle.addEventListener('click', openSidebar);
-      if (sidebarClose) sidebarClose.addEventListener('click', closeSidebar);
-      if (backdrop) backdrop.addEventListener('click', closeSidebar);
-      document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeSidebar(); });
-
-      // ----- Marcar activo (barra superior por grupo, sidebar por página) -----
-      const CURRENT_PAGE = "blogs";
-      const CURRENT_GROUP = "blogs";
-      document.querySelectorAll('.nav-links a[data-group]').forEach(a => {
-        if (a.dataset.group === CURRENT_GROUP) a.classList.add('active');
-      });
-      document.querySelectorAll('.sidebar .sb-link[data-page]').forEach(a => {
-        if (a.dataset.page === CURRENT_PAGE) a.classList.add('current');
-      });
-    </script>
-  </body>
+    <button id="backToTopBtn" class="back-to-top" title="Volver arriba" aria-label="Volver arriba">&uarr; Volver arriba</button>
+    <script src="site.js"></script>
+    <script src="admin-dev.js"></script>
+</body>
 </html>

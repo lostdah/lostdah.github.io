@@ -77,37 +77,37 @@
 
     <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:10px; margin-top:40px; margin-bottom:15px;">
       <h2 style="color:#5C3A21; margin:0;">Requerimientos, atributos e indicadores</h2>
-      <a href="Actividad_6_1_Requerimientos_e_Indicadores.pdf" target="_blank" style="background:#8C5A35; color:white; text-decoration:none; padding:8px 16px; border-radius:6px; font-size:14px; font-weight:bold;">📄 Ver documento PDF</a>
+      <a href="Actividad_6_1_Requerimientos_e_Indicadores.pdf" target="_blank" class="pdf-btn">📄 Ver documento PDF</a>
     </div>
 
-    <div style="overflow-x:auto; margin-bottom:20px;">
-      <table style="width:100%; border-collapse:collapse; background:#FDF9F1; border:1px solid #E2B897; border-radius:8px; overflow:hidden;">
+    <div class="table-scroll">
+      <table class="data-table">
         <thead>
-          <tr style="background:#E2B897; color:#5C3A21; text-align:left;">
-            <th style="padding:12px 15px;">Requerimiento</th>
-            <th style="padding:12px 15px;">Atributo</th>
-            <th style="padding:12px 15px;">Indicador</th>
-            <th style="padding:12px 15px;">Criterio de éxito</th>
+          <tr>
+            <th>Requerimiento</th>
+            <th>Atributo</th>
+            <th>Indicador</th>
+            <th>Criterio de éxito</th>
           </tr>
         </thead>
         <tbody>
-          <tr style="border-bottom:1px solid #E2B897;">
-            <td style="padding:12px 15px; font-weight:bold; color:#5C3A21;">Registrar sin ayuda</td>
-            <td style="padding:12px 15px;">Facilidad de uso</td>
-            <td style="padding:12px 15px;">Porcentaje que completa el reporte sin asistencia en 180 segundos o menos</td>
-            <td style="padding:12px 15px; font-weight:bold;">75 %</td>
-          </tr>
-          <tr style="border-bottom:1px solid #E2B897;">
-            <td style="padding:12px 15px; font-weight:bold; color:#5C3A21;">Comprender el formulario</td>
-            <td style="padding:12px 15px;">Claridad</td>
-            <td style="padding:12px 15px;">Porcentaje que reconoce el objetivo y los campos ubicación, fotografía y comentario</td>
-            <td style="padding:12px 15px; font-weight:bold;">75 %</td>
+          <tr>
+            <td style="font-weight:bold; color:#5C3A21;">Registrar sin ayuda</td>
+            <td>Facilidad de uso</td>
+            <td>Porcentaje que completa el reporte sin asistencia en 180 segundos o menos</td>
+            <td style="font-weight:bold;">75 %</td>
           </tr>
           <tr>
-            <td style="padding:12px 15px; font-weight:bold; color:#5C3A21;">Describir el lugar</td>
-            <td style="padding:12px 15px;">Localización útil</td>
-            <td style="padding:12px 15px;">Porcentaje que identifica correctamente sector y referencia</td>
-            <td style="padding:12px 15px; font-weight:bold;">75 %</td>
+            <td style="font-weight:bold; color:#5C3A21;">Comprender el formulario</td>
+            <td>Claridad</td>
+            <td>Porcentaje que reconoce el objetivo y los campos ubicación, fotografía y comentario</td>
+            <td style="font-weight:bold;">75 %</td>
+          </tr>
+          <tr>
+            <td style="font-weight:bold; color:#5C3A21;">Describir el lugar</td>
+            <td>Localización útil</td>
+            <td>Porcentaje que identifica correctamente sector y referencia</td>
+            <td style="font-weight:bold;">75 %</td>
           </tr>
         </tbody>
       </table>
@@ -128,48 +128,7 @@
         <p>Créditos completos en la pestaña <a href="bibliografia.html" style="color:#8C5A35;font-weight:bold;">Bibliografía</a>.</p>
       </div>
     </footer>
-    <script>
-      // ----- Modo oscuro -----
-      const darkModeToggle = document.getElementById('darkModeToggle');
-      if (localStorage.getItem('dark-mode') === 'enabled') {
-        document.body.classList.add('dark-mode');
-        if(darkModeToggle) darkModeToggle.innerHTML = '&#9728;&#65039;';
-      }
-      if(darkModeToggle) {
-        darkModeToggle.addEventListener('click', (e) => {
-          e.preventDefault();
-          document.body.classList.toggle('dark-mode');
-          if (document.body.classList.contains('dark-mode')) {
-            localStorage.setItem('dark-mode', 'enabled');
-            darkModeToggle.innerHTML = '&#9728;&#65039;';
-          } else {
-            localStorage.setItem('dark-mode', 'disabled');
-            darkModeToggle.innerHTML = '&#127769;';
-          }
-        });
-      }
-
-      // ----- Sidebar colapsable -----
-      const sidebar = document.getElementById('sidebar');
-      const backdrop = document.getElementById('sidebarBackdrop');
-      const menuToggle = document.getElementById('menuToggle');
-      const sidebarClose = document.getElementById('sidebarClose');
-      function openSidebar(){ sidebar.classList.add('open'); backdrop.classList.add('show'); }
-      function closeSidebar(){ sidebar.classList.remove('open'); backdrop.classList.remove('show'); }
-      if (menuToggle) menuToggle.addEventListener('click', openSidebar);
-      if (sidebarClose) sidebarClose.addEventListener('click', closeSidebar);
-      if (backdrop) backdrop.addEventListener('click', closeSidebar);
-      document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeSidebar(); });
-
-      // ----- Marcar activo (barra superior por grupo, sidebar por página) -----
-      const CURRENT_PAGE = "requerimientos";
-      const CURRENT_GROUP = "inicio";
-      document.querySelectorAll('.nav-links a[data-group]').forEach(a => {
-        if (a.dataset.group === CURRENT_GROUP) a.classList.add('active');
-      });
-      document.querySelectorAll('.sidebar .sb-link[data-page]').forEach(a => {
-        if (a.dataset.page === CURRENT_PAGE) a.classList.add('current');
-      });
-    </script>
-  </body>
+    <script src="site.js"></script>
+    <script src="admin-dev.js"></script>
+</body>
 </html>
