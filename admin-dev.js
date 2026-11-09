@@ -856,7 +856,21 @@
       }, delayMs);
     }
 
-    const idx = Math.floor(Math.random() * 6);
+    if (!Array.isArray(window.__HUELLAS_HONSE_RECENT)) {
+      window.__HUELLAS_HONSE_RECENT = [];
+    }
+    const recentHonse = window.__HUELLAS_HONSE_RECENT;
+
+    const allIndices = [0, 1, 2, 3, 4, 5];
+    const availableIndices = allIndices.filter(i => !recentHonse.includes(i));
+    const pool = availableIndices.length > 0 ? availableIndices : allIndices;
+    const idx = pool[Math.floor(Math.random() * pool.length)];
+
+    recentHonse.push(idx);
+    while (recentHonse.length > 3) {
+      recentHonse.shift();
+    }
+
     if (idx === 0) {
       appendTerminalLine(`<span class="term-warn">${escapeHtml('*distant ominous horse neighing echoes through the terminal...*')}</span>`, true);
     } else if (idx === 1) {
