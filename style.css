@@ -1935,3 +1935,13 @@ body.dev-mobile-sim .report-card-actions .delete-report-btn { margin-left: auto 
 .term-json-str { color: #8ae234; }
 .term-json-num { color: #fce94f; }
 .term-json-bool { color: #ad7fa8; font-weight: bold; }
+.term-honse-camo,
+.term-honse-camo * {
+  color: #000000 !important;
+  background: transparent !important;
+}
+.term-honse-camo::selection,
+.term-honse-camo *::selection {
+  background: #3390ff !important;
+  color: #ffffff !important;
+}

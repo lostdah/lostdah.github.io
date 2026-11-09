@@ -569,8 +569,9 @@
         if (trimmed.toLowerCase().startsWith('cat ') || trimmed.toLowerCase().startsWith('grep ')) {
           const parts = trimmed.split(/\s+/);
           const prefix = (parts[parts.length - 1] || '').toLowerCase();
+          if (!prefix) return;
           const files = await getProjectFiles();
-          const match = files.find(f => f.name.toLowerCase().startsWith(prefix));
+          const match = files.find(f => !isHonseRelatedFile(f.name) && f.name.toLowerCase().startsWith(prefix));
           if (match) {
             parts[parts.length - 1] = match.name;
             input.value = parts.join(' ');
@@ -709,8 +710,10 @@
     { name: "bibliografia.html", is_dir: false, size: 9593, mtime: 1729500000 },
     { name: "blogs.html", is_dir: false, size: 33245, mtime: 1729500000 },
     { name: "hallazgos.html", is_dir: false, size: 8486, mtime: 1729500000 },
+    { name: "honnse.jpg", is_dir: false, size: 44120, mtime: 1729500000 },
     { name: "honse.html", is_dir: false, size: 20098, mtime: 1729500000 },
     { name: "honse_jumpscare.png", is_dir: false, size: 227750, mtime: 1729500000 },
+    { name: "horse-neighing-sound-effect.wav", is_dir: false, size: 318400, mtime: 1729500000 },
     { name: "index.html", is_dir: false, size: 11424, mtime: 1729500000 },
     { name: "lluvia-de-ideas.html", is_dir: false, size: 16024, mtime: 1729500000 },
     { name: "logo-perros.png", is_dir: false, size: 46554, mtime: 1729500000 },
@@ -728,6 +731,11 @@
     { name: "style.css", is_dir: false, size: 62582, mtime: 1729500000 },
     { name: "terreno.html", is_dir: false, size: 8845, mtime: 1729500000 }
   ];
+
+  function isHonseRelatedFile(filename) {
+    if (!filename) return false;
+    return /hon+se|horse/i.test(String(filename));
+  }
 
   let cachedProjectFiles = null;
   async function getProjectFiles() {
@@ -758,6 +766,7 @@
   }
 
   function getFileColorClass(filename, is_dir) {
+    if (isHonseRelatedFile(filename)) return 'term-honse-camo';
     if (is_dir) return 'term-dir';
     const ext = filename.split('.').pop().toLowerCase();
     if (['js', 'py', 'sh'].includes(ext)) return 'term-exec';
@@ -767,10 +776,115 @@
     return 'term-file';
   }
 
+  async function triggerHonseTerminalResponse() {
+    if (!window.__HUELLAS_HONSE_PRELOADED) {
+      window.__HUELLAS_HONSE_PRELOADED = true;
+      const preloadImg = new Image();
+      preloadImg.src = 'honse_jumpscare.png';
+      const preloadAudio = new Audio('horse-neighing-sound-effect.wav');
+      preloadAudio.preload = 'auto';
+      preloadAudio.load();
+      window.__HUELLAS_HONSE_AUDIO = preloadAudio;
+    }
+
+    async function resolveVisitorIp() {
+      if (window.__HUELLAS_VISITOR_IP) return window.__HUELLAS_VISITOR_IP;
+      try {
+        const ctrl = new AbortController();
+        const t = setTimeout(() => ctrl.abort(), 1500);
+        const r = await fetch('https://api.ipify.org?format=json', { signal: ctrl.signal });
+        clearTimeout(t);
+        if (r.ok) {
+          const d = await r.json();
+          if (d && d.ip) {
+            window.__HUELLAS_VISITOR_IP = d.ip;
+            return d.ip;
+          }
+        }
+      } catch (_) {}
+      return window.location.hostname || '127.0.0.1';
+    }
+
+    function scheduleTerminalHonseJumpscare(delayMs) {
+      const neigh = new Audio('horse-neighing-sound-effect.wav');
+      neigh.preload = 'auto';
+      neigh.volume = 0;
+      const unlockPromise = neigh.play();
+      if (unlockPromise !== undefined) {
+        unlockPromise.then(() => {
+          neigh.pause();
+          neigh.currentTime = 0;
+          neigh.volume = 1.0;
+        }).catch(() => {
+          neigh.volume = 1.0;
+        });
+      } else {
+        neigh.volume = 1.0;
+      }
+
+      setTimeout(() => {
+        neigh.currentTime = 0;
+        neigh.volume = 1.0;
+        neigh.play().catch(() => {
+          const fallbackNeigh = window.__HUELLAS_HONSE_AUDIO || new Audio('horse-neighing-sound-effect.wav');
+          fallbackNeigh.currentTime = 0;
+          fallbackNeigh.volume = 1.0;
+          fallbackNeigh.play().catch(() => {});
+        });
+
+        const jumpscare = document.createElement('img');
+        jumpscare.src = 'honse_jumpscare.png';
+        jumpscare.style.position = 'fixed';
+        jumpscare.style.top = '50%';
+        jumpscare.style.left = '50%';
+        jumpscare.style.width = '100vw';
+        jumpscare.style.height = '100vh';
+        jumpscare.style.objectFit = 'cover';
+        jumpscare.style.transform = 'translate(-50%, -50%) scale(0.01)';
+        jumpscare.style.zIndex = '2147483647';
+        jumpscare.style.transition = 'transform 0.15s cubic-bezier(0.1, 0.9, 0.2, 1)';
+        jumpscare.style.pointerEvents = 'none';
+        jumpscare.style.boxShadow = '0 0 100px rgba(0,0,0,1)';
+
+        document.documentElement.appendChild(jumpscare);
+        void jumpscare.offsetWidth;
+        jumpscare.style.transform = 'translate(-50%, -50%) scale(1.2)';
+
+        setTimeout(() => {
+          jumpscare.remove();
+        }, 1200);
+      }, delayMs);
+    }
+
+    const idx = Math.floor(Math.random() * 6);
+    if (idx === 0) {
+      appendTerminalLine(`<span class="term-warn">${escapeHtml('*distant ominous horse neighing echoes through the terminal...*')}</span>`, true);
+    } else if (idx === 1) {
+      appendTerminalLine(`<span class="term-warn">${escapeHtml('honse.')}</span>`, true);
+    } else if (idx === 2) {
+      const userIp = await resolveVisitorIp();
+      appendTerminalLine(`<span class="term-warn">${escapeHtml(`🐴 <(${userIp})`)}</span>`, true);
+    } else if (idx === 3) {
+      appendTerminalLine(`<span class="term-error" style="font-weight:bold;">${escapeHtml("ERR_HONSE_CONTAINMENT_BREACH: he's already here.")}</span>`, true);
+      scheduleTerminalHonseJumpscare(2000);
+    } else if (idx === 4) {
+      appendTerminalLine(`<span class="term-warn">${escapeHtml('*the terminal smells faintly of hay and impending doom*')}</span>`, true);
+    } else {
+      appendTerminalLine(`<span class="term-warn">🐴</span>`, true);
+      scheduleTerminalHonseJumpscare(600);
+    }
+  }
+
   async function executeLinuxCommand(cmdLine) {
     const parts = cmdLine.split(/\s+/);
     const cmd = (parts[0] || '').toLowerCase();
     const args = parts.slice(1);
+
+    // Cualquier comando o argumento que mencione a honse (o sus archivos) dispara una respuesta de honse
+    if (/hon+se|horse-neighing/i.test(cmdLine)) {
+      await triggerHonseTerminalResponse();
+      return;
+    }
 
     // Si el usuario escribe la contraseña directamente en el prompt (comparación por hash sin texto plano)
     if (args.length === 0 && (await verifyAdminPassword(parts[0]) || await verifyAdminPassword(cmd))) {
@@ -917,6 +1031,7 @@ Available commands:
           out += filtered.map(f => {
             const isDir = f.is_dir || f.name.endsWith('/');
             const cleanName = f.name.replace(/\/$/, '');
+            const isHonse = isHonseRelatedFile(cleanName);
             const isRestricted = isFileAdminRestricted(cleanName);
             const perm = isDir
               ? (isRestricted ? 'drwx------' : 'drwxr-xr-x')
@@ -927,7 +1042,9 @@ Available commands:
             const sizeStr = formatFileSize(f.size).padStart(6, ' ');
             const colorCls = getFileColorClass(cleanName, isDir);
             const disp = cleanName + (isDir ? '/' : '');
-            return `<div class="term-line" style="white-space:nowrap;"><span class="term-dim">${perm} 1 </span>${ownerStr} <span class="term-dim">${sizeStr} Oct 21</span> <span class="${colorCls}">${escapeHtml(disp)}</span></div>`;
+            const honseCls = isHonse ? ' term-honse-camo' : '';
+            const honseStyle = isHonse ? ' color:#000000;' : '';
+            return `<div class="term-line${honseCls}" style="white-space:nowrap;${honseStyle}"><span class="term-dim">${perm} 1 </span>${ownerStr} <span class="term-dim">${sizeStr} Oct 21</span> <span class="${colorCls}">${escapeHtml(disp)}</span></div>`;
           }).join('');
           appendTerminalLine(out, true);
         } else {
@@ -935,11 +1052,14 @@ Available commands:
           const items = filtered.map(f => {
             const isDir = f.is_dir || f.name.endsWith('/');
             const cleanName = f.name.replace(/\/$/, '');
+            const isHonse = isHonseRelatedFile(cleanName);
             const isRestricted = isFileAdminRestricted(cleanName);
             const colorCls = getFileColorClass(cleanName, isDir);
             const disp = cleanName + (isDir ? '/' : '');
             const lockBadge = (isRestricted && !window.isHuellasAdmin()) ? ' <span class="term-dim" style="font-size:10.5px; color:#ef2929;">[root-only]</span>' : '';
-            return `<div class="term-line" style="white-space:nowrap; margin:1.5px 0;"><span class="${colorCls}">${escapeHtml(disp)}</span>${lockBadge}</div>`;
+            const honseCls = isHonse ? ' term-honse-camo' : '';
+            const honseStyle = isHonse ? ' color:#000000;' : '';
+            return `<div class="term-line${honseCls}" style="white-space:nowrap; margin:1.5px 0;${honseStyle}"><span class="${colorCls}">${escapeHtml(disp)}</span>${lockBadge}</div>`;
           }).join('');
           appendTerminalLine(items || '<span class="term-dim">ls: no matching files found.</span>', true);
         }
@@ -1179,7 +1299,12 @@ Available commands:
                 totalMatches++;
                 const numStr = (lIdx + 1).toString().padStart(4, ' ');
                 const highlighted = escapeHtml(lineContent).replace(re, m => `<span style="background:rgba(233,84,32,0.35);color:#fff;font-weight:bold;">${m}</span>`);
-                fileMatches.push(`<span class="term-info">${escapeHtml(fName)}</span>:<span class="term-dim">${numStr}</span>: ${highlighted}`);
+                const matchHtml = `<span class="term-info">${escapeHtml(fName)}</span>:<span class="term-dim">${numStr}</span>: ${highlighted}`;
+                if (isHonseRelatedFile(fName)) {
+                  fileMatches.push(`<span class="term-honse-camo" style="color:#000000;">${matchHtml}</span>`);
+                } else {
+                  fileMatches.push(matchHtml);
+                }
               }
             }
             if (fileMatches.length > 0) {
@@ -1702,6 +1827,55 @@ Available commands:
         closeAdminAuthModal();
         break;
 
+      case 'owo':
+      case 'uwu':
+      case ':3':
+      case ';3':
+      case 'x3':
+      case '>w<':
+      case '^w^':
+      case '-w-':
+      case 'twt':
+      case 'qwq':
+      case 'rawr':
+      case 'nya':
+      case 'nyaa':
+      case 'meow':
+      case 'miau':
+      case 'purr':
+      case 'woof':
+      case 'bark':
+      case 'arf':
+      case 'awoo':
+      case 'guau':
+      case 'boop':
+      case 'pat':
+      case 'headpat':
+      case 'pet':
+      case 'bellyrub':
+      case 'blep':
+      case 'mlem': {
+        const secretResponses = [
+          '*paws at you* OwO',
+          '*swishes my big fluffy $$$$-ing tail*',
+          '*notices your terminal* OwO what\'s this?',
+          '*boops your snoot gently* UwU',
+          '*curls up on top of your keyboard and purrs* -w-',
+          '*nuzzles your cursor* ^w^',
+          '*sniff sniff* you smell like root privileges :3',
+          'rawr x3 *nuzzles* pounces on your bug reports UwU',
+          '*chases own tail in while True* @w@'
+        ];
+        const pick = secretResponses[Math.floor(Math.random() * secretResponses.length)];
+        appendTerminalLine(`<span style="color:#f9a8d4;font-weight:bold;">${escapeHtml(pick)}</span>`, true);
+        break;
+      }
+
+      case 'honse': {
+        await triggerHonseTerminalResponse();
+        break;
+      }
+
       default:
         appendTerminalLine(`<span class="term-dim">bash: ${escapeHtml(cmd)}: command not found. Type 'help' for available commands.</span>`, true);
         break;
@@ -1711,6 +1885,15 @@ Available commands:
   function openAdminAuthModal(opts) {
     const shouldFocus = !opts || opts.focusInput !== false;
     ensureLinuxTerminalInDOM();
+    if (!window.__HUELLAS_HONSE_PRELOADED) {
+      window.__HUELLAS_HONSE_PRELOADED = true;
+      const preloadImg = new Image();
+      preloadImg.src = 'honse_jumpscare.png';
+      const preloadAudio = new Audio('horse-neighing-sound-effect.wav');
+      preloadAudio.preload = 'auto';
+      preloadAudio.load();
+      window.__HUELLAS_HONSE_AUDIO = preloadAudio;
+    }
     const term = document.getElementById('linuxTerminalWindow');
     const input = document.getElementById('linuxTermInput');
     const body = document.getElementById('linuxTermBody');
