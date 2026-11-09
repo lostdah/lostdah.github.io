@@ -1,7 +1,8 @@
 /**
  * Huellas al Lodo - Herramienta de Administración y Desarrollo (Dev Tool)
  * ----------------------------------------------------------------------
- * - Código Konami (↑ ↑ ↓ ↓ ← → ← → B A) o 5 clics en el logo para ingresar.
+ * - Código Konami (↑ ↑ ↓ ↓ ← → ← → B A) en escritorio o sacudir/mover la pantalla
+ *   arriba y abajo rápidamente por 4 segundos en móvil (o en Vista Móvil de Admin).
  * - Validación por hash criptográfico SHA-256 de la contraseña.
  * - Persistencia de sesión (sessionStorage) compartida en todas las páginas.
  * - Indicador discreto "(modo admin)" en rojo en el navbar junto al dark mode.
@@ -12,6 +13,23 @@
  */
 
 (function () {
+  // =========================================================================
+  // PARÁMETRO DE SENSIBILIDAD PARA SACUDIR PANTALLA EN MÓVIL (4 SEGUNDOS)
+  // =========================================================================
+  // Cambia SHAKE_DIFFICULTY para ajustar qué tan fuerte/rápido hay que mover
+  // la pantalla arriba y abajo durante 4 segundos para abrir la consola:
+  //   - 0.5 = Más suave / fácil
+  //   - 1.0 = Normal (por defecto)
+  //   - 1.8 = Más duro / requiere mover mucho más rápido
+  const MOBILE_SHAKE_CONFIG = {
+    SHAKE_DIFFICULTY: 1.0,       // <-- CAMBIA ESTE PARÁMETRO A TU GUSTO (ej. 0.5 suave, 1.0 normal, 2.0 duro)
+    DURATION_MS: 4000,           // Duración moviendo arriba y abajo (4000 ms = 4 segundos)
+    BASE_STEP_PX: 10,            // Píxeles por tick (40ms) para considerar un movimiento rápido (escala con SHAKE_DIFFICULTY)
+    BASE_MIN_DELTA_PX: 12,       // Recorrido vertical mínimo para confirmar un giro arriba<->abajo (px)
+    REVERSAL_WINDOW_MS: 1500     // Tiempo máximo permitido entre cambios de dirección (arriba<->abajo)
+  };
+  window.HUELLAS_SHAKE_CONFIG = MOBILE_SHAKE_CONFIG;
+
   // Split-hash verification (v2):
   // - ADMIN_VERIFY_HASH verifies the password ('huellas-verify-v2:' + pwd)
   // - ADMIN_TOKEN_CHECK_HASH validates the derived API token ('huellas-token-check-v2:' + token)
@@ -257,6 +275,9 @@
     sessionStorage.removeItem('HUELLAS_ADMIN_SESSION');
     sessionStorage.removeItem('HUELLAS_ADMIN_TOKEN');
     sessionStorage.removeItem('HUELLAS_DEV_MOBILE_VIEW');
+    sessionStorage.removeItem('HUELLAS_SHOW_SHAKE_BAR');
+    const bar = document.getElementById('huellasShakeProgressBar');
+    if (bar) bar.remove();
     cachedProjectFiles = null;
     document.body.classList.remove('is-admin-mode');
     document.body.classList.remove('dev-mobile-sim');
@@ -422,6 +443,17 @@
     }
   }
 
+  function quoteLinuxInTextNodes(rootEl) {
+    const walker = document.createTreeWalker(rootEl, NodeFilter.SHOW_TEXT, null);
+    const nodes = [];
+    while (walker.nextNode()) nodes.push(walker.currentNode);
+    nodes.forEach(node => {
+      if (node.nodeValue && /linux/i.test(node.nodeValue)) {
+        node.nodeValue = node.nodeValue.replace(/(?<!["'])\b(linux)\b(?!["'])/gi, '"$1"');
+      }
+    });
+  }
+
   function appendTerminalLine(contentHtml, isOutput = false) {
     const outputDiv = document.getElementById('linuxTermOutput');
     const body = document.getElementById('linuxTermBody');
@@ -430,6 +462,7 @@
     const line = document.createElement('div');
     line.className = isOutput ? 'term-line output' : 'term-line';
     line.innerHTML = contentHtml;
+    quoteLinuxInTextNodes(line);
     outputDiv.appendChild(line);
 
     if (body) {
@@ -507,8 +540,8 @@
         const available = [
           'help', 'sudo', 'login', 'admin', 'logout', 'ls', 'cat', 'grep',
           'dom', 'console', 'storage', 'cookies', 'top', 'whoami', 'pwd',
-          'uname', 'date', 'status', 'mobile', 'desktop', 'echo', 'history',
-          'clr', 'clear', 'exit'
+          'uname', 'date', 'status', 'mobile', 'desktop', 'shake', 'showbar',
+          'echo', 'history', 'clr', 'clear', 'exit'
         ];
         if (trimmed) {
           const match = available.find(c => c.startsWith(trimmed.toLowerCase()));
@@ -707,7 +740,7 @@
     switch (cmd) {
       case 'help':
         appendTerminalLine(`
-<span class="term-info">GNU bash, version 5.1-huellas (x86_64-pc-linux-gnu)</span>
+<span class="term-info">GNU bash, version 5.1-huellas (x86_64-pc-"linux"-gnu)</span>
 Available commands:
   <span class="term-exec">sudo &lt;cmd&gt;</span>     Execute command with root privileges (or prompt password)
   <span class="term-exec">admin [pass]</span>   Log in as administrator (or prompt password)
@@ -726,6 +759,8 @@ Available commands:
   <span class="term-exec">history [-c]</span>   Display or clear command history (supports !n and !!)
   <span class="term-exec">mobile</span>         Toggle mobile simulation view (Ctrl + M)
   <span class="term-exec">desktop</span>        Switch to desktop view
+  <span class="term-exec">shake [val]</span>    View or adjust mobile vertical shake difficulty (default: 1.0)
+  <span class="term-exec">showbar</span>        Toggle shake gesture debug progress bar (root only)
   <span class="term-exec">whoami / pwd</span>   Print user and current directory
   <span class="term-exec">uname [-a]</span>     Print system information ("Linux")
   <span class="term-exec">date</span>           Display current date and time
@@ -1519,6 +1554,50 @@ Available commands:
         appendTerminalLine(`<span class="term-success">Switched mobile simulation mode (Ctrl + M).</span>`, true);
         break;
 
+      case 'shake': {
+        if (args.length > 0 && !isNaN(parseFloat(args[0]))) {
+          const val = Math.max(0.1, Math.min(5.0, parseFloat(args[0])));
+          MOBILE_SHAKE_CONFIG.SHAKE_DIFFICULTY = val;
+          sessionStorage.setItem('HUELLAS_SHAKE_DIFFICULTY', String(val));
+          appendTerminalLine(`<span class="term-success">shake: SHAKE_DIFFICULTY actualizado a ${val.toFixed(2)} (paso mín: ${Math.max(1, Math.round(MOBILE_SHAKE_CONFIG.BASE_STEP_PX * val))} px/tick, duración: ${MOBILE_SHAKE_CONFIG.DURATION_MS}ms).</span>`, true);
+        } else {
+          const d = MOBILE_SHAKE_CONFIG.SHAKE_DIFFICULTY;
+          appendTerminalLine(
+            `<span class="term-info">--- [ Configuración de Gesto Vertical Móvil (4s) ] ---</span>\n` +
+            `  SHAKE_DIFFICULTY : <span class="term-exec">${d}</span> (usa 'shake &lt;valor&gt;' para cambiar, ej. 'shake 0.5' o 'shake 1.5')\n` +
+            `  DURATION_MS      : ${MOBILE_SHAKE_CONFIG.DURATION_MS} ms (4 segundos en tiempo real)\n` +
+            `  Cambio dirección : mín. ${Math.max(2, Math.round(MOBILE_SHAKE_CONFIG.BASE_MIN_DELTA_PX * d))} px por giro arriba/abajo\n` +
+            `  Impulso por tick : mín. ${Math.max(1, Math.round(MOBILE_SHAKE_CONFIG.BASE_STEP_PX * d))} px cada 40ms`,
+            true
+          );
+        }
+        break;
+      }
+
+      case 'showbar': {
+        if (!window.isHuellasAdmin()) {
+          appendTerminalLine(
+            `<span class="term-error">showbar: Permission denied (root privileges required)</span>\n` +
+            `<span class="term-dim">Tip: Run 'sudo showbar' or authenticate using 'admin &lt;password&gt;'.</span>`,
+            true
+          );
+          break;
+        }
+        const sub = (args[0] || '').toLowerCase();
+        const cur = sessionStorage.getItem('HUELLAS_SHOW_SHAKE_BAR') === 'true';
+        const nextState = sub === 'on' ? true : (sub === 'off' ? false : !cur);
+        if (nextState) {
+          sessionStorage.setItem('HUELLAS_SHOW_SHAKE_BAR', 'true');
+          appendTerminalLine(`<span class="term-success">showbar: Barra de progreso de sacudida ACTIVADA (visible en modo admin).</span>`, true);
+        } else {
+          sessionStorage.removeItem('HUELLAS_SHOW_SHAKE_BAR');
+          const bar = document.getElementById('huellasShakeProgressBar');
+          if (bar) bar.remove();
+          appendTerminalLine(`<span class="term-info">showbar: Barra de progreso de sacudida OCULTA.</span>`, true);
+        }
+        break;
+      }
+
       case 'desktop':
         document.body.classList.remove('dev-mobile-sim');
         sessionStorage.setItem('HUELLAS_DEV_MOBILE_VIEW', 'false');
@@ -1717,24 +1796,255 @@ Available commands:
 
   window.addEventListener('keydown', handleKeyAction, true);
 
-  // Activador alternativo: 5 clics rápidos en el logo
-  let logoTaps = 0;
-  let lastTapTs = 0;
-  document.addEventListener('click', (e) => {
-    const brandLogo = e.target.closest('.nav-logo') || e.target.closest('.logo-img');
-    if (!brandLogo) return;
-    const now = Date.now();
-    if (now - lastTapTs < 800) {
-      logoTaps++;
+  // =========================================================================
+  // ACTIVADOR MÓVIL: MOVER LA PANTALLA ARRIBA Y ABAJO RÁPIDO POR 4 SEGUNDOS
+  // (Funciona en móviles reales y en Vista Móvil de Admin en escritorio)
+  // =========================================================================
+  if (sessionStorage.getItem('HUELLAS_SHAKE_DIFFICULTY')) {
+    const savedDiff = parseFloat(sessionStorage.getItem('HUELLAS_SHAKE_DIFFICULTY'));
+    if (!isNaN(savedDiff) && savedDiff >= 0.1 && savedDiff <= 5.0) {
+      MOBILE_SHAKE_CONFIG.SHAKE_DIFFICULTY = savedDiff;
+    }
+  }
+
+  function isRealMobileDevice() {
+    const hasTouch = (navigator.maxTouchPoints && navigator.maxTouchPoints > 0) || ('ontouchstart' in window);
+    const mobileUA = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini|Mobile/i.test(navigator.userAgent || '');
+    return (window.innerWidth <= 820) && (hasTouch || mobileUA);
+  }
+
+  function isShakeGestureAllowed() {
+    // 1. En computador: SOLO funciona si está en Modo Admin Y en Vista Móvil (Ctrl + M)
+    if (document.body && document.body.classList.contains('dev-mobile-sim') && window.isHuellasAdmin && window.isHuellasAdmin()) {
+      return true;
+    }
+    // 2. En dispositivos móviles reales (teléfonos / tablets), nunca para visitantes en PC
+    return isRealMobileDevice();
+  }
+
+  function createTrackerState() {
+    return { lastRaw: null, virtualPos: 0, extremePos: 0, dir: 0, stepAccum: 0 };
+  }
+
+  const shakeState = {
+    chargeMs: 0,
+    lastTickTs: performance.now(),
+    lastFastMoveTs: 0,
+    lastReversalTs: 0,
+    reversalCount: 0,
+    cooldownUntil: 0,
+    trackers: {
+      screen: createTrackerState(),
+      input:  createTrackerState()
+    }
+  };
+
+  function isShakeBarEnabled() {
+    return Boolean(window.isHuellasAdmin && window.isHuellasAdmin() && sessionStorage.getItem('HUELLAS_SHOW_SHAKE_BAR') === 'true');
+  }
+
+  function getShakeProgressBar() {
+    if (!isShakeBarEnabled()) {
+      const existing = document.getElementById('huellasShakeProgressBar');
+      if (existing) existing.remove();
+      return null;
+    }
+    let bar = document.getElementById('huellasShakeProgressBar');
+    if (!bar && document.documentElement) {
+      bar = document.createElement('div');
+      bar.id = 'huellasShakeProgressBar';
+      bar.style.cssText = 'position:fixed;top:0;left:0;height:6px;width:0%;background:linear-gradient(90deg,#f59e0b,#e95420,#ef4444);box-shadow:0 0 14px rgba(233,84,32,0.95);z-index:2147483647;pointer-events:none;transition:width 0.05s linear,opacity 0.15s ease;opacity:0;';
+      document.documentElement.appendChild(bar);
+    }
+    return bar;
+  }
+
+  function updateShakeProgressBar() {
+    const bar = getShakeProgressBar();
+    if (!bar) return;
+    if (shakeState.chargeMs <= 30 || shakeState.reversalCount < 1) {
+      bar.style.opacity = '0';
+      bar.style.width = '0%';
+      return;
+    }
+    const pct = Math.min(100, Math.round((shakeState.chargeMs / MOBILE_SHAKE_CONFIG.DURATION_MS) * 100));
+    bar.style.opacity = '1';
+    bar.style.width = pct + '%';
+  }
+
+  function resetShakeState() {
+    shakeState.chargeMs = 0;
+    shakeState.lastFastMoveTs = 0;
+    shakeState.lastReversalTs = 0;
+    shakeState.reversalCount = 0;
+    shakeState.trackers.screen = createTrackerState();
+    shakeState.trackers.input = createTrackerState();
+    updateShakeProgressBar();
+  }
+
+  // Mide la posición visual real en pantalla (1:1 en píxeles sin importar qué contenedor haga scroll)
+  function getVisualScreenPositionY() {
+    if (document.body) {
+      const refEl = document.querySelector('.main-content, .content-section, .main-content-centered, .dashboard-wrapper, .proto-workspace, h1');
+      if (refEl) {
+        return -refEl.getBoundingClientRect().top;
+      }
+    }
+    return (window.scrollY || 0) || (document.documentElement ? document.documentElement.scrollTop : 0) || (document.body ? document.body.scrollTop : 0);
+  }
+
+  function feedTrackerDelta(trackerName, dy, now) {
+    if (!Number.isFinite(dy) || Math.abs(dy) < 0.5) return;
+    const cfg = MOBILE_SHAKE_CONFIG;
+    const diff = Math.max(0.1, Number(cfg.SHAKE_DIFFICULTY) || 1.0);
+    const minTurnaroundPx = Math.max(2, cfg.BASE_MIN_DELTA_PX * diff);
+    const minStepPx = Math.max(1, cfg.BASE_STEP_PX * diff);
+
+    const tr = shakeState.trackers[trackerName];
+    tr.virtualPos += dy;
+    tr.stepAccum += Math.abs(dy);
+
+    if (tr.stepAccum >= minStepPx) {
+      shakeState.lastFastMoveTs = now;
+    }
+
+    if (tr.dir === 0) {
+      if (Math.abs(tr.virtualPos - tr.extremePos) >= minTurnaroundPx) {
+        tr.dir = tr.virtualPos > tr.extremePos ? 1 : -1;
+        tr.extremePos = tr.virtualPos;
+        shakeState.reversalCount = Math.max(1, shakeState.reversalCount);
+        shakeState.lastReversalTs = now;
+      }
+    } else if (tr.dir === 1) {
+      if (tr.virtualPos > tr.extremePos) {
+        tr.extremePos = tr.virtualPos;
+      } else if ((tr.extremePos - tr.virtualPos) >= minTurnaroundPx) {
+        tr.dir = -1;
+        tr.extremePos = tr.virtualPos;
+        shakeState.reversalCount += 1;
+        shakeState.lastReversalTs = now;
+        shakeState.lastFastMoveTs = now;
+      }
     } else {
-      logoTaps = 1;
+      if (tr.virtualPos < tr.extremePos) {
+        tr.extremePos = tr.virtualPos;
+      } else if ((tr.virtualPos - tr.extremePos) >= minTurnaroundPx) {
+        tr.dir = 1;
+        tr.extremePos = tr.virtualPos;
+        shakeState.reversalCount += 1;
+        shakeState.lastReversalTs = now;
+        shakeState.lastFastMoveTs = now;
+      }
     }
-    lastTapTs = now;
-    if (logoTaps >= 5) {
-      logoTaps = 0;
-      openAdminAuthModal();
+  }
+
+  // Eventos adicionales de rueda, touch, mouse y acelerómetro (por si la página hace tope arriba o abajo al scrollear)
+  window.addEventListener('wheel', (e) => {
+    if (!isShakeGestureAllowed() || Math.abs(e.deltaY) < 1) return;
+    feedTrackerDelta('input', e.deltaY, performance.now());
+  }, { passive: true });
+
+  window.addEventListener('mousemove', (e) => {
+    if (!isShakeGestureAllowed()) return;
+    const tr = shakeState.trackers.input;
+    if (tr.lastRaw !== null) {
+      feedTrackerDelta('input', e.clientY - tr.lastRaw, performance.now());
     }
-  });
+    tr.lastRaw = e.clientY;
+  }, { passive: true });
+
+  window.addEventListener('touchstart', (e) => {
+    if (e.touches && e.touches.length === 1) {
+      shakeState.trackers.input.lastRaw = e.touches[0].clientY;
+    }
+  }, { passive: true });
+
+  window.addEventListener('touchmove', (e) => {
+    if (!isShakeGestureAllowed() || !e.touches || e.touches.length !== 1) return;
+    const y = e.touches[0].clientY;
+    const tr = shakeState.trackers.input;
+    if (tr.lastRaw !== null) {
+      feedTrackerDelta('input', y - tr.lastRaw, performance.now());
+    }
+    tr.lastRaw = y;
+  }, { passive: true });
+
+  window.addEventListener('devicemotion', (e) => {
+    if (!isShakeGestureAllowed()) return;
+    const acc = e.acceleration || e.accelerationIncludingGravity;
+    if (acc && typeof acc.y === 'number' && Math.abs(acc.y) > 3.0) {
+      feedTrackerDelta('input', acc.y * 12, performance.now());
+    }
+  }, { passive: true });
+
+  // Reloj maestro cada 40ms (25 Hz): mide directamente el desplazamiento visual de la pantalla
+  // sin promediar velocidades que se anulen al frenar en los extremos.
+  setInterval(() => {
+    const now = performance.now();
+    const dt = Math.max(0, Math.min(150, now - shakeState.lastTickTs));
+    shakeState.lastTickTs = now;
+
+    if (!isShakeGestureAllowed() || now < shakeState.cooldownUntil) {
+      if (shakeState.chargeMs > 0 || shakeState.reversalCount > 0) {
+        resetShakeState();
+      }
+      return;
+    }
+
+    // 1. Muestrear posición visual real de la página en este instante
+    const currentScreenY = getVisualScreenPositionY();
+    const scrTr = shakeState.trackers.screen;
+    if (scrTr.lastRaw !== null) {
+      const dyScreen = currentScreenY - scrTr.lastRaw;
+      if (Math.abs(dyScreen) >= 0.5) {
+        feedTrackerDelta('screen', dyScreen, now);
+      }
+    }
+    scrTr.lastRaw = currentScreenY;
+
+    // Resetear acumuladores de paso de este tick de 40ms
+    shakeState.trackers.screen.stepAccum = 0;
+    shakeState.trackers.input.stepAccum = 0;
+
+    // 2. Comprobar si el usuario lleva impulsos rápidos recientes y cambios arriba<->abajo recientes
+    const cfg = MOBILE_SHAKE_CONFIG;
+    const diff = Math.max(0.1, Number(cfg.SHAKE_DIFFICULTY) || 1.0);
+    const reversalWindow = (cfg.REVERSAL_WINDOW_MS || 1500) / Math.max(0.5, Math.sqrt(diff));
+
+    const timeSinceFastMove = shakeState.lastFastMoveTs > 0 ? (now - shakeState.lastFastMoveTs) : 99999;
+    const timeSinceReversal = shakeState.lastReversalTs > 0 ? (now - shakeState.lastReversalTs) : 99999;
+
+    const isShakingNow = (
+      shakeState.reversalCount >= 1 &&
+      timeSinceFastMove <= 480 &&
+      timeSinceReversal <= reversalWindow
+    );
+
+    if (isShakingNow) {
+      shakeState.chargeMs = Math.min(cfg.DURATION_MS, shakeState.chargeMs + dt);
+      updateShakeProgressBar();
+
+      if (shakeState.chargeMs >= cfg.DURATION_MS && shakeState.reversalCount >= 2) {
+        shakeState.cooldownUntil = now + 1500;
+        const achievedReversals = shakeState.reversalCount;
+        resetShakeState();
+        openAdminAuthModal();
+        appendTerminalLine(
+          `<span class="term-success">[gesture] Sacudida vertical completada (4.0s | ${achievedReversals} cambios arriba/abajo | dificultad ${diff}).</span>`,
+          true
+        );
+      }
+    } else if (shakeState.chargeMs > 0) {
+      if (timeSinceFastMove > 520 || timeSinceReversal > reversalWindow) {
+        shakeState.chargeMs = Math.max(0, shakeState.chargeMs - dt * 1.2);
+        if (shakeState.chargeMs === 0) {
+          resetShakeState();
+        } else {
+          updateShakeProgressBar();
+        }
+      }
+    }
+  }, 40);
 
   if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', init);
