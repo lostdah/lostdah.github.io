@@ -290,8 +290,32 @@
   // =========================================================================
   let isPasswordPrompt = false;
   let commandHistory = [];
+  try {
+    const savedHist = sessionStorage.getItem('HUELLAS_TERM_HISTORY');
+    if (savedHist) {
+      const parsedHist = JSON.parse(savedHist);
+      if (Array.isArray(parsedHist)) commandHistory = parsedHist;
+    }
+  } catch (_) {}
   let historyIndex = -1;
   let pendingSudoCommand = null;
+
+  function saveTerminalOutputState() {
+    try {
+      const outputDiv = document.getElementById('linuxTermOutput');
+      if (!outputDiv) return;
+      while (outputDiv.children.length > 80) {
+        outputDiv.removeChild(outputDiv.firstElementChild);
+      }
+      sessionStorage.setItem('HUELLAS_TERM_OUTPUT', outputDiv.innerHTML);
+    } catch (_) {}
+  }
+
+  function saveCommandHistoryState() {
+    try {
+      sessionStorage.setItem('HUELLAS_TERM_HISTORY', JSON.stringify(commandHistory.slice(-100)));
+    } catch (_) {}
+  }
 
   // Archivos del sistema con permisos exclusivos de administrador (root)
   const ADMIN_RESTRICTED_FILES = [
@@ -377,17 +401,28 @@
     // Controles de ventana
     document.getElementById('linuxTermCloseBtn').addEventListener('click', closeAdminAuthModal);
     
-    let isMinimized = false;
+    let isMinimized = sessionStorage.getItem('HUELLAS_TERM_MINIMIZED') === 'true';
+    if (isMinimized) termDiv.classList.add('minimized');
     document.getElementById('linuxTermMinBtn').addEventListener('click', () => {
-      isMinimized = !isMinimized;
+      isMinimized = !termDiv.classList.contains('minimized');
       termDiv.classList.toggle('minimized', isMinimized);
+      sessionStorage.setItem('HUELLAS_TERM_MINIMIZED', isMinimized ? 'true' : 'false');
     });
 
-    let isMaximized = false;
+    let isMaximized = sessionStorage.getItem('HUELLAS_TERM_MAXIMIZED') === 'true';
+    if (isMaximized) termDiv.classList.add('maximized');
     document.getElementById('linuxTermMaxBtn').addEventListener('click', () => {
-      isMaximized = !isMaximized;
+      isMaximized = !termDiv.classList.contains('maximized');
       termDiv.classList.toggle('maximized', isMaximized);
+      sessionStorage.setItem('HUELLAS_TERM_MAXIMIZED', isMaximized ? 'true' : 'false');
     });
+
+    // Restaurar salida persistida entre cambios de página
+    const savedOut = sessionStorage.getItem('HUELLAS_TERM_OUTPUT');
+    const outputDiv = document.getElementById('linuxTermOutput');
+    if (savedOut && outputDiv) {
+      outputDiv.innerHTML = savedOut;
+    }
 
     // Clic en el cuerpo de la terminal enfoca el input
     document.getElementById('linuxTermBody').addEventListener('click', () => {
@@ -464,6 +499,7 @@
     line.innerHTML = contentHtml;
     quoteLinuxInTextNodes(line);
     outputDiv.appendChild(line);
+    saveTerminalOutputState();
 
     if (body) {
       body.scrollTop = body.scrollHeight;
@@ -474,8 +510,11 @@
     const input = document.getElementById('linuxTermInput');
     if (!input) return;
 
-    // 1. Tecla Escape: cerrar terminal
-    if (e.key === 'Escape') {
+    // 1. Tecla Escape o Alt + T: cerrar terminal
+    const isAltT = e.altKey && !e.ctrlKey && !e.metaKey && ((e.key && e.key.toLowerCase() === 't') || e.code === 'KeyT' || e.keyCode === 84 || e.which === 84);
+    if (e.key === 'Escape' || isAltT) {
+      e.preventDefault();
+      e.stopPropagation();
       closeAdminAuthModal();
       return;
     }
@@ -496,6 +535,7 @@
       e.preventDefault();
       const outputDiv = document.getElementById('linuxTermOutput');
       if (outputDiv) outputDiv.innerHTML = '';
+      saveTerminalOutputState();
       return;
     }
 
@@ -594,6 +634,7 @@
 
       commandHistory.push(trimmed);
       if (commandHistory.length > 100) commandHistory.shift();
+      saveCommandHistoryState();
 
       await executeLinuxCommand(trimmed);
       updatePromptDisplay();
@@ -644,7 +685,7 @@
       cachedProjectFiles = null;
       syncDevViewState();
       appendTerminalLine(`<span class="term-success">[sudo] Access granted. Welcome, root user.</span>`, true);
-      appendTerminalLine(`<span class="term-info">Modo administrador habilitado (atajos Ctrl+M para móvil, Ctrl+S para salir).</span>`, true);
+      appendTerminalLine(`<span class="term-info">Modo administrador habilitado (atajos: Alt+T abrir consola, Ctrl+M vista móvil, Ctrl+S salir).</span>`, true);
       if (pendingSudoCommand) {
         const cmdToRun = pendingSudoCommand;
         pendingSudoCommand = null;
@@ -1588,6 +1629,7 @@ Available commands:
         const nextState = sub === 'on' ? true : (sub === 'off' ? false : !cur);
         if (nextState) {
           sessionStorage.setItem('HUELLAS_SHOW_SHAKE_BAR', 'true');
+          updateShakeProgressBar();
           appendTerminalLine(`<span class="term-success">showbar: Barra de progreso de sacudida ACTIVADA (visible en modo admin).</span>`, true);
         } else {
           sessionStorage.removeItem('HUELLAS_SHOW_SHAKE_BAR');
@@ -1634,6 +1676,7 @@ Available commands:
       case 'history': {
         if (args[0] === '-c' || args[0] === '--clear') {
           commandHistory = [];
+          saveCommandHistoryState();
           appendTerminalLine('<span class="term-info">history: command history cleared.</span>', true);
           break;
         }
@@ -1650,6 +1693,7 @@ Available commands:
       case 'clear': {
         const out = document.getElementById('linuxTermOutput');
         if (out) out.innerHTML = '';
+        saveTerminalOutputState();
         break;
       }
 
@@ -1664,26 +1708,37 @@ Available commands:
     }
   }
 
-  function openAdminAuthModal() {
+  function openAdminAuthModal(opts) {
+    const shouldFocus = !opts || opts.focusInput !== false;
     ensureLinuxTerminalInDOM();
     const term = document.getElementById('linuxTerminalWindow');
     const input = document.getElementById('linuxTermInput');
     const body = document.getElementById('linuxTermBody');
 
-    if (term) term.style.display = 'flex';
+    if (term) {
+      term.style.display = 'flex';
+      if (shouldFocus && term.classList.contains('minimized')) {
+        term.classList.remove('minimized');
+        sessionStorage.setItem('HUELLAS_TERM_MINIMIZED', 'false');
+      }
+    }
+    sessionStorage.setItem('HUELLAS_TERM_OPEN', 'true');
     updatePromptDisplay();
 
     if (body) {
       body.scrollTop = body.scrollHeight;
     }
-    setTimeout(() => {
-      if (input) input.focus();
-    }, 80);
+    if (shouldFocus) {
+      setTimeout(() => {
+        if (input) input.focus();
+      }, 80);
+    }
   }
 
   function closeAdminAuthModal() {
     const term = document.getElementById('linuxTerminalWindow');
     if (term) term.style.display = 'none';
+    sessionStorage.setItem('HUELLAS_TERM_OPEN', 'false');
   }
 
   // Código Konami robusto e infalible (↑ ↑ ↓ ↓ ← → ← → B A)
@@ -1735,6 +1790,24 @@ Available commands:
     }
 
     const isCtrl = e.ctrlKey || e.metaKey;
+    const isAlt = e.altKey && !isCtrl;
+
+    // 0. Alt + T en modo administrador para abrir o cerrar la consola inmediatamente
+    const isT = (e.key && e.key.toLowerCase() === 't') || e.code === 'KeyT' || e.keyCode === 84 || e.which === 84;
+    if (isAlt && isT) {
+      if (window.isHuellasAdmin()) {
+        e.preventDefault();
+        e.stopPropagation();
+        if (e.stopImmediatePropagation) e.stopImmediatePropagation();
+        const term = document.getElementById('linuxTerminalWindow');
+        if (term && term.style.display === 'flex' && !term.classList.contains('minimized')) {
+          closeAdminAuthModal();
+        } else {
+          openAdminAuthModal();
+        }
+        return;
+      }
+    }
 
     // 1. Ctrl + S para salir de modo administrador
     const isS = (e.key && e.key.toLowerCase() === 's') || e.code === 'KeyS' || e.keyCode === 83 || e.which === 83;
@@ -1814,8 +1887,8 @@ Available commands:
   }
 
   function isShakeGestureAllowed() {
-    // 1. En computador: SOLO funciona si está en Modo Admin Y en Vista Móvil (Ctrl + M)
-    if (document.body && document.body.classList.contains('dev-mobile-sim') && window.isHuellasAdmin && window.isHuellasAdmin()) {
+    // 1. En computador: SOLO funciona si el usuario está en Modo Admin (ya sea en escritorio o en Vista Móvil)
+    if (window.isHuellasAdmin && window.isHuellasAdmin()) {
       return true;
     }
     // 2. En dispositivos móviles reales (teléfonos / tablets), nunca para visitantes en PC
@@ -1853,7 +1926,11 @@ Available commands:
     if (!bar && document.documentElement) {
       bar = document.createElement('div');
       bar.id = 'huellasShakeProgressBar';
-      bar.style.cssText = 'position:fixed;top:0;left:0;height:6px;width:0%;background:linear-gradient(90deg,#f59e0b,#e95420,#ef4444);box-shadow:0 0 14px rgba(233,84,32,0.95);z-index:2147483647;pointer-events:none;transition:width 0.05s linear,opacity 0.15s ease;opacity:0;';
+      bar.style.cssText = 'position:fixed;top:0;left:0;width:100vw;height:6px;background:rgba(20,12,7,0.55);border-bottom:1px solid rgba(233,84,32,0.45);z-index:2147483647;pointer-events:none;overflow:hidden;';
+      const fill = document.createElement('div');
+      fill.id = 'huellasShakeProgressFill';
+      fill.style.cssText = 'height:100%;width:0%;background:linear-gradient(90deg,#f59e0b,#e95420,#ef4444);box-shadow:0 0 14px rgba(233,84,32,0.95);transition:width 0.05s linear;';
+      bar.appendChild(fill);
       document.documentElement.appendChild(bar);
     }
     return bar;
@@ -1862,14 +1939,14 @@ Available commands:
   function updateShakeProgressBar() {
     const bar = getShakeProgressBar();
     if (!bar) return;
+    const fill = document.getElementById('huellasShakeProgressFill');
+    if (!fill) return;
     if (shakeState.chargeMs <= 30 || shakeState.reversalCount < 1) {
-      bar.style.opacity = '0';
-      bar.style.width = '0%';
+      fill.style.width = '0%';
       return;
     }
     const pct = Math.min(100, Math.round((shakeState.chargeMs / MOBILE_SHAKE_CONFIG.DURATION_MS) * 100));
-    bar.style.opacity = '1';
-    bar.style.width = pct + '%';
+    fill.style.width = pct + '%';
   }
 
   function resetShakeState() {
@@ -2054,8 +2131,11 @@ Available commands:
 
   function init() {
     syncDevViewState();
-    if (new URLSearchParams(window.location.search).has('admin')) {
-      setTimeout(openAdminAuthModal, 350);
+    updateShakeProgressBar();
+    if (sessionStorage.getItem('HUELLAS_TERM_OPEN') === 'true') {
+      openAdminAuthModal({ focusInput: false });
+    } else if (new URLSearchParams(window.location.search).has('admin')) {
+      setTimeout(() => openAdminAuthModal({ focusInput: true }), 350);
     }
   }
 })();
